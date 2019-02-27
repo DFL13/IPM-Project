@@ -59,7 +59,8 @@ div.portrait img {
 }
 
 div.content {
-	
+	background-color: rgb(238, 233, 229);
+	padding-bottom: 10px;
 }
 
 
