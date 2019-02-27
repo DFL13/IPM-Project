@@ -31,8 +31,8 @@ header h2 {
 }
 
 div.profiles {
-	width: 50%;
-	margin: 10px auto;
+	/*width: 50%;
+	margin: 10px auto;*/
 }
 
 div.portrait {
@@ -134,9 +134,9 @@ ul.links li a:hover {
 
 
 @media only screen and (max-width: 600px) {
-	div.profiles {
+	/*div.profiles {
 		width: 100%;
-	}
+	}*/
 
 	div.portrait {
 		width: 30%;
