@@ -2,6 +2,12 @@
 	box-sizing: border-box;
 }
 
+/**::after {
+	content: "";
+	clear: both;
+	display: table;
+}*/
+
 body {
 	/*font-family: Rubik,Lato,"Lucida Grande","Lucida Sans Unicode",Tahoma,Sans-Serif;*/
 	/*font-family: Helvetica, Sans-Serif;*/
@@ -25,16 +31,26 @@ header h2 {
 }
 
 div.profiles {
-	align-content: center;
-
+	width: 50%;
+	margin: 10px auto;
 }
 
 div.portrait {
 	display: inline-block;
 	background-color: rgb(238, 233, 229);
-	margin: 0px 10px;
+	margin: 5px 10px;
 	padding: 10px;
 	border-radius: 300px;
+}
+
+div.portrait img {
+	width: 150px;
+	border-radius: 100%;
+	/*border-width: 4px;
+	border-color: rgb(100, 100, 100);
+	border-style: solid;*/
+	/*padding: 10px;*/
+	/*margin: 8px;*/
 }
 
 div.nametag {
@@ -47,17 +63,6 @@ div.nametag p {
 	font-weight: bold;
 }
 
-div.portrait img {
-	width: 150px;
-	height: 150px;
-	border-radius: 100%;
-	/*border-width: 4px;
-	border-color: rgb(100, 100, 100);
-	border-style: solid;*/
-	/*padding: 10px;*/
-	/*margin: 8px;*/
-}
-
 div.content {
 	background-color: rgb(238, 233, 229);
 	padding-bottom: 10px;
@@ -65,9 +70,9 @@ div.content {
 
 
 div.section {
-	/*width: 100%;*/
+	width: 80%;
 	padding: 20px 5%;
-	margin: 30px 10%;
+	margin: 30px auto;
 	/*background-image: url("images/background/stripes-light.png");*/
 	/*background-color: rgba(255, 255, 255, 0.85);*/
 	background-color: rgb(238, 233, 229);
@@ -77,19 +82,21 @@ div.section {
 }
 
 div.section h2 {
+	width: 80%;
 	margin: 0px;
 	text-align: center;
 	background-image: url("images/background/connectwork.png");
 	background-attachment: fixed;
 	color: rgb(238, 233, 229);
 	border-radius: 100px;
-	padding: 5px 0px;
-	margin: 0px 10%;
+	padding: 5px;
+	margin: 0px auto;
 }
 
 ul.links {
+	width: 80%;
 	list-style: none;
-	margin: 25px 10% 10px 10%;
+	margin: 25px auto 10px auto;
 	padding: 0px;
 }
 
@@ -121,6 +128,36 @@ ul.links li a:hover {
 }
 
 @keyframes linkhover {
-	0% {color: black; padding-left: 0%}
-	100% {color: rgb(120, 120, 120); padding-left: 25px}
+	0% {color: black; padding-left: 0px;}
+	100% {color: rgb(120, 120, 120); padding-left: 25px;}
+}
+
+
+@media only screen and (max-width: 600px) {
+	div.profiles {
+		width: 100%;
+	}
+
+	div.portrait {
+		width: 30%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	div.portrait img {
+		width: 100%;
+		/*height: 80px;*/
+	}
+
+	div.section {
+		width: 100%;
+	}
+
+	div.section h2 {
+		width: 100%;
+	}
+
+	ul.links {
+		width: 100%;
+	}
 }
