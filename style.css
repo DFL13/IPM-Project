@@ -14,7 +14,7 @@ body {
 	font-family: "Century Gothic", "Avant Garde Gothic", "Avant Garde", "URW Gothic L", helvetica, sans-serif;
 	text-align: center;
 	margin: 0px;
-	background-image: url("images/background/connectwork.png");
+	background-image: url("images/background/connectworkblue2.png");
 	background-attachment: fixed;
 }
 
@@ -86,7 +86,7 @@ div.section h2 {
 	width: 80%;
 	margin: 0px;
 	text-align: center;
-	background-image: url("images/background/connectwork.png");
+	background-image: url("images/background/connectworkblue2.png");
 	background-attachment: fixed;
 	color: rgb(238, 233, 229);
 	border-radius: 100px;
@@ -118,20 +118,23 @@ ul.links li a {
 	font-size: 18px;
 	padding: 7px 0px;
 	display: inline-block;
+	width: 80%;
 	/*padding-left: 10%;*/
+	-webkit-transition: all ease 100ms;
+	transition: all ease 100ms;
 }
 
 ul.links li a:hover {
 	color: rgb(120, 120, 120);
 	padding-left: 25px;
-	animation-name: linkhover;
-	animation-duration: 0.1s; 
+	/*animation-name: linkhover;
+	animation-duration: 0.1s; */
 }
 
-@keyframes linkhover {
+/*@keyframes linkhover {
 	0% {color: black; padding-left: 0px;}
 	100% {color: rgb(120, 120, 120); padding-left: 25px;}
-}
+}*/
 
 
 @media only screen and (max-width: 600px) {
