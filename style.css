@@ -2,6 +2,10 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--main-back-color: rgb(238, 233, 229);
+}
+
 /**::after {
 	content: "";
 	clear: both;
@@ -9,8 +13,6 @@
 }*/
 
 body {
-	/*font-family: Rubik,Lato,"Lucida Grande","Lucida Sans Unicode",Tahoma,Sans-Serif;*/
-	/*font-family: Helvetica, Sans-Serif;*/
 	font-family: "Century Gothic", "Avant Garde Gothic", "Avant Garde", "URW Gothic L", helvetica, sans-serif;
 	text-align: center;
 	margin: 0px;
@@ -18,21 +20,58 @@ body {
 	background-attachment: fixed;
 }
 
+/*-----------header style-----------*/
+
 header {
 	color: white;
+	position: fixed;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	z-index: -1;
 }
 
 header h1 {
-	/*font-family: "Century Gothic", "Avant Garde Gothic", "Avant Garde", "URW Gothic L", helvetica, sans-serif;*/
+	position: relative;
+}
+
+header h1::before {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 100%;
+	left: -200%;
+	top: 25%;
+	bottom: 25%;
+	background-image: linear-gradient(to right, rgba(27, 128, 213, 1), rgba(27, 128, 213, 1), rgba(27, 128, 213, 0));
+}
+
+header h1::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 100%;
+	right: -200%;
+	top: 25%;
+	bottom: 25%;
+	background-image: linear-gradient(to right, rgba(27, 128, 213, 0), rgba(27, 128, 213, 1), rgba(27, 128, 213, 1));
 }
 
 header h2 {
 	font-weight: normal;
+	background-color: rgb(238, 233, 229);
+	padding: 4px 0px;
+	margin: 15px auto;
+	width: 40%;
+	border-radius: 10px;
+	color: dodgerblue;
+	color: rgb(62, 138, 202);
+	color: rgb(27, 128, 213);
+	box-shadow: 0px 0px 30px 5px black;
 }
 
 div.profiles {
-	/*width: 50%;
-	margin: 10px auto;*/
+	margin-bottom: 40px;
 }
 
 div.portrait {
@@ -64,9 +103,16 @@ div.nametag p {
 	font-weight: bold;
 }
 
+
+/*-----------page content style-----------*/
+
+
 div.content {
-	background-color: rgb(238, 233, 229);
+	margin-top: 500px; 
+	background-color: rgb(238, 233, 229)/*rgb(239, 242, 244)*/;
 	padding-bottom: 10px;
+	box-shadow: 0px -10px 10px 10px rgb(238, 233, 229);
+	box-shadow: 0px -10px 30px 20px black;
 }
 
 
@@ -74,15 +120,11 @@ div.section {
 	width: 80%;
 	padding: 20px 5%;
 	margin: 30px auto;
-	/*background-image: url("images/background/stripes-light.png");*/
-	/*background-color: rgba(255, 255, 255, 0.85);*/
-	background-color: rgb(238, 233, 229);
-	border-radius: 50px;
 	text-align: left;
-	/*clip-path: ellipse(20px, 30px at 50%, 50%);*/
 }
 
-div.section h2 {
+
+/*div.section h2 {
 	width: 80%;
 	margin: 0px;
 	text-align: center;
@@ -92,6 +134,51 @@ div.section h2 {
 	border-radius: 100px;
 	padding: 5px;
 	margin: 0px auto;
+	position: relative;
+}
+
+div.section h2::after { 
+    content: '';
+    display: block;
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    left: -8px;
+    right: -8px;
+    border-radius: 100px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: dodgerblue;
+	border-color: rgb(62, 138, 202);
+	border-color: rgb(27, 128, 213);
+}*/
+
+
+
+div.section h2 {
+	width: 80%;
+	margin: 0px;
+	text-align: center;
+	color: rgb(50, 50, 50);;
+	border-radius: 100px;
+	padding: 5px;
+	margin: 0px auto;
+	position: relative;
+}
+
+div.section h2::before { 
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: -5px;
+    left: 20%;
+    right: 20%;
+    border-style: solid;
+    border-width: 0px 0px 3px 0px;
+    border-color: dodgerblue;
+	border-color: rgb(62, 138, 202);
+	border-color: rgb(27, 128, 213);
 }
 
 ul.links {
@@ -120,24 +207,31 @@ ul.links li a {
 	display: inline-block;
 	width: 80%;
 	/*padding-left: 10%;*/
-	-webkit-transition: all ease 100ms;
-	transition: all ease 100ms;
+	-webkit-transition: padding-left ease 200ms;
+	transition: padding-left ease 200ms;
 }
 
 ul.links li a:hover {
-	color: rgb(120, 120, 120);
+	color: dodgerblue;
+	color: rgb(62, 138, 202);
+	color: rgb(27, 128, 213);
 	padding-left: 25px;
-	/*animation-name: linkhover;
-	animation-duration: 0.1s; */
+	font-weight: bold;
+	padding-top: 6px;
 }
 
-/*@keyframes linkhover {
-	0% {color: black; padding-left: 0px;}
-	100% {color: rgb(120, 120, 120); padding-left: 25px;}
-}*/
+
 
 
 @media only screen and (max-width: 600px) {
+	header {
+		width: 100%;
+	}
+
+	header h2 {
+		width: 90%;
+	}
+
 	div.profiles {
 		width: 100%;
 	}
