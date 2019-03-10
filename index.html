@@ -7,8 +7,77 @@
         <link rel="stylesheet" href="style.css">
     
         <script type="text/javascript">
-              function toggleVisible(id) {    
-              }
+            var activePreview = null;
+            var activeButton = null;
+
+            function openPreview(linkDiv) {
+                if (window.innerWidth <= 600) {
+                    openFull(linkDiv);
+                    return;
+                }
+
+                if (linkDiv.getAttribute("data-source") == "")
+                    return;
+
+                var prev = getPreviewDiv(linkDiv);
+                var button = getButton(linkDiv);
+                if (activePreview == prev) {
+                    activePreview.style.transitionDelay = "0ms";
+                    prev.classList.toggle("visiblePreview");
+                    button.classList.toggle("btnFullVisible")
+                    activePreview = null;
+                    return;
+                }
+                    
+                if (activePreview != null) {
+                    activePreview.style.transitionDelay = "0ms";
+                    activePreview.classList.toggle("visiblePreview");
+                    activeButton.classList.toggle("btnFullVisible")
+                    prev.style.transitionDelay = "500ms";
+                }
+
+                var frame = getPreviewIframe(prev);
+                if (frame.src == "")
+                    frame.src = linkDiv.getAttribute("data-source");
+                prev.classList.toggle("visiblePreview");
+                button.classList.toggle("btnFullVisible")
+                activePreview = prev;
+                activeButton = button;
+            }
+
+
+            function getPreviewIframe(prev) {
+                for (let i=0; i<prev.children.length; i++) {
+                    if (prev.children[i].tagName == "IFRAME") {
+                        return prev.children[i];
+                    }
+                }
+            }
+
+            function getButton(linkDiv) {
+                for(let i=0; i<linkDiv.children.length; i++) {
+                    if (linkDiv.children[i].classList.contains("linkHead")) {
+                        var head = linkDiv.children[i];
+                        for (let j=0; j<head.children.length; j++) {
+                            if (head.children[j].tagName == "BUTTON") {
+                                return head.children[j];
+                            }
+                        }
+                    }
+                }
+            }
+
+            function getPreviewDiv(linkDiv) {
+                for(let i=0; i<linkDiv.children.length; i++) {
+                    if (linkDiv.children[i].classList.contains("preview")) {
+                        return linkDiv.children[i];
+                    }
+                }
+            }
+
+            function openFull(linkDiv) {
+                window.open(linkDiv.getAttribute("data-source"), "_blank")
+            }
         </script>
     </head>
 
@@ -51,45 +120,197 @@
         
             <div id="at" class="section">
                 <h2>Análise de Tarefas</h2>
-                <ul class="links">
-                    <li><a href="questionario1.html">Questionário para análise de tarefas</a></li>
-                    <li><a href="questionario2.html">Questionário para análise de tarefas (melhorado)</a></li>
-                    <li><a href="at1.html">Análise de tarefas + Funcionalidades</a></li>
-                    <li><a href="at2.html">Análise de tarefas + Funcionalidades (melhorados)</a></li>
-                </ul>
+                <div class="linksList">
+                    <div class="link" data-source="31A.pdf">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Questionário para análise de tarefas</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Questionário para análise de tarefas (melhorado)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Análise de tarefas + Funcionalidades</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Análise de tarefas + Funcionalidades (melhorados)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
                 
             <div id="mc" class="section">
                 <h2>Modelo Conceptual</h2>
-                <ul class="links">
-                    <li><a href="mod-conceptual1.html">Modelo Conceptual</a></li>
-                    <li><a href="mod-conceptual2.html">Modelo Conceptual (melhorado)</a></li>
-                </ul>
+                <div class="linksList">
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Modelo Conceptual</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Modelo Conceptual (melhorado)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         
             <div id="proto" class="section">
                 <h2>Protótipos</h2>
-                <ul class="links">
-                    <li><a href="pbf1.html">PBF</a></li>
-                    <li><a href="pbf2.html">PBF (melhorado)</a></li>
-                    <li><a href="protFuncional1-beta.html">Primeiro protótipo funcional</a></li>
-                    <li><a href="protFuncional1-completo.html">Primeiro protótipo funcional completo</a></li>
-                    <li><a href="protFuncional2-beta.html">Segundo protótipo funcional</a></li>
-                    <li><a href="protFuncional2-completo.html">Segundo protótipo funcional completo</a></li>
-                    <li><a href="protFinal-beta.html">Protótipo Final</a></li>
-                    <li><a href="protFinal-completo.html">Protótipo Final completo</a></li>
-                </ul>
+                <div class="linksList">
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">PBF</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">PBF (melhorado)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Primeiro protótipo funcional</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Primeiro protótipo funcional completo</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Segundo protótipo funcional</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Segundo protótipo funcional completo</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Protótipo Final</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Protótipo Final completo</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div id="au" class="section">
                 <h2>Avaliação com Utilizadores</h2>
-                <ul class="links">
-                    <li><a href="tarefas-criterios1.html">Tarefas e Critérios de usabilidade</a></li>
-                    <li><a href="tarefas-criterios2.html">Tarefas e Critérios de usabilidade (melhorado)</a></li>
-                    <li><a href="relatorioTestes1.html">Relatório da avaliação com utilizadores</a></li>
-                    <li><a href="relatorioTestes2.html">Relatório da avaliação com utilizadores (melhorado)</a></li>
-                    <li><a href="manual.html">Manual do Utilizador</a></li>
-                </ul>
+                <div class="linksList">
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Tarefas e Critérios de usabilidade</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Tarefas e Critérios de usabilidade (melhorado)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Relatório da avaliação com utilizadores</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Relatório da avaliação com utilizadores (melhorado)</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                    <div class="link" data-source="">
+                        <div class="linkHead">
+                            <h3 onclick="openPreview(this.parentElement.parentElement)">Manual do Utilizador</h3>
+                            <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
+                        </div>
+                        <div class="preview">
+                            <iframe></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
             
         </div>
