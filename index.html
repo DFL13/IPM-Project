@@ -21,8 +21,10 @@
 
                 var prev = getPreviewDiv(linkDiv);
                 var button = getButton(linkDiv);
+
                 if (activePreview == prev) {
                     activePreview.style.transitionDelay = "0ms";
+                    activeButton.style.transitionDelay = "0ms";
                     prev.classList.toggle("visiblePreview");
                     button.classList.toggle("btnFullVisible")
                     activePreview = null;
@@ -31,9 +33,11 @@
                     
                 if (activePreview != null) {
                     activePreview.style.transitionDelay = "0ms";
+                    activeButton.style.transitionDelay = "0ms";
                     activePreview.classList.toggle("visiblePreview");
                     activeButton.classList.toggle("btnFullVisible")
                     prev.style.transitionDelay = "500ms";
+                    button.style.transitionDelay = "500ms";
                 }
 
                 var frame = getPreviewIframe(prev);
@@ -130,7 +134,7 @@
                             <iframe></iframe>
                         </div>
                     </div>
-                    <div class="link" data-source="">
+                    <div class="link" data-source="31A.pdf">
                         <div class="linkHead">
                             <h3 onclick="openPreview(this.parentElement.parentElement)">Questionário para análise de tarefas (melhorado)</h3>
                             <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>
@@ -139,7 +143,7 @@
                             <iframe></iframe>
                         </div>
                     </div>
-                    <div class="link" data-source="">
+                    <div class="link" data-source="31A.pdf">
                         <div class="linkHead">
                             <h3 onclick="openPreview(this.parentElement.parentElement)">Análise de tarefas + Funcionalidades</h3>
                             <button class="btnFull" onclick="openFull(this.parentElement.parentElement)">Open</button>

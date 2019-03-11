@@ -261,14 +261,14 @@ div.preview iframe {
 	font-size: 1em;
 	margin-left: 10px;
 	opacity: 0;
-	display: hidden;
+	visibility: hidden;
 	cursor: pointer;
 	transition: all ease 500ms;
 }
 
 .btnFullVisible {
 	margin: 15px 0px 15px 10px;
-	display: inline-block;
+	visibility: visible;
 	opacity: 1;
 }
 
