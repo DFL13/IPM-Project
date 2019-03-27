@@ -58,6 +58,9 @@ div.fingerprint {
     cursor: pointer;
 }
 
+div.main {
+    background: linear-gradient(to top, #1b4fba 40%, #111e38 80%);
+}
 
 div.main div.clock {
 	margin-top: 10px;
@@ -72,22 +75,73 @@ div.main div.clock .date {
 }
 
 div.appSlider {
-	margin-top: 15px;
+	margin-top: 25px;
 	padding-top: 1px;
 }
 
 div.appIcon {
 	display: inline-block;
-	width: 110px;
-	height: 110px;
+	width: 100px;
+	height: 100px;
 	padding: 20px;
-	margin: 0px 5px;
+	margin: 0px 10px;
 	border-radius: 100%;
 	background: white;
+	cursor: pointer;
 }
 
 div.appIcon img {
 	width: 100%;
+}
+
+
+div.content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 84%;
+	padding: 0px 10px;
+	/*background: red;*/
+	overflow-y: auto;
+}
+
+div.postPreview {
+	width: 100%;
+	height: 80px;
+	border-radius: 15px;
+	margin: 10px 0px;
+	background: white;
+}
+
+div.sidebar {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 16%;
+	/*border: solid 2px white;*/
+}
+
+div.sidebar .time {
+	font-size: 1.2em;
+	margin: 2px 0px;
+}
+
+div.button {
+	width: 45px;
+	height: 45px;
+	margin: 5px auto;
+	border-radius: 100%;
+	background: white;
+}
+
+div.btnFriends {
+	margin-top: 70px;
+}
+
+div.btnAddPost {
+	margin-top: 15px;
 }
 
 
