@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript">
 		var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SET", "OCT", "NOV", "DEC"];
-		var weekday = ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAT"];
+		var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 		function updateClock() {
 			var d = new Date();
@@ -26,13 +26,16 @@
 		}
 
 		function unlock() {
-
+			var lockscreen = document.getElementsByClassName("lockscreen")[0];
+			var main = document.getElementsByClassName("main")[0];
+			lockscreen.classList.toggle("hidden");
+			main.classList.toggle("hidden");
 		}
 	</script>
 </head>
 <body onload="updateClock()">
 	<div class="screen">
-		<div class="lockscreen">
+		<div class="page lockscreen">
 			<div class="clock">
 				<p class="time"></p>
 				<p class="date"></p>
@@ -40,6 +43,23 @@
 			<div class="fingerprint" onclick="unlock()">	
 				<img src="img/fingerprint.svg">
 				<p>Scan...</p>
+			</div>
+		</div>
+		<div class="page main hidden">
+			<div class="clock">
+				<p class="time"></p>
+				<p class="date"></p>
+			</div>
+			<div class="appSlider">
+				<div class="appIcon">
+					<img src="img/share.svg" style="transform: translateX(-2px);">
+				</div>
+				<div class="appIcon">
+					<img src="img/location-pin.svg">
+				</div>
+				<div class="appIcon">
+					<img src="img/concert-ticket.svg">
+				</div>
 			</div>
 		</div>
 	</div>
