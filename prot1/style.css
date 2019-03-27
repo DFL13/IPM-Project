@@ -1,0 +1,47 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	font-family: sans-serif;
+}
+
+div.screen {
+	margin: auto;
+	margin-top: 30vh;
+	width: 400px;
+	height: 215px;
+	background: linear-gradient(to left, #1b4fba 0%, #111e38 40%)/*#384c75*/;
+	border-radius: 20px;
+}
+
+div.lockscreen {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	color: white;
+    text-align: center;
+}
+
+div.lockscreen div.clock {
+	position: absolute;
+	left: 30px;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+div.clock .time {
+	font-size: 4em;
+}
+
+div.clock .date {
+	font-size: 1.2em;
+}
+
+div.fingerprint {
+	width: 30%;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+    transform: translateY(-40%);
+    cursor: pointer;
+}

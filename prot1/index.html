@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Protótipo iGo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SET", "OCT", "NOV", "DEC"];
+		var weekday = ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAT"];
+
+		function updateClock() {
+			var d = new Date();
+			var times = document.getElementsByClassName("time");
+			var dates = document.getElementsByClassName("date");
+			var hours = d.getHours() < 10 ? "0"+d.getHours() : d.getHours();
+			var minutes = d.getMinutes()+1 < 10 ? "0"+(d.getMinutes()+1) : d.getMinutes()+1;
+
+			for (let i=0; i < times.length; i++) {
+			    times[i].innerHTML = hours + ":" + minutes;
+			}
+			for (let i=0; i < dates.length; i++) {
+			    dates[i].innerHTML = weekday[d.getDay()] + ", " + d.getDate() + " " + month[d.getMonth()];
+			}
+
+			setTimeout(updateClock, 10000);
+		}
+
+		function unlock() {
+
+		}
+	</script>
+</head>
+<body onload="updateClock()">
+	<div class="screen">
+		<div class="lockscreen">
+			<div class="clock">
+				<p class="time"></p>
+				<p class="date"></p>
+			</div>
+			<div class="fingerprint" onclick="unlock()">	
+				<img src="img/fingerprint.svg">
+				<p>Scan...</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
