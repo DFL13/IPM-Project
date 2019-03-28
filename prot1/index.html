@@ -8,6 +8,10 @@
 		var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SET", "OCT", "NOV", "DEC"];
 		var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
+		var currentScreen = "lockscreen";
+		var previousScreen = "main";
+
+
 		function updateClock() {
 			var d = new Date();
 			var times = document.getElementsByClassName("time");
@@ -25,11 +29,28 @@
 			setTimeout(updateClock, (60-d.getSeconds()+1)*1000);
 		}
 
+		function updateScreens(goingTo) {
+			previousScreen = currentScreen;
+			currentScreen = goingTo;
+		}
+
+		function goToHome() {
+			if (currentScreen != "lockscreen") {
+				var main = document.getElementsByClassName("main")[0];
+				var current = document.getElementsByClassName(currentScreen)[0];
+				main.classList.toggle("hidden");
+				current.classList.toggle("hidden");
+				previousScreen = "main";
+				currentScreen = "main";
+			}
+		}
+
 		function unlock() {
 			var lockscreen = document.getElementsByClassName("lockscreen")[0];
 			var main = document.getElementsByClassName("main")[0];
 			lockscreen.classList.toggle("hidden");
 			main.classList.toggle("hidden");
+			updateScreens("main");
 		}
 
 		function openApp(appName) {
@@ -37,12 +58,34 @@
 			var app = document.getElementsByClassName(appName)[0];
 			main.classList.toggle("hidden");
 			app.classList.toggle("hidden");
+			updateScreens(appName);
+		}
+
+		function returnTo(goingTo) {
+			var current = document.getElementsByClassName(currentScreen)[0];
+			var next = document.getElementsByClassName(goingTo)[0];
+			current.classList.toggle("hidden");
+			next.classList.toggle("hidden");
+			updateScreens(goingTo);
+		}
+
+		function showPost(postName) {
+			var app = document.getElementsByClassName("shareApp")[0];
+			var post = document.getElementsByClassName(postName)[0];
+			app.classList.toggle("hidden");
+			post.classList.toggle("hidden");
+			updateScreens(postName);
 		}
 
 	</script>
 </head>
 <body onload="updateClock()">
+
+	<img id="outerButtonLeft" src="img/minus-big-symbol.svg">	
+	<img id="outerButtonRight" src="img/minus-big-symbol.svg" ondblclick="goToHome()">	
+
 	<div class="screen">
+		
 		<div class="page lockscreen">
 			<div class="clock">
 				<p class="time"></p>
@@ -98,14 +141,14 @@
 					</div>
 				</div>
 				<div class="col">
-					<div class="postPreview">
+					<div class="postPreview" onclick="showPost('hpPost')">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
 							<p>Harry P.</p>
 						</div>
 						<img src="img/posts/benjamin-voros-151769-unsplash.jpg">
 					</div>
-					<div class="postPreview">
+					<div class="postPreview" >
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
 							<p>Tony S.</p>
@@ -131,6 +174,22 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="page hpPost hidden">
+			<div class="post">
+				<!-- Cenas do Harry Potter-->
+			</div>
+
+			<div class="sidebar">
+				<p class="time"></p>
+				<div class="button btnCancel" onclick="returnTo('shareApp')">
+					<img src="img/cancel-music.svg">
+				</div>
+			</div>
+		</div>	
+
 	</div>
+
+
 </body>
 </html>
