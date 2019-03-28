@@ -109,20 +109,27 @@ div.content {
 	padding: 0px 10px;
 	display: grid;
   	grid-gap: 10px;
-  	grid-template-columns: auto auto;
+  	grid-template-columns: 48% 48%;
 	overflow-y: auto;
 }
 
 div.col {
+	width: 100%;
 
 }
 
 div.postPreview {
-	width: 100%;
-	height: 80px;
+	/*width: 100%;*/
+	/*height: 80px;*/
 	margin: 10px 0px;
 	border-radius: 15px;
 	background: white;
+	overflow: hidden;
+}
+
+div.postPreview img {
+	display: block;
+	width: 100%;
 }
 
 div.sidebar {
