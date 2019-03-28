@@ -45,6 +45,12 @@
 			}
 		}
 
+		function goBack() {
+			if (currentScreen != "lockscreen" && currentScreen != "main") {
+				returnTo(previousScreen);
+			}
+		}
+
 		function unlock() {
 			var lockscreen = document.getElementsByClassName("lockscreen")[0];
 			var main = document.getElementsByClassName("main")[0];
@@ -82,7 +88,7 @@
 <body onload="updateClock()">
 
 	<img id="outerButtonLeft" src="img/minus-big-symbol.svg">	
-	<img id="outerButtonRight" src="img/minus-big-symbol.svg" ondblclick="goToHome()">	
+	<img id="outerButtonRight" src="img/minus-big-symbol.svg" onclick="goBack()" ondblclick="goToHome()">	
 
 	<div class="screen">
 		
