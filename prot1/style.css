@@ -31,7 +31,7 @@ div.page {
 }
 
 div.lockscreen {
-    background: linear-gradient(to left, #1b4fba 0%, #111e38 40%);
+    background: linear-gradient(to left, #47748d 0%, #111e38 40%);
 }
 
 div.lockscreen div.clock {
@@ -59,7 +59,7 @@ div.fingerprint {
 }
 
 div.main {
-    background: linear-gradient(to top, #1b4fba 40%, #111e38 80%);
+    background: linear-gradient(to top, #47748d 40%, #111e38 80%);
 }
 
 div.main div.clock {
@@ -96,7 +96,7 @@ div.appIcon img {
 
 
 div.shareApp {
-	background: linear-gradient(to right, #1b4fba 70%, #111e38 90%);
+	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
 }
 
 
@@ -111,9 +111,11 @@ div.content {
   	grid-gap: 15px;
   	grid-template-columns: auto auto;
 	overflow-y: auto;
+	direction: rtl;
 }
 
 div.col {
+	direction: ltr;
 	width: 100%;
 
 }
@@ -126,7 +128,7 @@ div.postPreview {
 	border-radius: 15px;
 	background: white;
 	overflow: hidden;
-	/*box-shadow: 0px 0px 15px 0px black;*/
+	box-shadow: 0px 0px 6px 0px black;
 	/*border: solid 3px white;*/
 }
 
