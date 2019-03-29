@@ -8,8 +8,9 @@
 		var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SET", "OCT", "NOV", "DEC"];
 		var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-		var currentScreen = "lockscreen";
-		var previousScreen = "main";
+		/*var currentScreen = "lockscreen";
+		var previousScreen = "main";*/
+		var pageHistory = ["lockscreen"];
 
 
 		function updateClock() {
@@ -29,12 +30,12 @@
 			setTimeout(updateClock, (60-d.getSeconds()+1)*1000);
 		}
 
-		function updateScreens(goingTo) {
+		/*function updateScreens(goingTo) {
 			previousScreen = currentScreen;
 			currentScreen = goingTo;
-		}
+		}*/
 
-		function goToHome() {
+		/*function goToHome() {
 			if (currentScreen != "lockscreen") {
 				var main = document.getElementsByClassName("main")[0];
 				var current = document.getElementsByClassName(currentScreen)[0];
@@ -43,11 +44,28 @@
 				previousScreen = "main";
 				currentScreen = "main";
 			}
+		}*/
+		function goToHome() {
+			if (pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+				var current = document.getElementsByClassName(pageHistory.pop())[0];
+				var main = document.getElementsByClassName("main")[0];
+				main.classList.toggle("hidden");
+				current.classList.toggle("hidden");
+				pageHistory = ["lockscreen", "main"];
+			}
 		}
 
-		function goBack() {
+		/*function goBack() {
 			if (currentScreen != "lockscreen" && currentScreen != "main") {
 				returnTo(previousScreen);
+			}
+		}*/
+		function goBack() {
+			if (pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+				var current = document.getElementsByClassName(pageHistory.pop())[0];
+				var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
+				current.classList.toggle("hidden");
+				previous.classList.toggle("hidden");
 			}
 		}
 
@@ -56,7 +74,8 @@
 			var main = document.getElementsByClassName("main")[0];
 			lockscreen.classList.toggle("hidden");
 			main.classList.toggle("hidden");
-			updateScreens("main");
+			/*updateScreens("main");*/
+			pageHistory.push("main");
 		}
 
 		function openApp(appName) {
@@ -64,34 +83,35 @@
 			var app = document.getElementsByClassName(appName)[0];
 			main.classList.toggle("hidden");
 			app.classList.toggle("hidden");
-			updateScreens(appName);
+			/*updateScreens(appName);*/
+			pageHistory.push(appName);
 		}
 
-		function returnTo(goingTo) {
+		/*function returnTo(goingTo) {
 			var current = document.getElementsByClassName(currentScreen)[0];
 			var next = document.getElementsByClassName(goingTo)[0];
 			current.classList.toggle("hidden");
 			next.classList.toggle("hidden");
 			updateScreens(goingTo);
-		}
+		}*/
 
 		function showPost(postName) {
 			var app = document.getElementsByClassName("shareApp")[0];
 			var post = document.getElementsByClassName(postName)[0];
 			app.classList.toggle("hidden");
 			post.classList.toggle("hidden");
-			updateScreens(postName);
+			/*updateScreens(postName);*/
+			pageHistory.push(postName);
 		}
 
 	</script>
 </head>
 <body onload="updateClock()">
 
-	<img id="outerButtonLeft" src="img/minus-big-symbol.svg">	
-	<img id="outerButtonRight" src="img/minus-big-symbol.svg" onclick="goBack()" ondblclick="goToHome()">	
-
 	<div class="screen">
-		
+		<div class="outerBtn" id="btnL"></div>
+		<div class="outerBtn" id="btnR" onclick="goBack()" ondblclick="goToHome()"></div>
+
 		<div class="page lockscreen">
 			<div class="clock">
 				<p class="time"></p>
@@ -188,8 +208,8 @@
 
 			<div class="sidebar">
 				<p class="time"></p>
-				<div class="button btnCancel" onclick="returnTo('shareApp')">
-					<img src="img/cancel-music.svg">
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/close-cross.svg">
 				</div>
 			</div>
 		</div>	

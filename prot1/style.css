@@ -8,6 +8,23 @@
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Montserrat', sans-serif;
+	scrollbar-width: thin;
+	scrollbar-color: white transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: white;
+}
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+body {
+	background: #e3e3e3;
 }
 
 div.screen {
@@ -18,7 +35,24 @@ div.screen {
 	height: 215px;
 	background: #111e38/*#384c75*/;
 	border-radius: 20px;
-	overflow: hidden;
+}
+
+div.outerBtn {
+	position: absolute;
+	bottom: 100%;
+	left: 65%;
+	width: 40px;
+	height: 8px;
+	background: black;
+	border-radius: 8px 8px  0px 0px;
+}
+
+#btnL {
+	left: 65%;
+}
+
+#btnR {
+	left: 80%;
 }
 
 #outerButtonLeft {
@@ -48,6 +82,10 @@ div.page {
 	width: 100%;
 	color: white;
     text-align: center;
+    border-radius: 20px;
+	overflow: hidden;
+	opacity: 1;
+	transition: opacity ease 500ms;
 }
 
 div.lockscreen {
@@ -127,6 +165,7 @@ div.content {
 	left: 0;
 	width: 82%;
 	padding: 0px 10px;
+	margin-left: 5px;
 	display: grid;
   	grid-gap: 15px;
   	grid-template-columns: auto auto;
@@ -201,11 +240,11 @@ div.sidebar .time {
 }
 
 div.button {
-	width: 55px;
-	height: 55px;
+	width: 45px;
+	height: 45px;
 	margin: 5px auto;
 	border-radius: 100%;
-	padding: 12px;
+	padding: 8px;
 	background: white;
 	cursor: pointer;
 }
@@ -216,18 +255,19 @@ div.button img {
 }
 
 div.btnFriends  {
-	margin-top: 60px;
+	margin-top: 70px;
 }
 
 div.btnAddPost {
-	margin-top: 10px;
+	margin-top: 15px;
 }
 
 div.btnCancel {
-	margin-top: 125px;
+	margin-top: 130px;
 }
 
 
-.hidden {
+div.hidden {
+	opacity: 0;
 	visibility: hidden;
 }
