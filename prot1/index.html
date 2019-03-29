@@ -10,7 +10,7 @@
 
 		/*var currentScreen = "lockscreen";
 		var previousScreen = "main";*/
-		var pageHistory = ["lockscreen"];
+		var pageHistory = [];
 
 
 		function updateClock() {
@@ -46,12 +46,24 @@
 			}
 		}*/
 		function goToHome() {
-			if (pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+			if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
 				var current = document.getElementsByClassName(pageHistory.pop())[0];
 				var main = document.getElementsByClassName("main")[0];
 				main.classList.toggle("hidden");
 				current.classList.toggle("hidden");
 				pageHistory = ["lockscreen", "main"];
+			}
+		}
+
+		function turnOnOff() {
+			if (pageHistory.length > 0) {
+				var current = document.getElementsByClassName(pageHistory.pop())[0];
+				current.classList.toggle("hidden");
+				pageHistory = [];
+			} else {
+				var lockscreen = document.getElementsByClassName("lockscreen")[0];
+				lockscreen.classList.toggle("hidden");
+				pageHistory = ["lockscreen"];
 			}
 		}
 
@@ -61,7 +73,7 @@
 			}
 		}*/
 		function goBack() {
-			if (pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+			if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
 				var current = document.getElementsByClassName(pageHistory.pop())[0];
 				var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 				current.classList.toggle("hidden");
@@ -109,10 +121,10 @@
 <body onload="updateClock()">
 
 	<div class="screen">
-		<div class="outerBtn" id="btnL"></div>
+		<div class="outerBtn" id="btnL" onclick="turnOnOff()"></div>
 		<div class="outerBtn" id="btnR" onclick="goBack()" ondblclick="goToHome()"></div>
 
-		<div class="page lockscreen">
+		<div class="page lockscreen hidden">
 			<div class="clock">
 				<p class="time"></p>
 				<p class="date"></p>

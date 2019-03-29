@@ -33,7 +33,7 @@ div.screen {
 	margin-top: 30vh;
 	width: 400px;
 	height: 215px;
-	background: #111e38/*#384c75*/;
+	background: black;
 	border-radius: 20px;
 }
 
@@ -81,6 +81,7 @@ div.page {
 	height: 100%;
 	width: 100%;
 	color: white;
+	background: #111e38;
     text-align: center;
     border-radius: 20px;
 	overflow: hidden;
