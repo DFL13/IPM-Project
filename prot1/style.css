@@ -42,9 +42,10 @@ div.outerBtn {
 	bottom: 100%;
 	left: 65%;
 	width: 40px;
-	height: 8px;
+	height: 10px;
 	background: black;
 	border-radius: 8px 8px  0px 0px;
+	cursor: pointer;
 }
 
 #btnL {
@@ -154,7 +155,7 @@ div.appIcon img {
 }
 
 
-div.shareApp {
+div.shareApp, div.fullPost {
 	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
 }
 
@@ -195,6 +196,7 @@ div.postPreview {
 }
 
 div.postPreview div.header {
+	position: relative;
 	/*position: absolute;
 	top: 0px;
 	left: 0px;
@@ -202,8 +204,19 @@ div.postPreview div.header {
 	padding: 3px;
 	background: white;
 	/*border-radius: 20px;*/
-	overflow: auto;
+	overflow: hidden;
 
+}
+
+div.postPreview div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 80%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
 }
 
 div.postPreview div.header img {
@@ -216,9 +229,11 @@ div.postPreview div.header img {
 div.postPreview div.header p {
 	position: absolute;
 	left: 35px;
-	top: 8px;
+	top: 7px;
+	width: 200%;
+	text-align: left;
 	color: black;
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
 
 div.postPreview img {
@@ -265,6 +280,124 @@ div.btnAddPost {
 
 div.btnCancel {
 	margin-top: 130px;
+}
+
+div.fullPost div.content {
+	display: block;
+}
+
+div.post {
+	width: 100%;
+	position: relative;
+	margin: 15px 0px;
+	border-radius: 25px;
+	direction: ltr;
+	overflow: hidden;
+	box-shadow: 0px 0px 6px 0px black;
+	background: white;
+	/*border: solid 3px white;*/
+}
+
+div.post div.header {
+	position: relative;
+	padding: 5px;
+	/*background: white;*/
+}
+
+div.post div.header img {
+	display: block;
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+}
+
+div.post div.header p.name {
+	position: absolute;
+	left: 60px;
+	top: 14px;
+	right: 0;
+	text-align: left;
+	color: black;
+	font-size: 1.4em;
+}
+
+div.post div.header p.place {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 3px 0px 0px 10px;
+	text-align: left;
+	color: #747474;
+	text-decoration: underline;
+	font-size: 1em;
+}
+
+div.post img {
+	display: block;
+	width: 100%;
+}
+
+div.postInfoBar {
+	position: relative;
+	margin: 0px 20px;
+	padding: 3px 0px 7px 7px;
+	border-bottom: solid 2px #747474;
+	color: black;
+	font-size: 1.1em;
+}
+
+div.postInfoBar img {
+	display: block;
+	width: 20px;
+}
+
+div.postInfoBar p.upvotes {
+	position: absolute;
+	left: 35px;
+	top: 5px;
+}
+
+div.postInfoBar p.postDate {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+div.commentSection {
+	padding: 0px 20px 10px 20px;
+}
+
+div.comment {
+	margin: 5px 0px;
+}
+
+div.comment div.header {
+	position: relative;
+	width: 100%;
+}
+
+div.comment div.header img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.comment div.header p {
+	position: absolute;
+	left: 45px;
+	top: 10px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+div.commentBody {
+	padding: 0px 5px 0px 40px;
+	color: #333;
+	font-size: 0.9em;
+	text-align: justify; 
 }
 
 

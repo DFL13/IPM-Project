@@ -107,13 +107,13 @@
 			updateScreens(goingTo);
 		}*/
 
-		function showPost(postName) {
+		function showPost() {
 			var app = document.getElementsByClassName("shareApp")[0];
-			var post = document.getElementsByClassName(postName)[0];
+			var post = document.getElementsByClassName("fullPost")[0];
 			app.classList.toggle("hidden");
 			post.classList.toggle("hidden");
 			/*updateScreens(postName);*/
-			pageHistory.push(postName);
+			pageHistory.push("fullPost");
 		}
 
 	</script>
@@ -159,44 +159,44 @@
 					<div class="postPreview">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Johnny D.</p>
+							<p>Johnny Depp</p>
 						</div>
 						<img src="img/posts/ales-krivec-24158-unsplash.jpg">
 					</div>
 					<div class="postPreview">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Peter P.</p>
+							<p>Peter Parker</p>
 						</div>
 						<img src="img/posts/jacek-dylag-579738-unsplash.jpg">
 					</div>
 					<div class="postPreview">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Jon S.</p>
+							<p>Jon Snow</p>
 						</div>
 						<img src="img/posts/ricardo-resende-803794-unsplash.jpg">
 					</div>
 				</div>
 				<div class="col">
-					<div class="postPreview" onclick="showPost('hpPost')">
+					<div class="postPreview" onclick="showPost()">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Harry P.</p>
+							<p>Harry Potter</p>
 						</div>
 						<img src="img/posts/benjamin-voros-151769-unsplash.jpg">
 					</div>
 					<div class="postPreview" >
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Tony S.</p>
+							<p>Tony Stark</p>
 						</div>
 						<img src="img/posts/nikolay-vorobyev-470715-unsplash.jpg">
 					</div>
 					<div class="postPreview">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
-							<p>Ryan R.</p>
+							<p>Ryan Reynolds</p>
 						</div>
 						<img src="img/posts/margaret-barley-42-unsplash.jpg">
 					</div>
@@ -213,9 +213,41 @@
 			</div>
 		</div>
 
-		<div class="page hpPost hidden">
-			<div class="post">
-				<!-- Cenas do Harry Potter-->
+		<div class="page fullPost hidden">
+			<div class="content">
+				<div class="post">
+					<div class="header">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p class="name">Harry Potter</p>
+						<p class="place">Lisbon, Portugal</p>
+					</div>
+					<img src="img/posts/benjamin-voros-151769-unsplash.jpg">
+					<div class="postInfoBar">
+						<img src="img/up-arrow.svg">
+						<p class="upvotes">63</p>
+						<p class="postDate">10 MAR 2019</p>
+					</div>
+					<div class="commentSection">
+						<div class="comment">
+							<div class="header">
+								<img src="img/posts/david-marcu-4654-unsplash.jpg">
+								<p>Jon Snow</p>
+							</div>
+							<div class="commentBody">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							</div>
+						</div>
+						<div class="comment">
+							<div class="header">
+								<img src="img/posts/david-marcu-4654-unsplash.jpg">
+								<p>Jon Snow</p>
+							</div>
+							<div class="commentBody">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="sidebar">
