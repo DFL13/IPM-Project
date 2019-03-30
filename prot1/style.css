@@ -256,6 +256,7 @@ div.sidebar .time {
 }
 
 div.button {
+	position: relative;
 	width: 45px;
 	height: 45px;
 	margin: 5px auto;
@@ -265,17 +266,30 @@ div.button {
 	cursor: pointer;
 }
 
+div.button::before { 
+    content: '';
+    display: block;
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+    background: transparent;
+    border: solid 3px white;
+    border-radius: 100px;
+}
+
 
 div.button img {
 	width: 100%;
 }
 
 div.btnFriends  {
-	margin-top: 70px;
+	margin-top: 65px;
 }
 
 div.btnAddPost {
-	margin-top: 15px;
+	margin-top: 20px;
 }
 
 div.btnCancel {
@@ -293,7 +307,7 @@ div.post {
 	border-radius: 25px;
 	direction: ltr;
 	overflow: hidden;
-	box-shadow: 0px 0px 6px 0px black;
+	box-shadow: 0px 0px 8px 0px black;
 	background: white;
 	/*border: solid 3px white;*/
 }
