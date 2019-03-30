@@ -159,7 +159,6 @@ div.shareApp, div.fullPost {
 	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
 }
 
-
 div.content {
 	position: absolute;
 	top: 0;
@@ -168,11 +167,14 @@ div.content {
 	width: 82%;
 	padding: 0px 10px;
 	margin-left: 5px;
+	overflow-y: auto;
+	direction: rtl;
+}
+
+div.shareApp > div.content {
 	display: grid;
   	grid-gap: 15px;
   	grid-template-columns: auto auto;
-	overflow-y: auto;
-	direction: rtl;
 }
 
 div.col {
@@ -297,11 +299,7 @@ div.btnCancel {
 	margin-top: 130px;
 }
 
-div.fullPost div.content {
-	display: block;
-}
-
-div.post {
+div.container {
 	width: 100%;
 	position: relative;
 	margin: 15px 0px;
@@ -365,6 +363,7 @@ div.postInfoBar {
 div.postInfoBar img {
 	display: block;
 	width: 20px;
+	cursor: pointer;
 }
 
 div.postInfoBar p.upvotes {
@@ -389,6 +388,7 @@ div.comment {
 
 div.comment div.header {
 	position: relative;
+	padding: 5px;
 	width: 100%;
 }
 
@@ -413,6 +413,40 @@ div.commentBody {
 	color: #333;
 	font-size: 0.9em;
 	text-align: justify; 
+}
+
+/*div.friendList div.container {
+	background: transparent;
+}*/
+
+div.personListItem {
+	margin: 0px 15px;
+	padding: 6px 10px;
+	position: relative;
+	border-bottom: solid 1px #747474;
+	cursor: pointer;
+
+	/*margin: 5px 0px;
+	padding: 6px 10px;
+	background: white;
+	border-radius: 50px;
+	border-bottom: none;*/
+}
+
+div.personListItem img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.personListItem p {
+	position: absolute;
+	left: 50px;
+	top: 11px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
 }
 
 

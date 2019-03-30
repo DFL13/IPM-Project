@@ -116,6 +116,19 @@
 			pageHistory.push("fullPost");
 		}
 
+		function openFriendList() {
+			var app = document.getElementsByClassName("shareApp")[0];
+			var friendList = document.getElementsByClassName("friendList")[0];
+			app.classList.toggle("hidden");
+			friendList.classList.toggle("hidden");
+			/*updateScreens(postName);*/
+			pageHistory.push("friendList");
+		}
+
+		function openProfile(name) {
+
+		}
+
 	</script>
 </head>
 <body onload="updateClock()">
@@ -204,7 +217,7 @@
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnFriends">
+				<div class="button btnFriends" onclick="openFriendList()">
 					<img src="img/group-of-people.svg">
 				</div>
 				<div class="button btnAddPost">
@@ -215,7 +228,7 @@
 
 		<div class="page fullPost hidden">
 			<div class="content">
-				<div class="post">
+				<div class="container post">
 					<div class="header">
 						<img src="img/posts/david-marcu-4654-unsplash.jpg">
 						<p class="name">Harry Potter</p>
@@ -256,7 +269,57 @@
 					<img src="img/close-cross.svg">
 				</div>
 			</div>
-		</div>	
+		</div>
+
+		<div class="page friendList hidden">
+			<div class="content">
+				<div class="container">
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+					<div class="personListItem" onclick="openProfile('Jon Snow')">
+						<img src="img/posts/david-marcu-4654-unsplash.jpg">
+						<p>Jon Snow</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/close-cross.svg">
+				</div>
+			</div>
+		</div>
 
 	</div>
 
