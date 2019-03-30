@@ -421,7 +421,7 @@ div.commentBody {
 
 div.personListItem {
 	margin: 0px 15px;
-	padding: 6px 10px;
+	padding: 8px 10px;
 	position: relative;
 	border-bottom: solid 1px #747474;
 	cursor: pointer;
@@ -443,7 +443,7 @@ div.personListItem img {
 div.personListItem p {
 	position: absolute;
 	left: 50px;
-	top: 11px;
+	top: 14px;
 	font-weight: bold;
 	color: black;
 	font-size: 1em;
