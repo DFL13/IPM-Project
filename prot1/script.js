@@ -199,3 +199,19 @@ function fillFriendsList() {
 function openProfile(name) {
 	
 }
+
+function openAddPostMenu() {
+	var app = document.getElementsByClassName("shareApp")[0];
+	var menu = document.getElementsByClassName("addPostMenu")[0];
+	app.classList.toggle("hidden");
+	menu.classList.toggle("hidden");
+	pageHistory.push("addPostMenu");
+}
+
+function openCam() {
+
+}
+
+function openMic() {
+
+}

@@ -451,6 +451,38 @@ div.personListItem p {
 
 
 
+div.pillBox {
+	position: relative;
+	margin: 0px auto;
+	margin-top: 60px;
+	width: 220px;
+	/*height: 90px;*/
+	background: white;
+	border-radius: 50px;
+	direction: ltr;
+}
+
+div.pillBox::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #111e38;
+	top: 10px;
+	bottom: 10px;
+	left: 49%;
+	right: 49%;
+	border-radius: 10px;
+}
+
+div.pillBox img {
+	width: 100px;
+	padding: 15px;
+	cursor: pointer;
+}
+
+
+
+
 
 div.btnZoomOut {
 	height: 40px;
