@@ -477,6 +477,41 @@ div.btnMenu {
 }
 
 
+table.tabsbar{
+	height: 100%;
+	width: 20%;
+	border-right: 2px solid white;
+	background: transparent;
+	border-collapse: collapse;
+}
+
+tr.tab{
+	border-bottom: 2px solid white;
+	cursor: pointer;
+	background:#4f90b9e3;
+}
+
+tr.noBorder{
+	border-bottom: 0px;
+}
+
+tr.tabBorder{
+	border-right:10px solid #2f4c50;
+}
+
+div.btnSearch{
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+div.btnLocation  > .button{
+	padding: 0px
+}
+
+div.btnCart{
+	margin-top: 15px;
+}
+
 div.hidden {
 	opacity: 0;
 	visibility: hidden;
