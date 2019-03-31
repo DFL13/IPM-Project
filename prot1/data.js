@@ -48,10 +48,10 @@ var posts = [{
 			}];
 
 var people = {
-				"Jon Snow": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []},
-				"Tony Stark": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []},
-				"Peter Parker": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []},
-				"Johnny Depp": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []},
-				"Ryan Reynolds": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []},
-				"Harry Potter": {pic: "img/posts/david-marcu-4654-unsplash.jpg", quote: "", posts: []}
+				"Jon Snow": {pic: "img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "", posts: []},
+				"Tony Stark": {pic: "img/profile_pics/umanoide-408098-unsplash.jpg", quote: "", posts: []},
+				"Peter Parker": {pic: "img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "", posts: []},
+				"Johnny Depp": {pic: "img/profile_pics/camille-couvez-424691-unsplash.jpg", quote: "", posts: []},
+				"Ryan Reynolds": {pic: "img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "", posts: []},
+				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "", posts: []}
 			};
