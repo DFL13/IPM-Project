@@ -516,6 +516,7 @@ div.btnMenu {
 
 
 table.tabsbar{
+	table-layout: fixed;
 	height: 100%;
 	width: 20%;
 	border-right: 2px solid white;
@@ -529,12 +530,16 @@ tr.tab{
 	background:#4f90b9e3;
 }
 
-tr.noBorder{
-	border-bottom: 0px;
+div#tabSelector{
+	position:absolute;
+	width: 10px;
+	height: 72px;
+	background-color: #2f4c50; 
+	left: 75px;
 }
 
-tr.tabBorder{
-	border-right:10px solid #2f4c50;
+tr.noBorder{
+	border-bottom: 0px;
 }
 
 div.btnSearch{

@@ -259,18 +259,20 @@
 			
 		</div>
 		<div class="page ticketApp hidden">
+			<div id="tabSelector">
+			</div>
 			<table class="tabsbar">
-				<tr class="tab tabBorder">
+				<tr class="tab" onclick="document.getElementById('tabSelector').style.height='72px';document.getElementById('tabSelector').style.top='0px';">
 					<td>
 						<img src="img/popcorn.svg" style="height: 35%; width:60%; position: relative;">
 					</td>
 				</tr>
-				<tr class="tab">
+				<tr class="tab" onclick="document.getElementById('tabSelector').style.height='75px';document.getElementById('tabSelector').style.top='72px'">
 					<td>
 						<img src="img/bank.svg" style="position: relative; width:70%;">
 					</td>
 				</tr>
-				<tr class="tab noBorder">
+				<tr class="tab noBorder" onclick="document.getElementById('tabSelector').style.height='67,5px';document.getElementById('tabSelector').style.top='147px'">
 					<td>
 						<img src="img/airplane-shape.svg" style="position: relative; width: 60%">
 					</td>
