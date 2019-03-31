@@ -299,13 +299,31 @@ div.btnCancel {
 	margin-top: 130px;
 }
 
+div.btnShutter {
+	margin-top: 50px;
+}
+
+div.camApp div.btnCancel {
+	margin-top: 30px;
+}
+
+div.publishMenu div.btnCancel {
+	margin-top: 60px;
+}
+
+div.btnAccept {
+	margin-top: 20px;
+}
+
+
 div.container {
+	/*grid-column: 1 / span 2;*/
 	width: 100%;
 	position: relative;
 	margin: 15px 0px;
 	border-radius: 25px;
 	direction: ltr;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	box-shadow: 0px 0px 8px 0px black;
 	background: white;
 	/*border: solid 3px white;*/
@@ -412,7 +430,7 @@ div.commentBody {
 	padding: 0px 5px 0px 40px;
 	color: #333;
 	font-size: 0.9em;
-	text-align: justify; 
+	text-align: left; 
 }
 
 /*div.friendList div.container {
@@ -480,8 +498,53 @@ div.pillBox img {
 	cursor: pointer;
 }
 
+div.camApp div.content {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
 
+div.camApp div.content img {
+	width: 100%;
+}
 
+div.shareApp, div.publishMenu {
+	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
+}
+
+table.choiceBar {
+	direction: ltr;
+	margin-top: 20px;
+	color: black;
+	background: white;
+	border-radius: 50px;
+	font-size: 1.1em;
+	text-align: center;
+	width: 100%;
+	border-collapse: collapse;
+	box-shadow: 0px 0px 8px 0px black;
+	overflow: hidden;
+}
+
+table.choiceBar td {
+	border-right: solid 2px black;
+	width: 33%;
+	padding: 8px;
+	background-color: white;
+	cursor: pointer;
+}
+
+table.choiceBar td:last-child {
+	border-right: none;
+}
+
+img.publishImg {
+	border-radius: 25px;
+	width: 100%;
+	box-shadow: 0px 0px 8px 0px black;
+	margin: 20px auto;
+	/*border: dashed 5px white;*/
+}
 
 
 div.btnZoomOut {

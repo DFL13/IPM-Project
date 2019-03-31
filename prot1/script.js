@@ -209,9 +209,37 @@ function openAddPostMenu() {
 }
 
 function openCam() {
-
+	var menu = document.getElementsByClassName("addPostMenu")[0];
+	var cam  = document.getElementsByClassName("camApp")[0];
+	menu.classList.toggle("hidden");
+	cam.classList.toggle("hidden");
+	pageHistory.push("camApp");
 }
 
 function openMic() {
 
+}
+
+function openPublishMenu() {
+	var cam  = document.getElementsByClassName("camApp")[0];
+	var menu = document.getElementsByClassName("publishMenu")[0];
+	cam.classList.toggle("hidden");
+	menu.classList.toggle("hidden");
+	pageHistory.push("publishMenu");
+}
+
+function selectOpt(n) {
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var tds = bar.children[0].children[0].children;
+
+	for (var i = 0; i < tds.length; i++) {
+		tds[i].style.backgroundColor = "white";
+		tds[i].style.color = "black";
+	}
+	tds[n].style.backgroundColor = "#2379d8";
+	tds[n].style.color = "white";
+
+	if (n == 2) {
+		
+	}
 }

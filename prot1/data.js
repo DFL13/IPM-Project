@@ -1,6 +1,6 @@
 var posts = [{
 				person: "Jon Snow",
-				place: "Lisbon, Portugal",
+				place: "Green Lake, Austria",
 				image: "img/posts/ales-krivec-24158-unsplash.jpg",
 				upvotes: 53,
 				date: "18 JAN 2019",
@@ -16,7 +16,7 @@ var posts = [{
 				place: "Kraków, Poland",
 				image: "img/posts/jacek-dylag-579738-unsplash.jpg",
 				upvotes: 105,
-				date: "3 MAR 2019",
+				date: "03 MAR 2019",
 				comments: 
 					[				
 						{person: "Peter Parker", message: "The best avenger, might i add."},
@@ -35,7 +35,7 @@ var posts = [{
 					[
 						{person: "Johnny Depp", message: "Get a room!!!"},
 						{person: "Peter Parker", message: "Yes we do, Mr. Stark!"},
-						{person: "Tony Stark", message: "Some forget, we avenge."}					
+						{person: "Tony Stark", message: "Some move on. We won't. We'll avenge."}					
 					]
 			},
 			{
