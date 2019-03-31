@@ -189,7 +189,7 @@ function fillFriendsList() {
 
 	container.innerHTML = "";
 	for (friend in people) {
-		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(" + friend + ")'>\
+		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"" + friend + "\")'>\
 									<img src=" + people[friend].pic + ">\
 									<p>" + friend + "</p>\
 								</div>";
@@ -197,5 +197,5 @@ function fillFriendsList() {
 }
 
 function openProfile(name) {
-
+	
 }
