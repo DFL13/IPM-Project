@@ -5,14 +5,17 @@ var pageHistory = [];
 
 
 function loadData() {
-	if (localStorage.posts == undefined && localStorage.people == undefined) {
-		console.log("hi");
+	localStorage.posts = JSON.stringify(posts);
+	localStorage.people = JSON.stringify(people);
+	posts = JSON.parse(localStorage.posts);
+	people = JSON.parse(localStorage.people);
+	/*if (localStorage.posts == undefined && localStorage.people == undefined) {
 		localStorage.posts = JSON.stringify(posts);
 		localStorage.people = JSON.stringify(people);
 	} else {
 		posts = JSON.parse(localStorage.posts);
 		people = JSON.parse(localStorage.people);
-	}
+	}*/
 	fillPostPreviews();
 }
 
@@ -21,15 +24,39 @@ function fillPostPreviews() {
 	var app = document.getElementsByClassName("shareApp")[0];
 	var cols = app.children[0].children;
 
+	cols[0].innerHTML = "";
+	cols[1].innerHTML = "";
 	for (var i = posts.length - 1; i >= 0; i--) {
 		cols[n].innerHTML += 
-					"<div class='postPreview' onclick='showPost()'>\
+					"<div class='postPreview' onclick='showPost(" + i + ")'>\
 						<div class='header'>\
 							<img src=" + people[posts[i].person].pic + ">\
 							<p>" + posts[i].person + "</p>\
 						</div>\
 						<img src=" + posts[i].image + ">\
 					</div>";
+
+		/*var pp = document.createElement("DIV");
+		cols[n].appendChild(pp);
+		pp.className = "postPreview";
+		pp.setAttribute("onclick", "showPost("+i+")");
+
+		var header = document.createElement("DIV");
+		pp.appendChild(header);
+		header.className = "header";
+
+		var pic = document.createElement("IMG");
+		header.appendChild(pic);
+		pic.src = people[posts[i].person].pic;
+
+		var name = document.createElement("P");
+		header.appendChild(name);
+		name.innerHTML = posts[i].person;
+		
+		var img = document.createElement("IMG");
+		pp.appendChild(img);
+		img.src = posts[i].image;*/
+
 		n = (n+1)%2;
 	}
 }
@@ -98,12 +125,51 @@ function openApp(appName) {
 	pageHistory.push(appName);
 }
 
-function showPost() {
+/*function showPost() {
 	var app = document.getElementsByClassName("shareApp")[0];
 	var post = document.getElementsByClassName("fullPost")[0];
 	app.classList.toggle("hidden");
 	post.classList.toggle("hidden");
 	pageHistory.push("fullPost");
+}*/
+
+function showPost(postNumber) {
+	var app = document.getElementsByClassName("shareApp")[0];
+	var postPage = document.getElementsByClassName("fullPost")[0];
+	app.classList.toggle("hidden");
+	postPage.classList.toggle("hidden");
+	pageHistory.push("fullPost");
+
+	fillPost(postNumber);
+}
+
+function fillPost(postNumber) {
+	var post = posts[postNumber];
+	var postPage = document.getElementsByClassName("fullPost")[0];
+	var header = postPage.children[0].children[0].children[0];
+	var img = postPage.children[0].children[0].children[1];
+	var bar = postPage.children[0].children[0].children[2];
+	var comments = postPage.children[0].children[0].children[3];
+
+	header.children[0].src = people[post.person].pic;
+	header.children[1].innerHTML = post.person;
+	header.children[2].innerHTML = post.place;
+	img.src = post.image;
+	bar.children[1].innerHTML = post.upvotes;
+	bar.children[2].innerHTML = post.date;
+
+	comments.innerHTML = "";
+	for (var i = post.comments.length - 1; i >= 0; i--) {
+		comments.innerHTML += 	"<div class='comment'>\
+									<div class='header'>\
+										<img src=" + people[post.comments[i].person].pic + ">\
+										<p>" + post.comments[i].person + "</p>\
+									</div>\
+									<div class='commentBody'>\
+										<p>" + post.comments[i].message + "</p>\
+									</div>\
+								</div>";
+	}
 }
 
 function openFriendList() {
@@ -112,6 +178,22 @@ function openFriendList() {
 	app.classList.toggle("hidden");
 	friendList.classList.toggle("hidden");
 	pageHistory.push("friendList");
+
+	fillFriendsList();
+}
+
+function fillFriendsList() {
+	var friendList = document.getElementsByClassName("friendList")[0];
+	var container = friendList.children[0].children[0];
+	var friend;
+
+	container.innerHTML = "";
+	for (friend in people) {
+		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(" + friend + ")'>\
+									<img src=" + people[friend].pic + ">\
+									<p>" + friend + "</p>\
+								</div>";
+	}
 }
 
 function openProfile(name) {

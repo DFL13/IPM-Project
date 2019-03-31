@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </head>
-<body onload="updateClock()">
+<body onload="updateClock(); loadData();">
 
 	<div class="screen">
 		<div class="outerBtn" id="btnL" onclick="turnOnOff()"></div>
@@ -45,7 +45,7 @@
 		<div class="page shareApp hidden">
 			<div class="content">
 				<div class="col">
-					<div class="postPreview">
+					<!-- <div class="postPreview">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
 							<p>Johnny Depp</p>
@@ -65,10 +65,10 @@
 							<p>Jon Snow</p>
 						</div>
 						<img src="img/posts/ricardo-resende-803794-unsplash.jpg">
-					</div>
+					</div> -->
 				</div>
 				<div class="col">
-					<div class="postPreview" onclick="showPost()">
+					<!-- <div class="postPreview" onclick="showPost()">
 						<div class="header">
 							<img src="img/posts/david-marcu-4654-unsplash.jpg">
 							<p>Harry Potter</p>
@@ -88,7 +88,7 @@
 							<p>Ryan Reynolds</p>
 						</div>
 						<img src="img/posts/margaret-barley-42-unsplash.jpg">
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="sidebar">
@@ -103,6 +103,34 @@
 		</div>
 
 		<div class="page fullPost hidden">
+			<div class="content">
+				<div class="container post">
+					<div class="header">
+						<img src="">
+						<p class="name"></p>
+						<p class="place"></p>
+					</div>
+					<img src="">
+					<div class="postInfoBar">
+						<img src="img/up-arrow.svg">
+						<p class="upvotes"></p>
+						<p class="postDate"></p>
+					</div>
+					<div class="commentSection">
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/close-cross.svg">
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="page fullPost hidden">
 			<div class="content">
 				<div class="container post">
 					<div class="header">
@@ -145,12 +173,12 @@
 					<img src="img/close-cross.svg">
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="page friendList hidden">
 			<div class="content">
 				<div class="container">
-					<div class="personListItem" onclick="openProfile('Jon Snow')">
+					<!-- <div class="personListItem" onclick="openProfile('Jon Snow')">
 						<img src="img/posts/david-marcu-4654-unsplash.jpg">
 						<p>Jon Snow</p>
 					</div>
@@ -185,7 +213,7 @@
 					<div class="personListItem" onclick="openProfile('Jon Snow')">
 						<img src="img/posts/david-marcu-4654-unsplash.jpg">
 						<p>Jon Snow</p>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
