@@ -1,7 +1,7 @@
 var posts = [{
 				person: "Jon Snow",
 				place: "Green Lake, Austria",
-				image: "img/posts/ales-krivec-24158-unsplash.jpg",
+				image: "img/posts/ales-krivec-24158-unsplash1.jpg",
 				upvotes: 53,
 				date: "18 JAN 2019",
 				comments: 
@@ -28,7 +28,7 @@ var posts = [{
 			{
 				person: "Peter Parker",
 				place: "Moscow, Russia",
-				image: "img/posts/nikolay-vorobyev-470715-unsplash.jpg",
+				image: "img/posts/david-marcu-4654-unsplash.jpg",
 				upvotes: 26,
 				date: "01 MAR 2018",
 				comments: 
@@ -41,7 +41,7 @@ var posts = [{
 			{
 				person: "Johnny Depp",
 				place: "Agueda, Portugal",
-				image: "img/posts/ricardo-resende-803794-unsplash.jpg",
+				image: "img/posts/roman-kraft-106708-unsplash.jpg",
 				upvotes: 10,
 				date: "02 SEP 2018",
 				comments: 
@@ -69,7 +69,7 @@ var posts = [{
 			{
 				person: "Harry Potter",
 				place: "Majorca, Spain",
-				image: "img/posts/benjamin-voros-151769-unsplash.jpg",
+				image: "img/posts/igor-oliyarnik-1430265-unsplash.jpg",
 				upvotes: 526,
 				date: "19 OCT 2016",
 				comments: 
