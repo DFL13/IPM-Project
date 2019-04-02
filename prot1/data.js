@@ -3,6 +3,7 @@ var posts = [{
 				place: "Green Lake, Austria",
 				image: "img/posts/ales-krivec-24158-unsplash1.jpg",
 				upvotes: 53,
+				upvoted: false,
 				date: "18 JAN 2019",
 				comments: 
 					[
@@ -16,6 +17,7 @@ var posts = [{
 				place: "Kraków, Poland",
 				image: "img/posts/jacek-dylag-579738-unsplash.jpg",
 				upvotes: 105,
+				upvoted: false,
 				date: "03 MAR 2019",
 				comments: 
 					[				
@@ -30,6 +32,7 @@ var posts = [{
 				place: "Moscow, Russia",
 				image: "img/posts/david-marcu-4654-unsplash.jpg",
 				upvotes: 26,
+				upvoted: false,
 				date: "01 MAR 2018",
 				comments: 
 					[
@@ -43,6 +46,7 @@ var posts = [{
 				place: "Agueda, Portugal",
 				image: "img/posts/roman-kraft-106708-unsplash.jpg",
 				upvotes: 10,
+				upvoted: false,
 				date: "02 SEP 2018",
 				comments: 
 					[
@@ -57,6 +61,7 @@ var posts = [{
 				place: "Santorini, Greece",
 				image: "img/posts/margaret-barley-42-unsplash.jpg",
 				upvotes: 9000,
+				upvoted: false,
 				date: "09 JUL 2013",
 				comments: 
 					[
@@ -71,6 +76,7 @@ var posts = [{
 				place: "Majorca, Spain",
 				image: "img/posts/igor-oliyarnik-1430265-unsplash.jpg",
 				upvotes: 526,
+				upvoted: false,
 				date: "19 OCT 2016",
 				comments: 
 					[
@@ -88,3 +94,5 @@ var people = {
 				"Ryan Reynolds": {pic: "img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "I can say Chimichanga in seven languages.", posts: []},
 				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good.", posts: []}
 			};
+
+var myPosts = ["", "", "", ""];

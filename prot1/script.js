@@ -155,6 +155,12 @@ function fillPost(postNumber) {
 	header.children[1].innerHTML = post.person;
 	header.children[2].innerHTML = post.place;
 	img.src = post.image;
+	if (posts[postNumber].upvoted) {
+		bar.children[0].src = "img/icons/up-arrow-full.svg";
+	} else {
+		bar.children[0].src = "img/icons/up-arrow.svg";
+	}
+	bar.children[0].setAttribute("onclick", "upvote(" + postNumber + ")");
 	bar.children[1].innerHTML = post.upvotes;
 	bar.children[2].innerHTML = post.date;
 
@@ -242,4 +248,20 @@ function selectOpt(n) {
 	if (n == 2) {
 		
 	}
+}
+
+function upvote(postNumber) {
+	var postPage = document.getElementsByClassName("fullPost")[0];
+	var bar = postPage.children[0].children[0].children[2];
+	if (!posts[postNumber].upvoted) {
+		bar.children[0].src = "img/icons/up-arrow-full.svg";
+		posts[postNumber].upvotes++;
+		posts[postNumber].upvoted = true;
+	} else {
+		bar.children[0].src = "img/icons/up-arrow.svg";
+		posts[postNumber].upvotes--;
+		posts[postNumber].upvoted = false;
+	}
+	localStorage.posts = JSON.stringify(posts);
+	bar.children[1].innerHTML = posts[postNumber].upvotes;
 }
