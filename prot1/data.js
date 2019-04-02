@@ -95,4 +95,17 @@ var people = {
 				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good.", posts: []}
 			};
 
-var myPosts = ["", "", "", ""];
+var myPosts = 
+			[
+				"img/myPosts/diego-jimenez-263102-unsplash.jpg",			// good
+				"img/myPosts/jack-b-1150435-unsplash.jpg",					// good
+				"img/myPosts/gautam-krishnan-1452479-unsplash.jpg",			// good
+				"img/myPosts/joshua-ness-322881-unsplash.jpg",				// good
+				"img/myPosts/igor-francetic-623667-unsplash.jpg",			// good
+				"img/myPosts/matt-1253905-unsplash.jpg",					// good
+				"img/myPosts/sebastian-pichler-750136-unsplash.jpg",		// good
+				"img/myPosts/les-anderson-174222-unsplash.jpg",				// good
+				"img/myPosts/stephen-walker-1177763-unsplash.jpg",			// good
+				"img/myPosts/les-anderson-276551-unsplash.jpg",				// good
+				"img/myPosts/wolfgang-frick-695728-unsplash.jpg"			// good
+			];
