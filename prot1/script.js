@@ -3,6 +3,27 @@ var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 var pageHistory = [];
 
+var pressed = false;
+
+function decide() {
+	pressed = true;
+	setTimeout(goHomeOrBack, 250);
+}
+
+function goHomeOrBack() {
+	var homebtn = document.getElementById("btnR");
+
+	homebtn.onmouseup = function() {
+		pressed = false;
+	}
+
+	if (pressed) {
+		goToHome();
+	}
+	else
+		goBack();
+}
+
 
 function loadData() {
 	localStorage.posts = JSON.stringify(posts);
