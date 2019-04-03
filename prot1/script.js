@@ -135,7 +135,6 @@ function goBack() {
 		current.classList.toggle("hidden");
 		previous.classList.toggle("hidden");
 	}
-	console.log(pageHistory);		//*************
 }
 
 function unlock() {
@@ -396,15 +395,16 @@ function acceptSelectedFriends() {
 }
 
 
-function publishPost(img) {
-	/*var d = new Date();
+function publishPost() {
+	var img = document.getElementsByClassName("publishImg")[0];
+	var d = new Date();
 	var newPost = 	{
 						person: "User",
 						place: "",
-						image: img,
+						image: img.src,
 						upvotes: 0,
 						upvoted: false,
-						date: d.getDate() + " " + month[d.getMonth() + " " + d.getFullYear(),
+						date: d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear(),
 						share: shareSelection.slice(0),
 						comments: []
 					}
@@ -419,7 +419,7 @@ function publishPost(img) {
 	app.classList.toggle("hidden");
 	menu.classList.toggle("hidden");
 	pageHistory.pop();
-	pageHistory.pop();*/
+	pageHistory.pop();
 }
 
 
