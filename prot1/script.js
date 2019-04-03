@@ -6,6 +6,8 @@ var pageHistory = [];
 var pressed = false;
 var timeout_id;
 
+var selectedFriends = false;
+
 function decide() {
 	pressed = true;
 	setTimeout(goHomeOrBack, 250);
@@ -122,13 +124,31 @@ function turnOnOff() {
 	}
 }
 
+function goBackSelected(flag) {
+	selectedFriends = flag;
+	goBack();
+}
+
 function goBack() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
-		var current = document.getElementsByClassName(pageHistory.pop())[0];
+		var currentScreeName = pageHistory.pop();
+		var current = document.getElementsByClassName(currentScreeName)[0];
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
+
+		if (currentScreeName == "sendToSpecific" && selectedFriends == false) {
+			var bar = document.getElementsByClassName("choiceBar")[0];
+			var tds = bar.children[0].children[0].children;
+
+			for (var i = 0; i < tds.length; i++) {
+				tds[i].style.backgroundColor = "white";
+				tds[i].style.color = "black";
+			}
+		}
+
 		current.classList.toggle("hidden");
 		previous.classList.toggle("hidden");
 	}
+	console.log(pageHistory);		//*************
 }
 
 function unlock() {
@@ -244,11 +264,16 @@ function openCam() {
 	pageHistory.push("camApp");
 }
 
-function openMic() {
-
-}
 
 function openPublishMenu() {
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var tds = bar.children[0].children[0].children;
+
+	for (var i = 0; i < tds.length; i++) {
+		tds[i].style.backgroundColor = "white";
+		tds[i].style.color = "black";
+	}
+
 	var cam  = document.getElementsByClassName("camApp")[0];
 	var menu = document.getElementsByClassName("publishMenu")[0];
 	cam.classList.toggle("hidden");
@@ -268,9 +293,36 @@ function selectOpt(n) {
 	tds[n].style.color = "white";
 
 	if (n == 2) {
-		
+
+		var sendToList = document.getElementsByClassName("sendToSpecific")[0];
+		var menu = document.getElementsByClassName("publishMenu")[0];
+
+		var container = sendToList.children[0].children[0];
+		var friend;
+
+
+		container.innerHTML = "";
+		var i = 0;
+		for (friend in people) {
+			container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(\"" + i + "\")'>\
+										<img src=" + people[friend].pic + ">\
+										<p>" + friend + "</p>\
+									</div>";
+			i++;
+		}
+
+		menu.classList.toggle("hidden");
+		sendToList.classList.toggle("hidden");
+		pageHistory.push("sendToSpecific");
+
 	}
 }
+
+
+function publishPost() {
+
+}
+
 
 function upvote(postNumber) {
 	var postPage = document.getElementsByClassName("fullPost")[0];

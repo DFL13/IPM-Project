@@ -315,6 +315,14 @@ div.btnAccept {
 	margin-top: 20px;
 }
 
+div.btnOK {			
+	margin-top: 20px;
+}
+
+div.sendToSpecific div.btnCancel {
+	margin-top: 60px;
+}
+
 
 div.container {
 	/*grid-column: 1 / span 2;*/
