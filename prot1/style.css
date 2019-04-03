@@ -327,12 +327,16 @@ div.button img {
 	width: 100%;
 }
 
+div.btnProfile{
+	margin-top:10px;
+}
+
 div.btnFriends  {
-	margin-top: 65px;
+	margin-top: 15px;
 }
 
 div.btnAddPost {
-	margin-top: 20px;
+	margin-top: 15px;
 }
 
 div.btnCancel {

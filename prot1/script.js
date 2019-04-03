@@ -233,7 +233,10 @@ function fillFriendsList() {
 function openProfile(name) {
 	var friendList = document.getElementsByClassName("friendList")[0];
 	var profile = document.getElementsByClassName("profile")[0];
-	friendList.classList.toggle("hidden");
+	var app = document.getElementsByClassName("shareApp")[0];
+	if(friendList.classList.contains("hidden"))
+		app.classList.toggle("hidden");
+	else friendList.classList.toggle("hidden");
 	profile.classList.toggle("hidden");
 	pageHistory.push("profile");
 
