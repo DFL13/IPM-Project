@@ -55,7 +55,7 @@ function fillPostPreviews() {
 	cols[1].innerHTML = "";
 	for (var i = posts.length - 1; i >= 0; i--) {
 		cols[n].innerHTML += 
-					"<div class='postPreview' onclick='showPost(" + i + ")'>\
+					"<div class='postPreview' onclick='showPost(\"" + i + "\", \"shareApp\")'>\
 						<div class='header'>\
 							<img src=" + people[posts[i].person].pic + ">\
 							<p>" + posts[i].person + "</p>\
@@ -162,10 +162,10 @@ function openApp(appName) {
 	pageHistory.push("fullPost");
 }*/
 
-function showPost(postNumber) {
-	var app = document.getElementsByClassName("shareApp")[0];
+function showPost(postNumber, pageName) {
+	var pageName = document.getElementsByClassName(pageName)[0];
 	var postPage = document.getElementsByClassName("fullPost")[0];
-	app.classList.toggle("hidden");
+	pageName.classList.toggle("hidden");
 	postPage.classList.toggle("hidden");
 	pageHistory.push("fullPost");
 
@@ -232,7 +232,35 @@ function fillFriendsList() {
 }
 
 function openProfile(name) {
-	
+	var friendList = document.getElementsByClassName("friendList")[0];
+	var profile = document.getElementsByClassName("profile")[0];
+	friendList.classList.toggle("hidden");
+	profile.classList.toggle("hidden");
+	pageHistory.push("profile");
+
+	fillProfile(name);
+}
+
+function fillProfile(name) {
+	var n = 1;
+	var profile = document.getElementsByClassName("profile")[0];
+	var cols = profile.children[0].children[0].children;
+	var header = profile.children[0].children[0].children[0];
+	header.children[0].src = people[name].pic;
+	header.children[1].innerHTML = name;
+	header.children[2].innerHTML = people[name].quote;
+
+	cols[1].innerHTML = "";
+	cols[2].innerHTML = "";
+	for (var i = posts.length - 1; i >= 0; i--) {
+		if (posts[i].person==name) {
+			cols[n].innerHTML += 
+						"<div class='postPreview' onclick='showPost(\"" + i + "\", \"profile\")'>\
+							<img src=" + posts[i].image + ">\
+						</div>";
+			n = (n+1)%2+1;
+		}
+	}
 }
 
 function openAddPostMenu() {

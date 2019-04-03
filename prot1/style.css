@@ -244,6 +244,45 @@ div.postPreview img {
 	height: 100px;
 }
 
+div.profile > div.content:not(div.profile.header) {
+	display: grid;
+  	grid-gap: 15px;
+  	grid-template-columns: auto auto;
+}
+
+div.profile div.header {
+	position: relative;
+	padding: 5px;
+	/*background: white;*/
+}
+
+div.profile div.header img {
+	display: block;
+	width: 75px;
+	height: 75px;
+	border-radius: 100%;
+}
+
+div.profile div.header p.name {
+	position: absolute;
+	left: 50px;
+	top: 20px;
+	right: 0;
+	text-align: center;
+	color: black;
+	font-size: 1.6em;
+}
+
+div.profile div.header p.quote {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 3px 0px 0px 10px;
+	color: #747474;
+	font-size: 1.2em;
+}
+
 div.sidebar {
 	position: absolute;
 	top: 0;
@@ -531,7 +570,7 @@ div.camApp div.content img {
 	width: 100%;
 }
 
-div.shareApp, div.publishMenu {
+div.shareApp, div.fullPost, div.profile {
 	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
 }
 
