@@ -241,6 +241,7 @@ div.postPreview div.header p {
 div.postPreview img {
 	display: block;
 	width: 100%;
+	height: 100px;
 }
 
 div.sidebar {
@@ -334,6 +335,7 @@ div.container {
 	/*overflow: hidden;*/
 	box-shadow: 0px 0px 8px 0px black;
 	background: white;
+	overflow: hidden;
 	/*border: solid 3px white;*/
 }
 
@@ -372,9 +374,10 @@ div.post div.header p.place {
 	font-size: 1em;
 }
 
-div.post img {
+div.post > img {
 	display: block;
 	width: 100%;
+	height: 215px;
 }
 
 div.postInfoBar {
@@ -446,10 +449,10 @@ div.commentBody {
 }*/
 
 div.personListItem {
-	margin: 0px 15px;
-	padding: 8px 10px;
+	/*margin: 0px 15px;*/
+	padding: 8px 25px;
 	position: relative;
-	border-bottom: solid 1px #747474;
+	/*border-bottom: solid 1px #747474;*/
 	cursor: pointer;
 
 	/*margin: 5px 0px;
@@ -457,6 +460,18 @@ div.personListItem {
 	background: white;
 	border-radius: 50px;
 	border-bottom: none;*/
+}
+
+div.personListItem::after {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	right: 20px;
+	left: 20px;
+	background-color: transparent;
+	border-bottom: solid 2px #747474;
 }
 
 div.personListItem img {
@@ -468,7 +483,7 @@ div.personListItem img {
 
 div.personListItem p {
 	position: absolute;
-	left: 50px;
+	left: 65px;
 	top: 14px;
 	font-weight: bold;
 	color: black;

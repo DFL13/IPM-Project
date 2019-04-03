@@ -4,7 +4,8 @@ var posts = [{
 				image: "img/posts/ales-krivec-24158-unsplash1.jpg",
 				upvotes: 53,
 				upvoted: false,
-				date: "18 JAN 2019",
+				date: "18 JAN 2018",
+				share: [],
 				comments: 
 					[
 						{person: "Jon Snow", message: "Guys... for real :("},
@@ -18,7 +19,8 @@ var posts = [{
 				image: "img/posts/jacek-dylag-579738-unsplash.jpg",
 				upvotes: 105,
 				upvoted: false,
-				date: "03 MAR 2019",
+				date: "3 MAR 2018",
+				share: [],
 				comments: 
 					[				
 						{person: "Peter Parker", message: "The best avenger, might i add."},
@@ -33,7 +35,8 @@ var posts = [{
 				image: "img/posts/david-marcu-4654-unsplash.jpg",
 				upvotes: 26,
 				upvoted: false,
-				date: "01 MAR 2018",
+				date: "2 JUL 2018",
+				share: [],
 				comments: 
 					[
 						{person: "Johnny Depp", message: "Get a room!!!"},
@@ -47,7 +50,8 @@ var posts = [{
 				image: "img/posts/roman-kraft-106708-unsplash.jpg",
 				upvotes: 10,
 				upvoted: false,
-				date: "02 SEP 2018",
+				date: "17 JUL 2018",
+				share: [],
 				comments: 
 					[
 						{person: "Johnny Depp", message: "-.-"},
@@ -62,7 +66,8 @@ var posts = [{
 				image: "img/posts/margaret-barley-42-unsplash.jpg",
 				upvotes: 9000,
 				upvoted: false,
-				date: "09 JUL 2013",
+				date: "30 AUG 2013",
+				share: [],
 				comments: 
 					[
 						{person: "Ryan Reynolds", message: "Jesus, Peter! You call yourself a superhero?!!"},
@@ -77,7 +82,8 @@ var posts = [{
 				image: "img/posts/igor-oliyarnik-1430265-unsplash.jpg",
 				upvotes: 526,
 				upvoted: false,
-				date: "19 OCT 2016",
+				date: "3 MAR 2019",
+				share: [],
 				comments: 
 					[
 						{person: "Harry Potter", message: "You are nothing but mere muggles. Of course you don't get it!"},
@@ -87,6 +93,7 @@ var posts = [{
 			}];
 
 var people = {
+				"User": {pic: "img/icons/user.svg", quote: "", posts: []},
 				"Jon Snow": {pic: "img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "Winter is coming.", posts: []},
 				"Tony Stark": {pic: "img/profile_pics/umanoide-408098-unsplash.jpg", quote: "Genious, billionaire, playboy, philanthropist.", posts: []},
 				"Peter Parker": {pic: "img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "Well, wobble my webs and call me shaky!", posts: []},

@@ -11,7 +11,7 @@
 
 	<div class="screen">
 		<div class="outerBtn" id="btnL" onclick="turnOnOff()"></div>
-		<div class="outerBtn" id="btnR" onmousedown="decide()"></div>
+		<div class="outerBtn" id="btnR" onmousedown="triggerChoice()" onmouseup="endChoice()"></div>
 
 		<div class="page lockscreen hidden">
 			<div class="clock">
@@ -109,12 +109,11 @@
 -->
 		<div class="page camApp hidden">
 			<div class="content">
-				<!-- <img src="img/posts/igor-francetic-623667-unsplash.jpg"> -->
-				<img src="img/myPosts/les-anderson-276551-unsplash.jpg">
+				<img src=""><!-- js fill -->
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnShutter" onclick="openPublishMenu()">
+				<div class="button btnShutter" onclick=""><!-- js fill -->
 					<img src="img/icons/camera-shutter.svg">
 				</div>
 				<div class="button btnCancel" onclick="goBack()">
@@ -132,7 +131,7 @@
 						<td onclick="selectOpt(2)">Choose...</td>
 					</tr>
 				</table>
-				<img class="publishImg" src="img/posts/igor-francetic-623667-unsplash.jpg">
+				<img class="publishImg" src=""><!-- js fill -->
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
@@ -154,10 +153,10 @@
 
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnCancel" onclick="goBackSelected(false)">
+				<div class="button btnCancel" onclick="goBack()">
 					<img src="img/icons/close-cross.svg">
 				</div>
-				<div class="button btnOK" onclick="goBackSelected(true)">
+				<div class="button btnOK" onclick="acceptSelectedFriends()">
 					<img src="img/icons/verification-checkmark-symbol.svg">
 				</div>
 			</div>

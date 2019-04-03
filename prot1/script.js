@@ -3,42 +3,45 @@ var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 var pageHistory = [];
 
-var pressed = false;
+var shareSelection = [];
+var shareSelectionTmp = [];
+
+var timeEnded;
 var timeout_id;
 
-var selectedFriends = false;
-
-function decide() {
-	pressed = true;
-	setTimeout(goHomeOrBack, 250);
+function triggerChoice() {
+	timeEnded = false;
+	timeout_id = setTimeout(triggerHome, 250);
 }
 
-function goHomeOrBack() {
-	var homebtn = document.getElementById("btnR");
-
-	homebtn.onmouseup = function() {
-		pressed = false;
-	}
-
-	if (pressed) {
-		goToHome();
-	}
-	else
+function endChoice() {
+	if (!timeEnded) {
+		clearTimeout(timeout_id);
 		goBack();
+	}
+}
+
+function triggerHome() {
+	timeEnded = true;
+	goToHome();
 }
 
 
 function loadData() {
 	localStorage.posts = JSON.stringify(posts);
 	localStorage.people = JSON.stringify(people);
+	localStorage.myPosts = JSON.stringify(myPosts);
 	posts = JSON.parse(localStorage.posts);
 	people = JSON.parse(localStorage.people);
+	myPosts = JSON.parse(localStorage.myPosts);
 	/*if (localStorage.posts == undefined && localStorage.people == undefined) {
 		localStorage.posts = JSON.stringify(posts);
 		localStorage.people = JSON.stringify(people);
+		localStorage.myPosts = JSON.stringify(myPosts);
 	} else {
 		posts = JSON.parse(localStorage.posts);
 		people = JSON.parse(localStorage.people);
+		myPosts = JSON.parse(localStorage.myPosts);
 	}*/
 	fillPostPreviews();
 }
@@ -124,26 +127,10 @@ function turnOnOff() {
 	}
 }
 
-function goBackSelected(flag) {
-	selectedFriends = flag;
-	goBack();
-}
-
 function goBack() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
-		var currentScreeName = pageHistory.pop();
-		var current = document.getElementsByClassName(currentScreeName)[0];
+		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
-
-		if (currentScreeName == "sendToSpecific" && selectedFriends == false) {
-			var bar = document.getElementsByClassName("choiceBar")[0];
-			var tds = bar.children[0].children[0].children;
-
-			for (var i = 0; i < tds.length; i++) {
-				tds[i].style.backgroundColor = "white";
-				tds[i].style.color = "black";
-			}
-		}
 
 		current.classList.toggle("hidden");
 		previous.classList.toggle("hidden");
@@ -259,20 +246,29 @@ function openAddPostMenu() {
 function openCam() {
 	var app = document.getElementsByClassName("shareApp")[0];
 	var cam  = document.getElementsByClassName("camApp")[0];
+	var img = cam.children[0].children[0];
+	var shutter = cam.children[1].children[1];
+	var srcImg = myPosts[Math.floor((Math.random() * (myPosts.length-1)))];
+
+	img.src = srcImg;
+	shutter.setAttribute("onclick", "openPublishMenu('" + srcImg + "')");
+
 	app.classList.toggle("hidden");
 	cam.classList.toggle("hidden");
 	pageHistory.push("camApp");
 }
 
 
-function openPublishMenu() {
-	var bar = document.getElementsByClassName("choiceBar")[0];
-	var tds = bar.children[0].children[0].children;
+function openPublishMenu(srcImg) {
+	var img = document.getElementsByClassName("publishImg")[0];
 
-	for (var i = 0; i < tds.length; i++) {
-		tds[i].style.backgroundColor = "white";
-		tds[i].style.color = "black";
-	}
+	shareSelection = [];
+	shareSelectionTmp = [];
+	img.src = srcImg;
+
+	selectOpt(0);
+
+	fillSpecificSelection();
 
 	var cam  = document.getElementsByClassName("camApp")[0];
 	var menu = document.getElementsByClassName("publishMenu")[0];
@@ -281,7 +277,83 @@ function openPublishMenu() {
 	pageHistory.push("publishMenu");
 }
 
+function fillSpecificSelection() {
+	var sendToList = document.getElementsByClassName("sendToSpecific")[0];
+	var menu = document.getElementsByClassName("publishMenu")[0];
+
+	var container = sendToList.children[0].children[0];
+	var friend;
+
+	container.innerHTML = "";
+	for (friend in people) {
+		container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(this)'>\
+									<img src=" + people[friend].pic + ">\
+									<p>" + friend + "</p>\
+								</div>";
+	}
+}
+
 function selectOpt(n) {
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var tds = bar.children[0].children[0].children;
+
+	if (n == 2) {
+		openSendToSpecific()
+	} else {
+		if (n == 0) {shareSelection = ["All"]}
+		if (n == 1) {shareSelection = ["Friends"]}
+			
+		for (var i = 0; i < tds.length; i++) {
+			tds[i].style.backgroundColor = "white";
+			tds[i].style.color = "black";
+		}
+		tds[n].style.backgroundColor = "#2379d8";
+		tds[n].style.color = "white";
+	}
+}
+
+function openSendToSpecific() {
+	var sendToList = document.getElementsByClassName("sendToSpecific")[0];
+	var menu = document.getElementsByClassName("publishMenu")[0];
+
+	var items = sendToList.children[0].children[0].children;
+
+	if (shareSelection[0] == "All" || shareSelection[0] == "Friends") {
+		shareSelectionTmp = [];
+	} else {
+		shareSelectionTmp = shareSelection.slice(0); /*clone*/
+	}
+
+	for (var i=0; i < items.length; i++) {
+		var name = items[i].children[1].innerHTML;
+		if (shareSelectionTmp.includes(name)) {
+			items[i].style.backgroundColor = "#86b5f2";
+		} else {
+			items[i].style.backgroundColor = "transparent";
+		}
+	}
+
+	menu.classList.toggle("hidden");
+	sendToList.classList.toggle("hidden");
+	pageHistory.push("sendToSpecific");
+}
+
+function selectFriend(listItem) {
+	var name = listItem.children[1].innerHTML;
+	if (!shareSelectionTmp.includes(name)) {
+		listItem.style.backgroundColor = "#86b5f2";
+		shareSelectionTmp.push(name);
+	} else {
+		listItem.style.backgroundColor = "transparent";
+		shareSelectionTmp.splice(shareSelection.indexOf(name), 1);
+	}
+}
+
+function acceptSelectedFriends() {
+	if (shareSelectionTmp.length == 0) {return;}
+
+	shareSelection = shareSelectionTmp.slice(0); /*clone*/
+
 	var bar = document.getElementsByClassName("choiceBar")[0];
 	var tds = bar.children[0].children[0].children;
 
@@ -289,38 +361,37 @@ function selectOpt(n) {
 		tds[i].style.backgroundColor = "white";
 		tds[i].style.color = "black";
 	}
-	tds[n].style.backgroundColor = "#2379d8";
-	tds[n].style.color = "white";
+	tds[2].style.backgroundColor = "#2379d8";
+	tds[2].style.color = "white";
 
-	if (n == 2) {
-
-		var sendToList = document.getElementsByClassName("sendToSpecific")[0];
-		var menu = document.getElementsByClassName("publishMenu")[0];
-
-		var container = sendToList.children[0].children[0];
-		var friend;
-
-
-		container.innerHTML = "";
-		var i = 0;
-		for (friend in people) {
-			container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(\"" + i + "\")'>\
-										<img src=" + people[friend].pic + ">\
-										<p>" + friend + "</p>\
-									</div>";
-			i++;
-		}
-
-		menu.classList.toggle("hidden");
-		sendToList.classList.toggle("hidden");
-		pageHistory.push("sendToSpecific");
-
-	}
+	goBack();
 }
 
 
-function publishPost() {
+function publishPost(img) {
+	/*var d = new Date();
+	var newPost = 	{
+						person: "User",
+						place: "",
+						image: img,
+						upvotes: 0,
+						upvoted: false,
+						date: d.getDate() + " " + month[d.getMonth() + " " + d.getFullYear(),
+						share: shareSelection.slice(0),
+						comments: []
+					}
 
+	posts.push(newPost);
+	localStorage.posts = JSON.stringify(posts);
+
+	fillPostPreviews();
+
+	var app = document.getElementsByClassName("shareApp")[0];
+	var menu = document.getElementsByClassName("publishMenu")[0];
+	app.classList.toggle("hidden");
+	menu.classList.toggle("hidden");
+	pageHistory.pop();
+	pageHistory.pop();*/
 }
 
 
