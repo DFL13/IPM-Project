@@ -4,6 +4,7 @@ var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 var pageHistory = [];
 
 var pressed = false;
+var timeout_id;
 
 function decide() {
 	pressed = true;
@@ -236,9 +237,9 @@ function openAddPostMenu() {
 }
 
 function openCam() {
-	var menu = document.getElementsByClassName("addPostMenu")[0];
+	var app = document.getElementsByClassName("shareApp")[0];
 	var cam  = document.getElementsByClassName("camApp")[0];
-	menu.classList.toggle("hidden");
+	app.classList.toggle("hidden");
 	cam.classList.toggle("hidden");
 	pageHistory.push("camApp");
 }
