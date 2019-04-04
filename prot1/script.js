@@ -135,6 +135,7 @@ function goBack() {
 		current.classList.toggle("hidden");
 		previous.classList.toggle("hidden");
 	}
+	console.log(shareSelection);
 }
 
 function unlock() {
@@ -316,10 +317,12 @@ function fillSpecificSelection() {
 
 	container.innerHTML = "";
 	for (friend in people) {
-		container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(this)'>\
-									<img src=" + people[friend].pic + ">\
-									<p>" + friend + "</p>\
-								</div>";
+		if (friend != "User") {
+			container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(this)'>\
+										<img src=" + people[friend].pic + ">\
+										<p>" + friend + "</p>\
+									</div>";
+		}
 	}
 }
 
