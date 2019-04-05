@@ -183,6 +183,14 @@ function fillPost(postNumber) {
 	header.children[0].src = people[post.person].pic;
 	header.children[1].innerHTML = post.person;
 	header.children[2].innerHTML = post.place;
+	if (posts[postNumber].person == "User") {
+		header.children[3].src = "img/icons/trash-can-black-symbol.svg";
+		header.children[3].setAttribute("onclick", "deletePost(" + postNumber + ")");
+	} else {
+		header.children[3].src = "";
+		header.children[3].setAttribute("onclick", "");
+	}
+
 	img.src = post.image;
 	if (posts[postNumber].upvoted) {
 		bar.children[0].src = "img/icons/up-arrow-full.svg";
@@ -207,6 +215,14 @@ function fillPost(postNumber) {
 	}
 }
 
+function deletePost(postNumber) {
+	posts.splice(postNumber, 1);
+	localStorage.posts = JSON.stringify(posts);
+
+	fillPostPreviews();
+	goBack();
+}
+
 function openFriendList() {
 	var app = document.getElementsByClassName("shareApp")[0];
 	var friendList = document.getElementsByClassName("friendList")[0];
@@ -224,6 +240,9 @@ function fillFriendsList() {
 
 	container.innerHTML = "";
 	for (friend in people) {
+		if (friend == "User") {
+			continue;
+		}
 		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"" + friend + "\")'>\
 									<img src=" + people[friend].pic + ">\
 									<p>" + friend + "</p>\
