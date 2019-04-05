@@ -244,15 +244,21 @@ div.postPreview img {
 	height: 100px;
 }
 
-div.profile > div.content:not(div.profile.header) {
+div.profile > div.content {
 	display: grid;
   	grid-gap: 15px;
   	grid-template-columns: auto auto;
 }
 
+div.profile div.container {
+	grid-column: 1 / span 2;
+	height: 100px;
+}
+
 div.profile div.header {
 	position: relative;
 	padding: 5px;
+	height: 100px;
 	/*background: white;*/
 }
 
@@ -309,7 +315,7 @@ div.button {
 	cursor: pointer;
 }
 
-div.button::before { 
+/*div.button::before { 
     content: '';
     display: block;
     position: absolute;
@@ -320,7 +326,7 @@ div.button::before {
     background: transparent;
     border: solid 3px white;
     border-radius: 100px;
-}
+}*/
 
 
 div.button img {
@@ -357,6 +363,7 @@ div.publishMenu div.btnCancel {
 
 div.btnAccept {
 	margin-top: 20px;
+	background-color: dodgerblue;
 }
 
 div.btnOK {			

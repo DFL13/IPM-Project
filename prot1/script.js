@@ -8,6 +8,7 @@ var shareSelectionTmp = [];
 
 var timeEnded;
 var timeout_id;
+var virgin = true;
 
 function triggerChoice() {
 	timeEnded = false;
@@ -117,14 +118,18 @@ function goToHome() {
 
 function turnOnOff() {
 	if (pageHistory.length > 0) {
-		var current = document.getElementsByClassName(pageHistory.pop())[0];
+		var current = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 		current.classList.toggle("hidden");
-		pageHistory = [];
+		if (pageHistory[pageHistory.length-1] != "lockscreen") {
+			pageHistory.push("lockscreen");
+		}
+		
 	} else {
 		var lockscreen = document.getElementsByClassName("lockscreen")[0];
 		lockscreen.classList.toggle("hidden");
 		pageHistory = ["lockscreen"];
 	}
+	console.log(pageHistory);
 }
 
 function goBack() {
@@ -140,10 +145,17 @@ function goBack() {
 
 function unlock() {
 	var lockscreen = document.getElementsByClassName("lockscreen")[0];
-	var main = document.getElementsByClassName("main")[0];
+	var app = document.getElementsByClassName("main")[0];
+	if (!virgin) {
+		pageHistory.pop();
+		app = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
+	} else {
+		virgin = false;
+		pageHistory.push("main");
+	}
 	lockscreen.classList.toggle("hidden");
-	main.classList.toggle("hidden");
-	pageHistory.push("main");
+	app.classList.toggle("hidden");
+	console.log(pageHistory);
 }
 
 function openApp(appName) {
@@ -280,9 +292,9 @@ function openProfile(name) {
 }
 
 function fillProfile(name) {
-	var n = 1;
+	var n = 2;
 	var profile = document.getElementsByClassName("profile")[0];
-	var cols = profile.children[0].children[0].children;
+	var cols = profile.children[0].children;
 	var header = profile.children[0].children[0].children[0];
 	header.children[0].src = people[name].pic;
 	header.children[1].innerHTML = name;
@@ -296,7 +308,7 @@ function fillProfile(name) {
 						"<div class='postPreview' onclick='showPost(\"" + i + "\", \"profile\")'>\
 							<img src=" + posts[i].image + ">\
 						</div>";
-			n = (n+1)%2+1;
+			n = n%2+1;
 		}
 	}
 }
