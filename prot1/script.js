@@ -150,6 +150,10 @@ function openApp(appName) {
 	var main = document.getElementsByClassName("main")[0];
 	var app = document.getElementsByClassName(appName)[0];
 	main.classList.toggle("hidden");
+	if (appName == "shareApp") {
+		var cont = app.children[0];
+		cont.scrollTop = 0;
+	}
 	app.classList.toggle("hidden");
 	pageHistory.push(appName);
 }
@@ -166,6 +170,10 @@ function showPost(postNumber, pageName) {
 	var pageName = document.getElementsByClassName(pageName)[0];
 	var postPage = document.getElementsByClassName("fullPost")[0];
 	pageName.classList.toggle("hidden");
+
+	var cont = postPage.children[0];
+	cont.scrollTop = 0;
+
 	postPage.classList.toggle("hidden");
 	pageHistory.push("fullPost");
 
@@ -227,6 +235,10 @@ function openFriendList() {
 	var app = document.getElementsByClassName("shareApp")[0];
 	var friendList = document.getElementsByClassName("friendList")[0];
 	app.classList.toggle("hidden");
+
+	var cont = friendList.children[0];
+	cont.scrollTop = 0;
+
 	friendList.classList.toggle("hidden");
 	pageHistory.push("friendList");
 
@@ -257,6 +269,10 @@ function openProfile(name) {
 	if(friendList.classList.contains("hidden"))
 		app.classList.toggle("hidden");
 	else friendList.classList.toggle("hidden");
+
+	var cont = profile.children[0];
+	cont.scrollTop = 0;
+
 	profile.classList.toggle("hidden");
 	pageHistory.push("profile");
 
@@ -323,6 +339,10 @@ function openPublishMenu(srcImg) {
 	var cam  = document.getElementsByClassName("camApp")[0];
 	var menu = document.getElementsByClassName("publishMenu")[0];
 	cam.classList.toggle("hidden");
+
+	var cont = menu.children[0];
+	cont.scrollTop = 0;
+
 	menu.classList.toggle("hidden");
 	pageHistory.push("publishMenu");
 }
