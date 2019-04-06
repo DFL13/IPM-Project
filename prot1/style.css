@@ -282,6 +282,7 @@ div.profile div.header img {
 
 div.profile div.header p.name {
 	position: absolute;
+	width: max-content;
 	left: 100px;
 	top: 25px;
 	right: 0;
