@@ -227,8 +227,10 @@ function fillPost(postNumber) {
 	for (var i = post.comments.length - 1; i >= 0; i--) {
 		comments.innerHTML += 	"<div class='comment'>\
 									<div class='header'>\
-										<img src=" + people[post.comments[i].person].pic + ">\
-										<p>" + post.comments[i].person + "</p>\
+										<img src=" + people[post.comments[i].person].pic + "\
+										 	onclick='openProfile(\"" + post.comments[i].person + "\", \"fullPost\")'>\
+										<p onclick='openProfile(\"" + post.comments[i].person + "\", \"fullPost\")'>\
+											" + post.comments[i].person + "</p>\
 									</div>\
 									<div class='commentBody'>\
 										<p>" + post.comments[i].message + "</p>\

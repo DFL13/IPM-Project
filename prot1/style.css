@@ -248,6 +248,10 @@ div.post div.header img.pic, div.post div.header p.name{
 	cursor: pointer;
 }
 
+div.comment img, div.comment div.header p{
+	cursor:pointer;
+}
+
 div.profile > div.content {
 	display: grid;
   	grid-column-gap: 15px;
