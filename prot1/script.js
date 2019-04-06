@@ -56,12 +56,12 @@ function fillPostPreviews() {
 	cols[1].innerHTML = "";
 	for (var i = posts.length - 1; i >= 0; i--) {
 		cols[n].innerHTML += 
-					"<div class='postPreview' onclick='showPost(\"" + i + "\", \"shareApp\")'>\
-						<div class='header'>\
+					"<div class='postPreview'>\
+						<div class='header' onclick='openProfile(\"" + posts[i].person + "\", \"shareApp\")'>\
 							<img src=" + people[posts[i].person].pic + ">\
 							<p>" + posts[i].person + "</p>\
 						</div>\
-						<img src=" + posts[i].image + ">\
+						<img src=" + posts[i].image + " onclick='showPost(\"" + i + "\", \"shareApp\")'>\
 					</div>";
 
 		/*var pp = document.createElement("DIV");
@@ -201,7 +201,9 @@ function fillPost(postNumber) {
 	var comments = postPage.children[0].children[0].children[3];
 
 	header.children[0].src = people[post.person].pic;
+	header.children[0].setAttribute("onclick", "openProfile(\"" + post.person + "\", \"fullPost\")");
 	header.children[1].innerHTML = post.person;
+	header.children[1].setAttribute("onclick", "openProfile(\"" + post.person + "\", \"fullPost\")");
 	header.children[2].innerHTML = post.place;
 	if (posts[postNumber].person == "User") {
 		header.children[3].src = "img/icons/trash-can-black-symbol.svg";
@@ -267,20 +269,19 @@ function fillFriendsList() {
 		if (friend == "User") {
 			continue;
 		}
-		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"" + friend + "\")'>\
+		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"" + friend + "\", \"friendList\")'>\
 									<img src=" + people[friend].pic + ">\
 									<p>" + friend + "</p>\
 								</div>";
 	}
 }
 
-function openProfile(name) {
-	var friendList = document.getElementsByClassName("friendList")[0];
+function openProfile(name, pageName) {
 	var profile = document.getElementsByClassName("profile")[0];
-	var app = document.getElementsByClassName("shareApp")[0];
-	if(friendList.classList.contains("hidden"))
-		app.classList.toggle("hidden");
-	else friendList.classList.toggle("hidden");
+	var page = document.getElementsByClassName(pageName)[0];
+	if(page.classList.contains("hidden"))
+		page.classList.toggle("hidden");
+	else page.classList.toggle("hidden");
 
 	var cont = profile.children[0];
 	cont.scrollTop = 0;
