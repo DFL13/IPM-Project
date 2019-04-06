@@ -443,6 +443,7 @@ div.post div.header img.pic {
 
 div.post div.header p.name {
 	position: absolute;
+	width: max-content;
 	left: 60px;
 	top: 14px;
 	right: 0;

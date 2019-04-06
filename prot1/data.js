@@ -125,7 +125,7 @@ var posts = [{
 				image: "img/posts/amy-reed-1258751-unsplash.jpg",
 				upvotes: 150,
 				upvoted: false,
-				date: "20 JAN 2018",
+				date: "30 JUN 2018",
 				share: [],
 				comments: 
 					[

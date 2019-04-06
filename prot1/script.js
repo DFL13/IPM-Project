@@ -366,10 +366,18 @@ function openCam() {
 
 function openPublishMenu(srcImg) {
 	var img = document.getElementsByClassName("publishImg")[0];
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var arrow = bar.previousElementSibling;
 
 	shareSelection = [];
 	shareSelectionTmp = [];
 	img.src = srcImg;
+
+	bar.style.transitionDelay = "-1s";
+	arrow.style.transitionDelay = "-1s";
+	bar.style.bottom = "-40px";
+	arrow.style.bottom = "5px";
+	arrow.style.transform = "rotate(0deg)";
 
 	selectOpt(0);
 
@@ -401,6 +409,22 @@ function fillSpecificSelection() {
 										<p>" + friend + "</p>\
 									</div>";
 		}
+	}
+}
+
+function showChoiceBar() {
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var arrow = bar.previousElementSibling;
+	if (bar.style.bottom == "-40px") {
+		bar.style.transitionDelay = "0s";
+		arrow.style.transitionDelay = "0s";
+		bar.style.bottom = "8px";
+		arrow.style.bottom = "53px";
+		arrow.style.transform = "rotate(180deg)";
+	} else {
+		bar.style.bottom = "-40px";
+		arrow.style.bottom = "5px";
+		arrow.style.transform = "rotate(0deg)";
 	}
 }
 
