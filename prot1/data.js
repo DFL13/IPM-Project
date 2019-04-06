@@ -90,6 +90,93 @@ var posts = [{
 						{person: "Johnny Depp", message: "He is not a very gifted person Ryan...that's for sure."},
 						{person: "Ryan Reynolds", message: "What on earth is a broom carrying wizard doing on a plane??"}	
 					]
+			},
+			{
+				person: "Jon Snow",
+				place: "Beach, Somewhere",
+				image: "img/posts/kelly-lund-1397985-unsplash.jpg",
+				upvotes: 25,
+				upvoted: false,
+				date: "16 MAR 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Jon Snow", message: "It's a wolf..."},
+						{person: "Johnny Depp", message: "What a beautiful dog!"}
+					]
+			},
+			{
+				person: "Johnny Depp",
+				place: "Lisbon Zoo, Portugal",
+				image: "img/posts/david-clode-1378369-unsplash.jpg",
+				upvotes: 3,
+				upvoted: false,
+				date: "26 JUL 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Johnny Depp", message: "It's a parrot..."},
+						{person: "Jon Snow", message: "What a beautiful chicken!"}
+					]	
+			},
+			{
+				person: "Tony Stark",
+				place: "Lisbon Zoo, Portugal",
+				image: "img/posts/amy-reed-1258751-unsplash.jpg",
+				upvotes: 150,
+				upvoted: false,
+				date: "20 JAN 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Tony Stark", message: "No, i didn't see your chicken..."},
+						{person: "Johnny Depp", message: "Did you see the parrot i posted about?"},
+						{person: "Tony Stark", message: "It's my old friend, Prehistorical Hulk."},
+						{person: "Peter Parker", message: "Who's that Mr.Stark?"}
+					]
+			},
+			{
+				person: "Ryan Reynolds",
+				place: "Santa's Backyard, North Pole",
+				image: "img/posts/annie-spratt-1288425-unsplash.jpg",
+				upvotes: 1500,
+				upvoted: false,
+				date: "25 Dec 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Ryan Reynolds", message: "Well...Santa wasn't home, obviously!"},
+						{person: "Jon Snow", message: "How did you get in?"}
+					]	
+			},
+			{
+				person: "Peter Parker",
+				place: "Santa's Frontyard, North Pole",
+				image: "img/posts/eberhard-grossgasteiger-1482753-unsplash.jpg",
+				upvotes: 150,
+				upvoted: false,
+				date: "26 DEC 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Tony Stark", message: "Even Prehistorical Hulk is helping!!"},
+						{person: "Peter Parker", message: "Don't worry, Mr. Stark, it's all under controll ;p"},
+						{person: "Tony Stark", message: "Kid, the world is on fire, and you decided to pay Santa a visit..."}
+					]
+			},
+			{
+				person: "Harry Potter",
+				place: "London Zoo, England",
+				image: "img/posts/david-clode-1398034-unsplash.jpg",
+				upvotes: 99,
+				upvoted: false,
+				date: "12 MAY 2018",
+				share: [],
+				comments: 
+					[
+						{person: "Johnny Depp", message: "Ssssssnake."},
+						{person: "Jon Snow", message: "I thought you only talked to snakes."}
+					]	
 			}];
 
 var people = {
