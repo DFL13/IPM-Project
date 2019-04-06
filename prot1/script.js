@@ -292,24 +292,48 @@ function openProfile(name) {
 }
 
 function fillProfile(name) {
-	var n = 2;
+	var n = 4;
 	var profile = document.getElementsByClassName("profile")[0];
 	var cols = profile.children[0].children;
 	var header = profile.children[0].children[0].children[0];
+	var quoteDiv = profile.children[0].children[1];
+	var arrow = profile.children[0].children[2];
 	header.children[0].src = people[name].pic;
 	header.children[1].innerHTML = name;
-	header.children[2].innerHTML = people[name].quote;
+	/*header.children[2].innerHTML = people[name].quote;*/
+	quoteDiv.children[0].innerHTML = people[name].quote;
+	quoteDiv.style.transitionDelay = "-1s";
+	arrow.style.transitionDelay = "-1s";
+	quoteDiv.style.maxHeight = "0px";
+	arrow.style.transform = "rotate(180deg)";
 
-	cols[1].innerHTML = "";
-	cols[2].innerHTML = "";
+	cols[3].innerHTML = "";
+	cols[4].innerHTML = "";
 	for (var i = posts.length - 1; i >= 0; i--) {
 		if (posts[i].person==name) {
 			cols[n].innerHTML += 
 						"<div class='postPreview' onclick='showPost(\"" + i + "\", \"profile\")'>\
 							<img src=" + posts[i].image + ">\
 						</div>";
-			n = n%2+1;
+			/*n = n%2+1;*/
+			/*n = (n-1)%2+2;*/
+			n = (n-2)%2+3;
 		}
+	}
+}
+
+function expandQuote() {
+	var profile = document.getElementsByClassName("profile")[0];
+	var quoteDiv = profile.children[0].children[1];
+	var arrow = profile.children[0].children[2];
+	if (quoteDiv.style.maxHeight == "0px") {
+		quoteDiv.style.transitionDelay = "0ms";
+		arrow.style.transitionDelay = "0ms";
+		quoteDiv.style.maxHeight = "100px";
+		arrow.style.transform = "rotate(0deg)";
+	} else {
+		quoteDiv.style.maxHeight = "0px";
+		arrow.style.transform = "rotate(180deg)";
 	}
 }
 
@@ -339,10 +363,18 @@ function openCam() {
 
 function openPublishMenu(srcImg) {
 	var img = document.getElementsByClassName("publishImg")[0];
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var arrow = bar.previousElementSibling;
 
 	shareSelection = [];
 	shareSelectionTmp = [];
 	img.src = srcImg;
+
+	bar.style.transitionDelay = "-1s";
+	arrow.style.transitionDelay = "-1s";
+	bar.style.bottom = "-40px";
+	arrow.style.bottom = "5px";
+	arrow.style.transform = "rotate(0deg)";
 
 	selectOpt(0);
 
@@ -374,6 +406,22 @@ function fillSpecificSelection() {
 										<p>" + friend + "</p>\
 									</div>";
 		}
+	}
+}
+
+function showChoiceBar() {
+	var bar = document.getElementsByClassName("choiceBar")[0];
+	var arrow = bar.previousElementSibling;
+	if (bar.style.bottom == "-40px") {
+		bar.style.transitionDelay = "0s";
+		arrow.style.transitionDelay = "0s";
+		bar.style.bottom = "8px";
+		arrow.style.bottom = "53px";
+		arrow.style.transform = "rotate(180deg)";
+	} else {
+		bar.style.bottom = "-40px";
+		arrow.style.bottom = "5px";
+		arrow.style.transform = "rotate(0deg)";
 	}
 }
 

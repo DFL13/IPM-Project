@@ -130,6 +130,7 @@
 		<div class="page publishMenu hidden">
 			<div class="content">
 				<img class="publishImg" src=""><!-- js fill -->
+				<img class="arrow" src="img/icons/chevron-arrow-up.svg" onclick="showChoiceBar()">
 				<table class="choiceBar">
 					<tr>
 						<td onclick="selectOpt(0)">All</td>
@@ -185,13 +186,23 @@
 		
 		<div class="page profile hidden">
 			<div class="content">
-				<div class="container">
+				<!-- <div class="container">
 					<div class="header">
 						<img src="">
 						<p class="name"></p>
 						<p class="quote"></p>
 					</div>
+				</div> -->
+				<div class="container">
+					<div class="header">
+						<img src="">
+						<p class="name"></p>
+					</div>
 				</div>
+				<div class="container quote">
+					<p class="quote"></p>
+				</div>
+				<img class="expandArrow" src="img/icons/chevron-arrow-up.svg" onclick="expandQuote()">
 				<div class="col">
 					<!-- js fills -->
 				</div>

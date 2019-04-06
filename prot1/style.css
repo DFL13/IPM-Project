@@ -246,47 +246,72 @@ div.postPreview img {
 
 div.profile > div.content {
 	display: grid;
-  	grid-gap: 15px;
-  	grid-template-columns: auto auto;
+  	grid-column-gap: 15px;
+  	grid-auto-columns: 1fr;
+  	grid-template-rows: max-content max-content auto;
 }
 
 div.profile div.container {
 	grid-column: 1 / span 2;
-	height: 100px;
+	margin-bottom: 0px;
+	z-index: 1;
+	/*height: 100px;*/
 }
 
 div.profile div.header {
-	position: relative;
-	padding: 5px;
-	height: 100px;
+	/*position: relative;*/
+	/*padding: 5px;*/
+	/*height: 100px;*/
 	/*background: white;*/
 }
 
 div.profile div.header img {
 	display: block;
-	width: 75px;
-	height: 75px;
-	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+	border-radius: 0px 25px 25px 0px;
 }
 
 div.profile div.header p.name {
 	position: absolute;
-	left: 50px;
-	top: 20px;
+	left: 100px;
+	top: 25px;
 	right: 0;
-	text-align: center;
+	text-align: left;
 	color: black;
+	font-weight: bold;
 	font-size: 1.6em;
 }
 
-div.profile div.header p.quote {
+div.profile div.quote {
+	margin: 0px auto;
+	margin-bottom: 5px; 
+	border-radius: 0px 0px 25px 25px;
+	width: 80%;
+	z-index: 0;
+	background: #b0561f;
+	max-height: 0px;
+	transition: max-height ease 600ms;
+}
+
+div.profile /*div.header*/ p.quote {
 	/*position: absolute;
 	left: 65px;
 	top: 35px;
 	right: 0;*/
-	margin: 3px 0px 0px 10px;
-	color: #747474;
-	font-size: 1.2em;
+	margin: 5px 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+div.profile img.expandArrow {
+	width: 25px;
+	grid-column: 1 / span 2;
+	margin: 0px auto;
+	transform: rotate(180deg);
+	cursor: pointer;
+	transition: transform ease 600ms;
 }
 
 div.sidebar {
@@ -306,28 +331,30 @@ div.sidebar .time {
 
 div.button {
 	position: relative;
-	width: 45px;
-	height: 45px;
+	width: 50px;
+	height: 50px;
 	margin: 5px auto;
 	border-radius: 100%;
 	padding: 8px;
 	background: white;
 	cursor: pointer;
+	border: solid 2px white;
+	box-shadow:	inset 0 0 6px black;
 }
 
 /*div.button::before { 
     content: '';
     display: block;
     position: absolute;
-    top: -5px;
-    bottom: -5px;
-    left: -5px;
-    right: -5px;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
     background: transparent;
-    border: solid 3px white;
+    border: solid 2px white;
     border-radius: 100px;
-}*/
-
+}
+*/
 
 div.button img {
 	width: 100%;
@@ -338,23 +365,26 @@ div.btnProfile{
 }
 
 div.btnFriends  {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 div.btnAddPost {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 div.btnCancel {
-	margin-top: 130px;
+	margin-top: 125px;
+	background-color: #ff4646;
+	padding: 12px;
 }
 
 div.btnShutter {
 	margin-top: 50px;
+	padding: 0px;
 }
 
 div.camApp div.btnCancel {
-	margin-top: 30px;
+	margin-top: 25px;
 }
 
 div.publishMenu div.btnCancel {
@@ -362,12 +392,13 @@ div.publishMenu div.btnCancel {
 }
 
 div.btnAccept {
-	margin-top: 20px;
-	background-color: dodgerblue;
+	margin-top: 15px;
+	background-color: rgb(35, 121, 216);
 }
 
 div.btnOK {			
-	margin-top: 20px;
+	margin-top: 15px;
+	background-color: #18ab5c;
 }
 
 div.sendToSpecific div.btnCancel {
@@ -593,19 +624,43 @@ div.shareApp, div.fullPost, div.profile {
 	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
 }
 
+div.publishMenu div.content {
+	overflow: hidden
+}
+
+div.publishMenu img.arrow {
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	left: 46%;
+	width: 35px;
+	transform: rotate(0deg);
+	border-radius: 100%;
+	border: solid 2px white;
+	padding: 6px;
+	cursor: pointer;
+	background-color: rgb(35, 121, 216);
+	transition: bottom ease 600ms, transform ease 600ms;
+}
+
 table.choiceBar {
 	direction: ltr;
-	margin-top: 0px;
-	margin-bottom: 7px;
+	/*margin-top: 0px;
+	margin-bottom: 7px;*/
+	position: absolute;
+	bottom: -40px;
+	left: 10px;
 	color: black;
 	background: white;
 	border-radius: 50px;
 	font-size: 1.1em;
 	text-align: center;
-	width: 100%;
+	/*width: 100%;*/
+	width: 94%;
 	border-collapse: collapse;
 	box-shadow: 0px 0px 8px 0px black;
 	overflow: hidden;
+	transition: bottom ease 600ms;
 }
 
 table.choiceBar td {
@@ -623,10 +678,11 @@ table.choiceBar td:last-child {
 img.publishImg {
 	border-radius: 25px;
 	width: 100%;
+	height: 90%;
 	box-shadow: 0px 0px 8px 0px black;
-	margin: 20px auto;
-	margin-top: 7px;
-	margin-bottom: 5px;
+	margin: 10px auto;
+	margin-top: 10px;
+	margin-bottom: 0px;
 	/*border: dashed 5px white;*/
 }
 
