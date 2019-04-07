@@ -47,6 +47,13 @@ function loadData() {
 	fillPostPreviews();
 }
 
+function reset() {
+	if (confirm("Reset device data?")) {
+		localStorage.clear();
+		location.reload();
+	}
+}
+
 function fillPostPreviews() {
 	var n = 1;
 	var app = document.getElementsByClassName("shareApp")[0];
