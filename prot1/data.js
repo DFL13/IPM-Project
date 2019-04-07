@@ -66,7 +66,7 @@ var posts = [{
 				image: "img/posts/margaret-barley-42-unsplash.jpg",
 				upvotes: 9000,
 				upvoted: false,
-				date: "30 AUG 2013",
+				date: "20 JUL 2018",
 				share: [],
 				comments: 
 					[
@@ -82,7 +82,7 @@ var posts = [{
 				image: "img/posts/igor-oliyarnik-1430265-unsplash.jpg",
 				upvotes: 526,
 				upvoted: false,
-				date: "3 MAR 2019",
+				date: "6 AUG 2018",
 				share: [],
 				comments: 
 					[
@@ -97,7 +97,7 @@ var posts = [{
 				image: "img/posts/kelly-lund-1397985-unsplash.jpg",
 				upvotes: 25,
 				upvoted: false,
-				date: "16 MAR 2018",
+				date: "11 AUG 2018",
 				share: [],
 				comments: 
 					[
@@ -111,7 +111,7 @@ var posts = [{
 				image: "img/posts/david-clode-1378369-unsplash.jpg",
 				upvotes: 3,
 				upvoted: false,
-				date: "26 JUL 2018",
+				date: "29 AUG 2018",
 				share: [],
 				comments: 
 					[
@@ -125,7 +125,7 @@ var posts = [{
 				image: "img/posts/amy-reed-1258751-unsplash.jpg",
 				upvotes: 150,
 				upvoted: false,
-				date: "30 JUN 2018",
+				date: "30 SEP 2018",
 				share: [],
 				comments: 
 					[
@@ -141,7 +141,7 @@ var posts = [{
 				image: "img/posts/annie-spratt-1288425-unsplash.jpg",
 				upvotes: 1500,
 				upvoted: false,
-				date: "25 Dec 2018",
+				date: "24 DEC 2018",
 				share: [],
 				comments: 
 					[
@@ -155,7 +155,7 @@ var posts = [{
 				image: "img/posts/eberhard-grossgasteiger-1482753-unsplash.jpg",
 				upvotes: 150,
 				upvoted: false,
-				date: "26 DEC 2018",
+				date: "25 DEC 2018",
 				share: [],
 				comments: 
 					[
@@ -170,7 +170,7 @@ var posts = [{
 				image: "img/posts/david-clode-1398034-unsplash.jpg",
 				upvotes: 99,
 				upvoted: false,
-				date: "12 MAY 2018",
+				date: "12 MAR 2019",
 				share: [],
 				comments: 
 					[
@@ -180,13 +180,13 @@ var posts = [{
 			}];
 
 var people = {
-				"User": {pic: "img/icons/user.svg", quote: "", posts: []},
-				"Jon Snow": {pic: "img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "Winter is coming.", posts: []},
-				"Tony Stark": {pic: "img/profile_pics/umanoide-408098-unsplash.jpg", quote: "Genious, billionaire, playboy, philanthropist.", posts: []},
-				"Peter Parker": {pic: "img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "Well, wobble my webs and call me shaky!", posts: []},
-				"Johnny Depp": {pic: "img/profile_pics/camille-couvez-424691-unsplash.jpg", quote: "Not all treasure is silver and gold, mate.", posts: []},
-				"Ryan Reynolds": {pic: "img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "I can say Chimichanga in seven languages.", posts: []},
-				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good.", posts: []}
+				"User": {pic: "img/icons/user.svg", quote: ""},
+				"Jon Snow": {pic: "img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "Winter is coming."},
+				"Tony Stark": {pic: "img/profile_pics/umanoide-408098-unsplash.jpg", quote: "Genious, billionaire, playboy, philanthropist."},
+				"Peter Parker": {pic: "img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "Well, wobble my webs and call me shaky!"},
+				"Johnny Depp": {pic: "img/profile_pics/camille-couvez-424691-unsplash.jpg", quote: "Not all treasure is silver and gold, mate."},
+				"Ryan Reynolds": {pic: "img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "I can say Chimichanga in seven languages."},
+				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good."}
 			};
 
 var myPosts = 
