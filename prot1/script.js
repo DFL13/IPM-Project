@@ -29,13 +29,13 @@ function triggerHome() {
 
 
 function loadData() {
-	localStorage.posts = JSON.stringify(posts);
+	/*localStorage.posts = JSON.stringify(posts);
 	localStorage.people = JSON.stringify(people);
 	localStorage.myPosts = JSON.stringify(myPosts);
 	posts = JSON.parse(localStorage.posts);
 	people = JSON.parse(localStorage.people);
-	myPosts = JSON.parse(localStorage.myPosts);
-	/*if (localStorage.posts == undefined && localStorage.people == undefined) {
+	myPosts = JSON.parse(localStorage.myPosts);*/
+	if (localStorage.posts == undefined && localStorage.people == undefined && localStorage.myPosts == undefined) {
 		localStorage.posts = JSON.stringify(posts);
 		localStorage.people = JSON.stringify(people);
 		localStorage.myPosts = JSON.stringify(myPosts);
@@ -43,7 +43,7 @@ function loadData() {
 		posts = JSON.parse(localStorage.posts);
 		people = JSON.parse(localStorage.people);
 		myPosts = JSON.parse(localStorage.myPosts);
-	}*/
+	}
 	fillPostPreviews();
 }
 
@@ -136,7 +136,6 @@ function turnOnOff() {
 		lockscreen.classList.toggle("hidden");
 		pageHistory = ["lockscreen"];
 	}
-	console.log(pageHistory);
 }
 
 function goBack() {
@@ -147,7 +146,6 @@ function goBack() {
 		current.classList.toggle("hidden");
 		previous.classList.toggle("hidden");
 	}
-	console.log(shareSelection);
 }
 
 function unlock() {
@@ -162,7 +160,6 @@ function unlock() {
 	}
 	lockscreen.classList.toggle("hidden");
 	app.classList.toggle("hidden");
-	console.log(pageHistory);
 }
 
 function openApp(appName) {
