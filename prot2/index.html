@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Protótipo iGo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="data.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body onload="updateClock(); loadData();">
+	<div class="resetBtn" onclick="reset()">
+		<p>Reset</p>
+	</div>
+
+	<div class="screen">
+		<div class="outerBtn" id="btnL" onclick="turnOnOff()"></div>
+		<div class="outerBtn" id="btnR" onmousedown="triggerChoice()" onmouseup="endChoice()"></div>
+
+		<div class="page lockscreen hidden">
+			<div class="clock">
+				<p class="time"></p>
+				<p class="date"></p>
+			</div>
+			<div class="fingerprint" onclick="unlock()">	
+				<img src="img/icons/fingerprint.svg">
+				<p>Scan...</p>
+			</div>
+		</div>
+
+		<div class="page main hidden">
+			<div class="clock">
+				<p class="time"></p>
+				<p class="date"></p>
+			</div>
+			<div class="appSlider">
+				<div class="appIcon" onclick="openApp('shareApp')">
+					<img src="img/icons/share2.svg" style="transform: translateX(-2px);">
+				</div>
+				<div class="appIcon" onclick="openApp('mapApp')">
+					<img src="img/icons/map2.svg">
+				</div>
+				<div class="appIcon" onclick="openApp('ticketApp')">
+					<img src="img/icons/tickets.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="page shareApp hidden">
+			<div class="content">
+				<div class="col">
+					<!-- js fills -->
+				</div>
+				<div class="col">
+					<!-- js fills -->
+				</div>
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnProfile" onclick="openProfile('User','shareApp')">
+					<img src="img/icons/user.svg">
+				</div>
+				<div class="button btnFriends" onclick="openFriendList()">
+					<img src="img/icons/group-of-people.svg">
+				</div>
+		<!--	<div class="button btnAddPost" onclick="openAddPostMenu()">	-->
+				<div class="button btnAddPost" onclick="openCam()">
+					<img src="img/icons/photo-camera.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="page fullPost hidden">
+			<div class="content">
+				<div class="container post">
+					<!-- js fill -->
+					<div class="header">
+						<img class="pic" src="">
+						<p class="name"></p>
+						<p class="place"></p>
+						<img class="trash" src="" onclick="">
+					</div>
+					<img src="">
+					<div class="postInfoBar">
+						<img src="img/icons/up-arrow.svg">
+						<p class="upvotes" onclick="upvote()"></p>
+						<p class="postDate"></p>
+					</div>
+					<p class="shareInfo"></p>
+					<div class="commentSection">
+						<!-- js fills -->
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="popup verifyDelete hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p>Delete this post?</p>
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>No</p>
+				</div>
+				<div class="popupBtn btnYes" onclick="">
+					<p>Yes</p>
+				</div>
+			</div>
+		</div>
+
+
+<!--	<div class="page addPostMenu hidden">
+			<div class="content">
+				<div class="pillBox">
+					<img src="img/icons/photo-camera-vintage.svg" onclick="openCam()">
+					<img src="img/icons/microphone.svg" onclick="openMic()">
+				</div>
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+-->
+		<div class="page camApp hidden">
+			<div class="content">
+				<img src=""><!-- js fill -->
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnShutter" onclick=""><!-- js fill -->
+					<img src="img/icons/camera-shutter.svg">
+				</div>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="page publishMenu hidden">
+			<div class="content">
+				<img class="publishImg" src=""><!-- js fill -->
+				<img class="arrow" src="img/icons/chevron-arrow-up.svg" onclick="showChoiceBar()">
+				<table class="choiceBar">
+					<tr>
+						<td onclick="selectOpt(0)">All</td>
+						<td onclick="selectOpt(1)">Friends</td>
+						<td onclick="selectOpt(2)">Choose...</td>
+					</tr>
+				</table>
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+				<div class="button btnAccept" onclick="publishPost()">
+					<img src="img/icons/send-email.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="page sendToSpecific hidden">
+			<div class="content">
+				<div class="container">
+					<!-- js fills -->
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+				<div class="button btnOK" onclick="acceptSelectedFriends()">
+					<img src="img/icons/verification-checkmark-symbol.svg">
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="page friendList hidden">
+			<div class="content">
+				<div class="container">
+					<!-- js fills -->
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+		
+		<div class="page profile hidden">
+			<div class="content">
+				<!-- <div class="container">
+					<div class="header">
+						<img src="">
+						<p class="name"></p>
+						<p class="quote"></p>
+					</div>
+				</div> -->
+				<div class="container">
+					<div class="header">
+						<img src="">
+						<p class="name"></p>
+					</div>
+				</div>
+				<div class="container quote">
+					<p class="quote"></p>
+				</div>
+				<img class="expandArrow" src="img/icons/chevron-arrow-up.svg" onclick="expandQuote()">
+				<div class="col">
+					<!-- js fills -->
+				</div>
+				<div class="col">
+					<!-- js fills -->
+				</div>
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="page mapApp hidden">
+			<div class="content">
+				
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnZoomIn">
+					<img src="img/icons/increasing-zoom-interface-symbol.svg">
+				</div>
+				<div class="button btnZoomOut">
+					<img src="img/icons/less-zoom.svg">
+				</div>
+				<div class="button btnMenu">
+					<img src="img/icons/menu-button-of-three-horizontal-lines.svg">
+				</div>				
+			</div>
+			
+		</div>
+		<div class="page ticketApp hidden">
+			<div id="tabSelector">
+			</div>
+			<table class="tabsbar">
+				<tr class="tab" onclick="document.getElementById('tabSelector').style.height='72px';document.getElementById('tabSelector').style.top='0px';">
+					<td>
+						<img src="img/icons/popcorn.svg" style="height: 35%; width:60%; position: relative;">
+					</td>
+				</tr>
+				<tr class="tab" onclick="document.getElementById('tabSelector').style.height='75px';document.getElementById('tabSelector').style.top='72px'">
+					<td>
+						<img src="img/icons/bank.svg" style="position: relative; width:70%;">
+					</td>
+				</tr>
+				<tr class="tab noBorder" onclick="document.getElementById('tabSelector').style.height='67,5px';document.getElementById('tabSelector').style.top='147px'">
+					<td>
+						<img src="img/icons/airplane-shape.svg" style="position: relative; width: 60%">
+					</td>
+				</tr>
+			</table>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnSearch">
+					<img src="img/icons/magnifier-tool.svg">
+				</div>
+				<div class="button btnLocation">
+					<img src="img/icons/compass-pointing-north.svg" style="transform: translate(-4px,-5px); width:130%">
+				</div>
+				<div class="button btnCart">
+					<img src="img/icons/shopping-cart-empty-side-view.svg" style="transform: translateY(1px);">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

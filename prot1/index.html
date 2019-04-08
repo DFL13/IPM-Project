@@ -8,13 +8,10 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 <body onload="updateClock(); loadData();">
-	<div class="resetBtn" onclick="reset()">
-		<p>Reset</p>
-	</div>
 
 	<div class="screen">
 		<div class="outerBtn" id="btnL" onclick="turnOnOff()"></div>
-		<div class="outerBtn" id="btnR" onmousedown="triggerChoice()" onmouseup="endChoice()"></div>
+		<div class="outerBtn" id="btnR" onclick="goBack()" ondblclick="goToHome()"></div>
 
 		<div class="page lockscreen hidden">
 			<div class="clock">
@@ -34,13 +31,13 @@
 			</div>
 			<div class="appSlider">
 				<div class="appIcon" onclick="openApp('shareApp')">
-					<img src="img/icons/share2.svg" style="transform: translateX(-2px);">
+					<img src="img/icons/share.svg" style="transform: translateX(-2px);">
 				</div>
 				<div class="appIcon" onclick="openApp('mapApp')">
-					<img src="img/icons/map2.svg">
+					<img src="img/icons/location-pin.svg">
 				</div>
 				<div class="appIcon" onclick="openApp('ticketApp')">
-					<img src="img/icons/tickets.svg">
+					<img src="img/icons/concert-ticket.svg">
 				</div>
 			</div>
 		</div>
@@ -56,15 +53,11 @@
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnProfile" onclick="openProfile('User','shareApp')">
-					<img src="img/icons/user.svg">
-				</div>
 				<div class="button btnFriends" onclick="openFriendList()">
 					<img src="img/icons/group-of-people.svg">
 				</div>
-		<!--	<div class="button btnAddPost" onclick="openAddPostMenu()">	-->
-				<div class="button btnAddPost" onclick="openCam()">
-					<img src="img/icons/photo-camera.svg">
+				<div class="button btnAddPost" onclick="openAddPostMenu()">
+					<img src="img/icons/add-note-black-interface-square-symbol.svg">
 				</div>
 			</div>
 		</div>
@@ -72,20 +65,17 @@
 		<div class="page fullPost hidden">
 			<div class="content">
 				<div class="container post">
-					<!-- js fill -->
 					<div class="header">
-						<img class="pic" src="">
+						<img src="">
 						<p class="name"></p>
 						<p class="place"></p>
-						<img class="trash" src="" onclick="">
 					</div>
 					<img src="">
 					<div class="postInfoBar">
 						<img src="img/icons/up-arrow.svg">
-						<p class="upvotes" onclick="upvote()"></p>
+						<p class="upvotes"></p>
 						<p class="postDate"></p>
 					</div>
-					<p class="shareInfo"></p>
 					<div class="commentSection">
 						<!-- js fills -->
 					</div>
@@ -100,20 +90,8 @@
 			</div>
 		</div>
 
-		<div class="popup verifyDelete hidden" onclick="goBack()">
-			<div class="popupBox" onclick="event.stopPropagation()">
-				<p>Delete this post?</p>
-				<div class="popupBtn btnNo" onclick="goBack()">
-					<p>No</p>
-				</div>
-				<div class="popupBtn btnYes" onclick="">
-					<p>Yes</p>
-				</div>
-			</div>
-		</div>
 
-
-<!--	<div class="page addPostMenu hidden">
+		<div class="page addPostMenu hidden">
 			<div class="content">
 				<div class="pillBox">
 					<img src="img/icons/photo-camera-vintage.svg" onclick="openCam()">
@@ -127,14 +105,14 @@
 				</div>
 			</div>
 		</div>
--->
+
 		<div class="page camApp hidden">
 			<div class="content">
-				<img src=""><!-- js fill -->
+				<img src="img/posts/igor-francetic-623667-unsplash.jpg">
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnShutter" onclick=""><!-- js fill -->
+				<div class="button btnShutter" onclick="openPublishMenu()">
 					<img src="img/icons/camera-shutter.svg">
 				</div>
 				<div class="button btnCancel" onclick="goBack()">
@@ -145,8 +123,6 @@
 
 		<div class="page publishMenu hidden">
 			<div class="content">
-				<img class="publishImg" src=""><!-- js fill -->
-				<img class="arrow" src="img/icons/chevron-arrow-up.svg" onclick="showChoiceBar()">
 				<table class="choiceBar">
 					<tr>
 						<td onclick="selectOpt(0)">All</td>
@@ -154,6 +130,7 @@
 						<td onclick="selectOpt(2)">Choose...</td>
 					</tr>
 				</table>
+				<img class="publishImg" src="img/posts/igor-francetic-623667-unsplash.jpg">
 			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
@@ -166,25 +143,6 @@
 			</div>
 		</div>
 
-		<div class="page sendToSpecific hidden">
-			<div class="content">
-				<div class="container">
-					<!-- js fills -->
-				</div>
-			</div>
-
-			<div class="sidebar">
-				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnCancel" onclick="goBack()">
-					<img src="img/icons/close-cross.svg">
-				</div>
-				<div class="button btnOK" onclick="acceptSelectedFriends()">
-					<img src="img/icons/verification-checkmark-symbol.svg">
-				</div>
-			</div>
-			
-		</div>
-
 		<div class="page friendList hidden">
 			<div class="content">
 				<div class="container">
@@ -192,40 +150,6 @@
 				</div>
 			</div>
 
-			<div class="sidebar">
-				<p class="time" onclick="goToHome()"></p>
-				<div class="button btnCancel" onclick="goBack()">
-					<img src="img/icons/close-cross.svg">
-				</div>
-			</div>
-		</div>
-		
-		<div class="page profile hidden">
-			<div class="content">
-				<!-- <div class="container">
-					<div class="header">
-						<img src="">
-						<p class="name"></p>
-						<p class="quote"></p>
-					</div>
-				</div> -->
-				<div class="container">
-					<div class="header">
-						<img src="">
-						<p class="name"></p>
-					</div>
-				</div>
-				<div class="container quote">
-					<p class="quote"></p>
-				</div>
-				<img class="expandArrow" src="img/icons/chevron-arrow-up.svg" onclick="expandQuote()">
-				<div class="col">
-					<!-- js fills -->
-				</div>
-				<div class="col">
-					<!-- js fills -->
-				</div>
-			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
 				<div class="button btnCancel" onclick="goBack()">
