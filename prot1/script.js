@@ -119,6 +119,10 @@ function goToHome() {
 		var main = document.getElementsByClassName("main")[0];
 		main.classList.toggle("hidden");
 		current.classList.toggle("hidden");
+		if (current.classList.contains("popup")) {
+			var previous = document.getElementsByClassName(pageHistory.pop())[0];
+			previous.classList.toggle("hidden");
+		}
 		pageHistory = ["lockscreen", "main"];
 	}
 }
@@ -127,6 +131,10 @@ function turnOnOff() {
 	if (pageHistory.length > 0) {
 		var current = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 		current.classList.toggle("hidden");
+		if (current.classList.contains("popup")) {
+			var previous = document.getElementsByClassName(pageHistory[pageHistory.length-2])[0];
+			previous.classList.toggle("hidden");
+		}
 		if (pageHistory[pageHistory.length-1] != "lockscreen") {
 			pageHistory.push("lockscreen");
 		}
@@ -144,7 +152,9 @@ function goBack() {
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 
 		current.classList.toggle("hidden");
-		previous.classList.toggle("hidden");
+		if (!current.classList.contains("popup")) {
+			previous.classList.toggle("hidden");
+		}
 	}
 }
 
@@ -154,6 +164,10 @@ function unlock() {
 	if (!virgin) {
 		pageHistory.pop();
 		app = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
+		if (app.classList.contains("popup")) {
+			var previous = document.getElementsByClassName(pageHistory[pageHistory.length-2])[0];
+			previous.classList.toggle("hidden");
+		}
 	} else {
 		virgin = false;
 		pageHistory.push("main");
@@ -211,7 +225,7 @@ function fillPost(postNumber) {
 	header.children[2].innerHTML = post.place;
 	if (posts[postNumber].person == "User") {
 		header.children[3].src = "img/icons/trash-can-black-symbol.svg";
-		header.children[3].setAttribute("onclick", "deletePost(" + postNumber + ")");
+		header.children[3].setAttribute("onclick", "tryDeletePost(" + postNumber + ")");
 	} else {
 		header.children[3].src = "";
 		header.children[3].setAttribute("onclick", "");
@@ -243,11 +257,22 @@ function fillPost(postNumber) {
 	}
 }
 
+function tryDeletePost(postNumber) {
+	var popup = document.getElementsByClassName("verifyDelete")[0];
+	var btnyes = popup.children[0].children[2];
+
+	btnyes.setAttribute("onclick", "deletePost("+postNumber+")");
+
+	popup.classList.toggle("hidden");
+	pageHistory.push("verifyDelete");
+}
+
 function deletePost(postNumber) {
 	posts.splice(postNumber, 1);
 	localStorage.posts = JSON.stringify(posts);
 
 	fillPostPreviews();
+	goBack();
 	goBack();
 }
 
