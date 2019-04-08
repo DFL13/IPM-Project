@@ -332,6 +332,17 @@ div.profile div.header {
 	/*background: white;*/
 }
 
+div.profile div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 85%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
+}
+
 div.profile div.header img {
 	display: block;
 	width: 80px;
@@ -342,7 +353,7 @@ div.profile div.header img {
 div.profile div.header p.name {
 	position: absolute;
 	width: max-content;
-	left: 100px;
+	left: 90px;
 	top: 25px;
 	right: 0;
 	text-align: left;
@@ -545,6 +556,13 @@ div.postInfoBar {
 	border-bottom: solid 2px #747474;
 	color: black;
 	font-size: 1.1em;
+}
+
+div.post p.shareInfo {
+	color: black;
+	text-align: center;
+	margin: 6px 25px;
+	font-size: 0.9em;
 }
 
 div.postInfoBar img {

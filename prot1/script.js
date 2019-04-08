@@ -216,7 +216,8 @@ function fillPost(postNumber) {
 	var header = postPage.children[0].children[0].children[0];
 	var img = postPage.children[0].children[0].children[1];
 	var bar = postPage.children[0].children[0].children[2];
-	var comments = postPage.children[0].children[0].children[3];
+	var shareInfo = postPage.children[0].children[0].children[3];
+	var comments = postPage.children[0].children[0].children[4];
 
 	header.children[0].src = people[post.person].pic;
 	header.children[0].setAttribute("onclick", "openProfile(\"" + post.person + "\", \"fullPost\")");
@@ -240,6 +241,16 @@ function fillPost(postNumber) {
 	bar.children[0].setAttribute("onclick", "upvote(" + postNumber + ")");
 	bar.children[1].innerHTML = post.upvotes;
 	bar.children[2].innerHTML = post.date;
+
+	if (posts[postNumber].person == "User") {
+		shareInfo.innerHTML = "Shared with: ";
+		for (var i = 0; i < posts[postNumber].share.length-1; i++) {
+			shareInfo.innerHTML += posts[postNumber].share[i]+", ";
+		}
+		shareInfo.innerHTML += posts[postNumber].share[i]+".";
+	} else {
+		shareInfo.innerHTML = "";
+	}
 
 	comments.innerHTML = "";
 	for (var i = post.comments.length - 1; i >= 0; i--) {
