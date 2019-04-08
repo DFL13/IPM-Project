@@ -275,10 +275,12 @@ function tryDeletePost(postNumber) {
 }
 
 function deletePost(postNumber) {
+	var name = posts[postNumber].person;
 	posts.splice(postNumber, 1);
 	localStorage.posts2 = JSON.stringify(posts);
 
 	fillPostPreviews();
+	fillProfile(name);
 	goBack();
 	goBack();
 }
