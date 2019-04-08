@@ -43,9 +43,9 @@ function loadData() {
 
 function reset() {
 	if (confirm("Reset device data?")) {
-		localStorage.removeItem(posts2);
-		localStorage.removeItem(people2);
-		localStorage.removeItem(myPosts2);
+		localStorage.removeItem("posts2");
+		localStorage.removeItem("people2");
+		localStorage.removeItem("myPosts2");
 		location.reload();
 	}
 }
