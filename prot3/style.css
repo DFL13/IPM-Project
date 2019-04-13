@@ -1,0 +1,846 @@
+@font-face {
+	font-family: 'Montserrat';
+	src: url(Montserrat/Montserrat-Medium.ttf);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Montserrat', sans-serif;
+	scrollbar-width: thin;
+	scrollbar-color: white transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: white;
+}
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+body {
+	background: #e3e3e3;
+}
+
+div.resetBtn {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 80px;
+	height: 40px;
+	background-color: transparent;
+	border-radius: 30px;
+	color: black;
+	text-align: center;
+	display: table;
+	border: solid 3px black;
+	cursor: pointer;
+	transition: all ease 200ms;
+}
+
+div.resetBtn:hover {
+	background-color: black;
+	color: white;
+}
+
+div.resetBtn p {
+	display: table-cell;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+div.screen {
+	margin: auto; 
+	position: relative;
+	margin-top: 30vh;
+	width: 400px;
+	height: 215px;
+	background: black;
+	border-radius: 20px;
+}
+
+div.outerBtn {
+	position: absolute;
+	bottom: 100%;
+	left: 65%;
+	width: 40px;
+	height: 13px;
+	background: black;
+	border-radius: 8px 8px  0px 0px;
+	cursor: pointer;
+}
+
+#btnL {
+	left: 60%;
+}
+
+#btnR {
+	left: 80%;
+}
+
+
+div.page {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	color: white;
+	background: #111e38;
+    text-align: center;
+    border-radius: 20px;
+	overflow: hidden;
+	opacity: 1;
+	transition: opacity ease 500ms;
+}
+
+div.popup {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	color: black;
+	background: rgba(0,0,0,0.5);
+    text-align: center;
+    border-radius: 20px;
+	overflow: hidden;
+	transition: opacity ease 500ms;
+}
+
+div.popupBox {
+	position: absolute;
+	top: 50%;
+	left: 50px;
+    transform: translateY(-50%);
+    width: 60%;
+    /*height: 55%;*/
+    background-color: white;
+    border-radius: 25px;
+}
+
+div.popupBox > p {
+	margin: 15px auto;
+	font-size: 1.4em;
+}
+
+div.popupBtn {
+	display: inline-block;
+	width: 70px;
+	margin: 15px 10px;
+	padding: 5px;
+	border-radius: 50px;
+	background-color: black;
+	color: white;
+	font-size: 1.4em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+div.btnNo {
+	background-color: #ff4646;
+}
+
+div.btnYes {
+	background-color: #18ab5c;
+}
+
+
+div.lockscreen {
+    background: linear-gradient(to left, #47748d 0%, #111e38 40%);
+}
+
+div.lockscreen div.clock {
+	position: absolute;
+	left: 50px;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+div.clock .time {
+	font-size: 4em;
+}
+
+div.clock .date {
+	font-size: 1.2em;
+}
+
+div.fingerprint {
+	width: 30%;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+    transform: translateY(-40%);
+    cursor: pointer;
+}
+
+div.main {
+    background: linear-gradient(to top, #47748d 40%, #111e38 80%);
+}
+
+div.main div.clock {
+	margin-top: 10px;
+}
+
+div.main div.clock .time {
+	font-size: 2.2em;
+}
+
+div.main div.clock .date {
+	font-size: 1em;
+}
+
+div.appSlider {
+	margin-top: 25px;
+	padding-top: 1px;
+}
+
+div.appIcon {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	padding: 15px;
+	margin: 0px 10px;
+	border-radius: 100%;
+	background: white;
+	cursor: pointer;
+}
+
+div.appIcon img {
+	width: 100%;
+}
+
+
+div.shareApp, div.fullPost, div.profile {
+	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
+}
+
+div.content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 82%;
+	padding: 0px 10px;
+	margin-left: 5px;
+	overflow-y: auto;
+	direction: rtl;
+}
+
+div.shareApp > div.content {
+	display: grid;
+  	grid-gap: 15px;
+  	grid-template-columns: auto auto;
+}
+
+div.col {
+	direction: ltr;
+	width: 100%;
+
+}
+
+div.postPreview {
+	/*width: 100%;*/
+	/*height: 80px;*/
+	position: relative;
+	margin: 15px 0px;
+	border-radius: 15px;
+	background: white;
+	overflow: hidden;
+	box-shadow: 0px 0px 6px 0px black;
+
+	cursor: pointer;
+	/*border: solid 3px white;*/
+}
+
+div.postPreview div.header {
+	position: relative;
+	/*position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;*/
+	padding: 3px;
+	background: white;
+	/*border-radius: 20px;*/
+	overflow: hidden;
+
+}
+
+div.postPreview div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 80%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
+}
+
+div.postPreview div.header img {
+	display: block;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+}
+
+div.postPreview div.header p {
+	position: absolute;
+	left: 35px;
+	top: 7px;
+	width: 200%;
+	text-align: left;
+	color: black;
+	font-size: 0.9em;
+}
+
+div.postPreview img {
+	display: block;
+	width: 100%;
+	height: 100px;
+}
+
+div.post div.header img.pic, div.post div.header p.name{
+	cursor: pointer;
+}
+
+div.comment img, div.comment div.header p{
+	cursor:pointer;
+}
+
+div.profile > div.content {
+	display: grid;
+  	grid-column-gap: 15px;
+  	grid-auto-columns: 1fr;
+  	grid-template-rows: max-content max-content auto;
+}
+
+div.profile div.container {
+	grid-column: 1 / span 2;
+	margin-bottom: 0px;
+	z-index: 1;
+	/*height: 100px;*/
+}
+
+div.profile div.header {
+	/*position: relative;*/
+	/*padding: 5px;*/
+	/*height: 100px;*/
+	/*background: white;*/
+}
+
+div.profile div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 85%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
+}
+
+div.profile div.header img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	border-radius: 0px 25px 25px 0px;
+}
+
+div.profile div.header p.name {
+	position: absolute;
+	width: max-content;
+	left: 90px;
+	top: 25px;
+	right: 0;
+	text-align: left;
+	color: black;
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+div.profile div.quote {
+	margin: 0px auto;
+	margin-bottom: 5px; 
+	border-radius: 0px 0px 25px 25px;
+	width: 80%;
+	z-index: 0;
+	background: #b0561f;
+	max-height: 0px;
+	transition: max-height ease 600ms;
+}
+
+div.profile /*div.header*/ p.quote {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 5px 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+div.profile img.expandArrow {
+	width: 25px;
+	grid-column: 1 / span 2;
+	margin: 0px auto;
+	transform: rotate(180deg);
+	cursor: pointer;
+	transition: transform ease 600ms;
+}
+
+div.sidebar {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 18%;
+	/*border: solid 2px white;*/
+}
+
+div.sidebar .time {
+	font-size: 1.2em;
+	margin: 5px 0px;
+	cursor: pointer;
+}
+
+div.button {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	margin: 5px auto;
+	border-radius: 100%;
+	padding: 8px;
+	background: white;
+	cursor: pointer;
+	border: solid 2px white;
+	box-shadow:	inset 0 0 6px black;
+}
+
+/*div.button::before { 
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    background: transparent;
+    border: solid 2px white;
+    border-radius: 100px;
+}
+*/
+
+div.button img {
+	width: 100%;
+}
+
+div.btnProfile{
+	margin-top:10px;
+}
+
+div.btnFriends  {
+	margin-top: 10px;
+}
+
+div.btnAddPost {
+	margin-top: 10px;
+}
+
+div.btnCancel {
+	margin-top: 125px;
+	background-color: #ff4646;
+	padding: 12px;
+}
+
+div.btnShutter {
+	margin-top: 50px;
+	padding: 0px;
+}
+
+div.camApp div.btnCancel {
+	margin-top: 25px;
+}
+
+div.publishMenu div.btnCancel {
+	margin-top: 60px;
+}
+
+div.btnAccept {
+	margin-top: 15px;
+	background-color: rgb(35, 121, 216);
+}
+
+div.btnOK {			
+	margin-top: 15px;
+	background-color: #18ab5c;
+}
+
+div.sendToSpecific div.btnCancel {
+	margin-top: 60px;
+}
+
+
+div.container {
+	/*grid-column: 1 / span 2;*/
+	width: 100%;
+	position: relative;
+	margin: 15px 0px;
+	border-radius: 25px;
+	direction: ltr;
+	/*overflow: hidden;*/
+	box-shadow: 0px 0px 8px 0px black;
+	background: white;
+	overflow: hidden;
+	/*border: solid 3px white;*/
+}
+
+div.post div.header {
+	position: relative;
+	padding: 5px;
+	/*background: white;*/
+}
+
+div.post div.header img.pic {
+	display: block;
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+}
+
+div.post div.header p.name {
+	position: absolute;
+	width: max-content;
+	left: 60px;
+	top: 14px;
+	right: 0;
+	text-align: left;
+	color: black;
+	font-size: 1.4em;
+}
+
+div.post div.header p.place {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 3px 0px 0px 10px;
+	text-align: left;
+	color: #747474;
+	font-size: 1em;
+}
+
+div.post div.header img.trash {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	width: 25px;
+	cursor: pointer;
+}
+
+div.post > img {
+	display: block;
+	width: 100%;
+	height: 215px;
+}
+
+div.postInfoBar {
+	position: relative;
+	margin: 0px 20px;
+	padding: 3px 0px 7px 7px;
+	border-bottom: solid 2px #747474;
+	color: black;
+	font-size: 1.1em;
+}
+
+div.post p.shareInfo {
+	color: black;
+	text-align: center;
+	margin: 6px 25px;
+	font-size: 0.9em;
+}
+
+div.postInfoBar img {
+	display: block;
+	width: 20px;
+	cursor: pointer;
+}
+
+div.postInfoBar p.upvotes {
+	position: absolute;
+	left: 35px;
+	top: 5px;
+}
+
+div.postInfoBar p.postDate {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+div.commentSection {
+	padding: 0px 20px 10px 20px;
+}
+
+div.comment {
+	margin: 5px 0px;
+}
+
+div.comment div.header {
+	position: relative;
+	padding: 5px;
+	width: 100%;
+}
+
+div.comment div.header img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.comment div.header p {
+	position: absolute;
+	left: 45px;
+	top: 10px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+div.commentBody {
+	padding: 0px 5px 0px 40px;
+	color: #333;
+	font-size: 0.9em;
+	text-align: left; 
+}
+
+/*div.friendList div.container {
+	background: transparent;
+}*/
+
+div.personListItem {
+	/*margin: 0px 15px;*/
+	padding: 8px 25px;
+	position: relative;
+	/*border-bottom: solid 1px #747474;*/
+	cursor: pointer;
+
+	/*margin: 5px 0px;
+	padding: 6px 10px;
+	background: white;
+	border-radius: 50px;
+	border-bottom: none;*/
+}
+
+div.personListItem::after {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	right: 20px;
+	left: 20px;
+	background-color: transparent;
+	border-bottom: solid 2px #747474;
+}
+
+div.personListItem img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.personListItem p {
+	position: absolute;
+	left: 65px;
+	top: 14px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+
+
+div.pillBox {
+	position: relative;
+	margin: 0px auto;
+	margin-top: 60px;
+	width: 220px;
+	/*height: 90px;*/
+	background: white;
+	border-radius: 50px;
+	direction: ltr;
+}
+
+div.pillBox::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #111e38;
+	top: 10px;
+	bottom: 10px;
+	left: 49%;
+	right: 49%;
+	border-radius: 10px;
+}
+
+div.pillBox img {
+	width: 100px;
+	padding: 15px;
+	cursor: pointer;
+}
+
+div.camApp div.content {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+div.camApp div.content img {
+	width: 100%;
+}
+
+div.publishMenu div.content {
+	overflow: hidden
+}
+
+div.publishMenu img.arrow {
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	left: 46%;
+	width: 35px;
+	transform: rotate(0deg);
+	border-radius: 100%;
+	border: solid 2px white;
+	padding: 6px;
+	cursor: pointer;
+	background-color: rgb(35, 121, 216);
+	transition: bottom ease 600ms, transform ease 600ms;
+}
+
+table.choiceBar {
+	direction: ltr;
+	/*margin-top: 0px;
+	margin-bottom: 7px;*/
+	position: absolute;
+	bottom: -40px;
+	left: 10px;
+	color: black;
+	background: white;
+	border-radius: 50px;
+	font-size: 1.1em;
+	text-align: center;
+	/*width: 100%;*/
+	width: 94%;
+	border-collapse: collapse;
+	box-shadow: 0px 0px 8px 0px black;
+	overflow: hidden;
+	transition: bottom ease 600ms;
+}
+
+table.choiceBar td {
+	border-right: solid 2px black;
+	width: 33%;
+	padding: 8px;
+	background-color: white;
+	cursor: pointer;
+}
+
+table.choiceBar td:last-child {
+	border-right: none;
+}
+
+img.publishImg {
+	border-radius: 25px;
+	width: 100%;
+	height: 90%;
+	box-shadow: 0px 0px 8px 0px black;
+	margin: 10px auto;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	/*border: dashed 5px white;*/
+}
+
+
+div.btnZoomOut {
+	height: 40px;
+	width: 40px;
+	padding: 0px;
+	background: transparent;
+	margin-top: 15px;
+}
+
+div.btnZoomIn {
+	height: 40px;
+	width: 40px;
+	padding: 0px;
+	background: transparent;
+	margin-top: 15px;
+}
+
+div.btnZoomOut img{
+	height: 40px;
+	width: 80%;
+}
+ 
+div.btnZoomIn img{
+	height: 40px;
+	width: 80%;
+}
+
+div.btnMenu {
+	margin-top: 20px;
+}
+
+
+table.tabsbar{
+	table-layout: fixed;
+	height: 100%;
+	width: 20%;
+	border-right: 2px solid white;
+	background: transparent;
+	border-collapse: collapse;
+}
+
+tr.tab{
+	border-bottom: 2px solid white;
+	cursor: pointer;
+	background:#4f90b9e3;
+}
+
+div#tabSelector{
+	position:absolute;
+	width: 10px;
+	height: 72px;
+	background-color: #2f4c50; 
+	left: 75px;
+}
+
+tr.noBorder{
+	border-bottom: 0px;
+}
+
+div.btnSearch{
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+div.btnLocation  > .button{
+	padding: 0px
+}
+
+div.btnCart{
+	margin-top: 15px;
+}
+
+div.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
