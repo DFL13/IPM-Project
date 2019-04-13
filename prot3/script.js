@@ -11,6 +11,10 @@ var timeout_id;
 var virgin = true;
 
 
+window.ondragstart = function() { return false; } 
+
+
+
 function btnMouseDown(button, func) {
 	/*button.style.height='10px';*/
 	button.style.backgroundColor="#595959";

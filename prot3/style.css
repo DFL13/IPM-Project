@@ -10,6 +10,8 @@
 	font-family: 'Montserrat', sans-serif;
 	scrollbar-width: thin;
 	scrollbar-color: white transparent;
+	user-select: none;
+	-moz-user-select: none;
 }
 
 *::-webkit-scrollbar {
@@ -95,7 +97,7 @@ div.page {
     border-radius: 20px;
 	overflow: hidden;
 	opacity: 1;
-	transition: opacity ease 500ms;
+	transition: opacity ease 500ms, visibility ease 150ms;
 }
 
 div.popup {
@@ -108,7 +110,7 @@ div.popup {
     text-align: center;
     border-radius: 20px;
 	overflow: hidden;
-	transition: opacity ease 500ms;
+	transition: opacity ease 500ms, visibility ease 150ms;
 }
 
 div.popupBox {
