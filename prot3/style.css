@@ -868,8 +868,60 @@ div.tabSelected svg {
 div.ticketApp div.content {
 	left: 17%;
 	width: 65%;
-	background-color: grey;
 }
+
+div.ticketPreview {
+	position: relative;
+	margin: 12px 0px;
+	background-color: white;
+	border-radius: 20px;
+	overflow: hidden;
+	direction: ltr;
+	border: solid 4px white;
+}
+
+div.ticketPreview img {
+	display: block;
+	height: 100px;
+	width: 100px;
+	border-radius: 20px;
+}
+
+div.ticketPreview div.info {
+	position: absolute;
+	left: 108px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	text-align: left;
+	color: black;
+}
+
+div.ticketPreview p.title {
+	margin-top: 3px; 
+	font-size: 1em;
+	font-weight: bold;
+}
+
+div.ticketPreview p.schedule {
+	margin-top: 8px; 
+	font-size: 0.9em;
+}
+
+div.ticketPreview p.price {
+	position: absolute;
+	bottom: 0px;
+	left: 20px;
+	width: 80px;
+	padding: 3px;
+	background-color: rgb(35, 121, 216);
+	border-radius: 50px;
+	color: white;
+	font-size: 0.9em;
+	font-weight: bold;
+	text-align: center;
+}
+
 
 div.btnSearch{
 	margin-top: 10px;
