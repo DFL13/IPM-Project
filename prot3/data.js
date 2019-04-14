@@ -203,3 +203,83 @@ var myPosts =
 				"img/myPosts/les-anderson-276551-unsplash.jpg",				// good
 				"img/myPosts/wolfgang-frick-695728-unsplash.jpg"			// good
 			];
+
+var tickets=[{
+				type: "events",
+				places:[{
+							name:"Movie: The Avengers",
+							img: "img/ticketPlaces/infinity-4027067_640.png",
+							price: 13,
+							open:1800,
+							close:2000,
+							timeAway: 3,
+							duration: 120
+						},
+						{
+							name:"The Phantom of the Opera",
+							img: "img/ticketPlaces/free-1641264_640.jpg",
+							price: 20,
+							open: 2000,
+							close: 2130,
+							timeAway: 9,
+							duration: 90
+						},
+						{
+							name:"Arsenal vs Chelsea",
+							img: "img/ticketPlaces/stadium-709181_640.jpg",
+							price: 25,
+							open: 2000,
+							close: 2200,
+							timeAway: 15,
+							duration: 120
+						}
+						]
+			},
+			{
+				type: "museums",
+				places: [{
+							name: "Art Gallery",
+							img: "img/ticketPlaces/woman-1283009_640.jpg",
+							price: 10,
+							open: 1000,
+							close: 2000,
+							timeAway: 5,
+							duration: 90
+						},
+						{
+							name: "Science Museum",
+							img: "img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
+							price: 15,
+							open:1000,
+							close: 1900,
+							timeAway: 7,
+							duration: 60
+						},
+						{
+							name: "Oceanarium",
+							img: "img/ticketPlaces/oceanarium-2048720_640.jpg",
+							price: 18,
+							open: 1030,
+							close: 1930,
+							timeAway: 10,
+							duration: 90
+						}
+						]
+			},
+			{
+				type:"transports",
+				places:[{
+							name: "Bus Ticket",
+							img: "img/ticketPlaces/london-2665352_640.jpg",
+							price: 1.18,
+							timeAway: 2,
+						},
+						{
+							name: "Subway Ticket",
+							img: "img/ticketPlaces/train-1285358_640.jpg",
+							price: 1,
+							timeAway: 5,
+						}
+						]
+			}
+			]

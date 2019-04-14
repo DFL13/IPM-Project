@@ -908,6 +908,11 @@ div.ticketPreview p.schedule {
 	font-size: 0.9em;
 }
 
+div.ticketPreview p.timeAway {
+	margin-top: 8px; 
+	font-size: 0.9em;
+}
+
 div.ticketPreview p.price {
 	position: absolute;
 	bottom: 0px;
@@ -923,17 +928,27 @@ div.ticketPreview p.price {
 }
 
 
-div.btnSearch{
-	margin-top: 10px;
+div.btnBought{
+	margin-top: 60px;
 	margin-bottom: 15px;
 }
 
 div.btnLocation  > .button{
-	padding: 0px
+	padding: 0px;
+	margin-bottom: 10px;
+}
+
+div.btnLocation img{
+	transform: translate(-4px,-5px); 
+	width:130%;
 }
 
 div.btnCart{
-	margin-top: 15px;
+	margin-top: 10px;
+}
+
+div.btnCart img{
+	transform: translateY(1px);
 }
 
 div.hidden {
