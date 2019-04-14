@@ -802,7 +802,7 @@ div.btnMenu {
 }
 
 
-table.tabsbar{
+/*table.tabsbar{
 	table-layout: fixed;
 	height: 100%;
 	width: 20%;
@@ -827,6 +827,48 @@ div#tabSelector{
 
 tr.noBorder{
 	border-bottom: 0px;
+}*/
+
+
+div.tabsBar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 17%;
+	background: white;
+	display: grid;
+}
+
+div.tab {
+	position: relative;
+	cursor: pointer;
+	transition: background-color ease 300ms;
+}
+
+div.tab svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 60%;
+	fill: #454545;
+	transition: fill ease 300ms, width ease 300ms;
+}
+
+div.tabSelected {
+	background-color: rgb(35, 121, 216);
+}
+
+div.tabSelected svg {
+	fill: white;
+	width: 80%;
+}
+
+div.ticketApp div.content {
+	left: 17%;
+	width: 65%;
+	background-color: grey;
 }
 
 div.btnSearch{

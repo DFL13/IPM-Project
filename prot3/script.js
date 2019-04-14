@@ -217,6 +217,8 @@ function openApp(appName) {
 		var app = document.getElementsByClassName(appName)[0];
 		var cont = app.children[0];
 		cont.scrollTop = 0;
+	} else if (appName == "ticketApp") {
+		selectTab(0);
 	}
 }
 
@@ -569,4 +571,19 @@ function upvote(postNumber) {
 	}
 	localStorage.posts3 = JSON.stringify(posts);
 	bar.children[1].innerHTML = posts[postNumber].upvotes;
+}
+
+
+
+
+
+
+
+
+function selectTab(n) {
+	var tabs = document.getElementsByClassName("tab");
+	for (var i = 0; i < tabs.length; i++) {
+		tabs[i].classList.remove("tabSelected");
+	}
+	tabs[n].classList.add("tabSelected");
 }
