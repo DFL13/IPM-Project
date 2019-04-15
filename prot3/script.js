@@ -56,10 +56,12 @@ function loadData() {
 		localStorage.posts3 = JSON.stringify(posts);
 		localStorage.people3 = JSON.stringify(people);
 		localStorage.myPosts3 = JSON.stringify(myPosts);
+		localStorage.tickets3 = JSON.stringify(tickets);
 	} else {
 		posts = JSON.parse(localStorage.posts3);
 		people = JSON.parse(localStorage.people3);
 		myPosts = JSON.parse(localStorage.myPosts3);
+		tickets = JSON.parse(localStorage.tickets3);
 	}
 	fillPostPreviews();
 }
@@ -69,6 +71,7 @@ function reset() {
 		localStorage.removeItem("posts3");
 		localStorage.removeItem("people3");
 		localStorage.removeItem("myPosts3");
+		localStorage.removeItem("tickets3");
 		location.reload();
 	}
 }
@@ -677,6 +680,7 @@ function openFullTicket(type, place) {
 function rateTicket(type, place, rate) {
 	var ticket = tickets[type].places[place];
 	ticket.rate = (ticket.rate == rate ? 0 : rate);
+	localStorage.tickets3 = JSON.stringify(tickets);
 	fillStars(type, place);
 }
 
@@ -687,9 +691,8 @@ function fillStars(type, place) {
 		var starID = "star" + i;
 		var star = document.getElementById(starID);
 		if (i <= ticket.rate) {
-			star.src = "img/icons/up-arrow-full.svg";		// TODO alterar src para uma estrela preenchida
-		}
-		else {
+			star.src = "img/icons/favourites-filled-star-symbol-orange.svg";
+		} else {
 			star.src = "img/icons/star-of-favorites-outline.svg";
 		}
 	}
