@@ -620,8 +620,6 @@ function selectTab(n) {
 function openFullTicket(type, place) {
 	var page = document.getElementsByClassName("fullTicket")[0];
 	var container = page.children[0].children[0];
-
-
 	var ticket = tickets[type].places[place];
 	
 	if (type == 0 || type == 1) {
@@ -662,16 +660,37 @@ function openFullTicket(type, place) {
 							</div>\
 							<div class=\"rateTicket\">\
 								<p>Rate:</p>\
-								<img id=\"star1\" src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img id=\"star2\" src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img id=\"star3\" src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img id=\"star4\" src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img id=\"star5\" src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star1\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 1 + ")'>\
+								<img id=\"star2\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 2 + ")'>\
+								<img id=\"star3\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 3 + ")'>\
+								<img id=\"star4\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 4 + ")'>\
+								<img id=\"star5\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 5 + ")'>\
 							</div>";
 	
 
 	var cont = page.children[0];
 	cont.scrollTop = 0
+	fillStars(type, place);
 	switchPages("ticketApp", "fullTicket");
+}
 
+function rateTicket(type, place, rate) {
+	var ticket = tickets[type].places[place];
+	ticket.rate = (ticket.rate == rate ? 0 : rate);
+	fillStars(type, place);
+}
+
+function fillStars(type, place) {
+	var ticket = tickets[type].places[place];
+
+	for (var i = 1; i <= 5; i++) {
+		var starID = "star" + i;
+		var star = document.getElementById(starID);
+		if (i <= ticket.rate) {
+			star.src = "img/icons/up-arrow-full.svg";		// TODO alterar src para uma estrela preenchida
+		}
+		else {
+			star.src = "img/icons/star-of-favorites-outline.svg";
+		}
+	}
 }
