@@ -992,7 +992,8 @@ div.fullTicket div.score p {
 div.eventBox {
 	position: relative;
 	background-color: #1a7ec6;
-	margin: 15px 0px;
+	margin: 10px 0px;
+	margin-bottom: 0px:;
 	border-radius: 50px; 
 	text-align: left;
 }
@@ -1008,6 +1009,12 @@ div.eventBox p.openHours {
 	top: 13px;
 }
 
+div.eventBox p.openHoursTransports {
+	position: absolute;
+	left: 75px;
+	top: 25px;
+}
+
 div.eventBox p.duration {
 	position: absolute;
 	left: 75px;
@@ -1017,7 +1024,8 @@ div.eventBox p.duration {
 div.routeBox {
 	position: relative;
 	background-color: #1aa48b;
-	margin: 15px 0px;
+	margin: -15px 0px;
+	margin-bottom: 10px;
 	border-radius: 50px; 
 	text-align: left;
 }

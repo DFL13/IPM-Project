@@ -574,12 +574,6 @@ function upvote(postNumber) {
 }
 
 
-
-
-
-
-
-
 function selectTab(n) {
 	var app = document.getElementsByClassName("ticketApp")[0];
 	var tabs = document.getElementsByClassName("tab");
@@ -599,7 +593,7 @@ function selectTab(n) {
 	for (var i = 0; i < places.length; i++) {
 		var open = (places[i].open / 100).toFixed(2).split(".");
 		var close = (places[i].close / 100).toFixed(2).split(".");
-		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket()'>\
+		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket("+ n + "," + i + ")'>\
 									<img src=\"" + places[i].img + "\">\
 									<div class=\"info\">\
 										<p class=\"title\">" + places[i].name + "</p>\
@@ -615,6 +609,69 @@ function selectTab(n) {
 	content.scrollTop = 0;
 }
 
-function openFullTicket() {
+/*function openFullTicket() {
+	var ticket = document.getElementsByClassName("fullTicket")[0];
+	var cont = ticket.children[0];
+	cont.scrollTop = 0
 	switchPages("ticketApp", "fullTicket");
+}
+*/
+
+function openFullTicket(type, place) {
+	var page = document.getElementsByClassName("fullTicket")[0];
+	var container = page.children[0].children[0];
+
+
+	var ticket = tickets[type].places[place];
+	
+	if (type == 0 || type == 1) {
+		var open = (ticket.open / 100).toFixed(2).split(".");
+		var close = (ticket.close / 100).toFixed(2).split(".");
+	}
+	container.innerHTML = 	"<p class=\"title\">" + ticket.name +"</p>\
+							<div class=\"duo\">\
+								<div class=\"imgContainer\">\
+									<img class=\"pic\" src="+ ticket.img +">\
+								</div>\
+								<div class=\"score\">\
+									<img src=\"img/icons/favourites-filled-star-symbol.svg\">\
+									<p>Score:</p>\
+									<p>"+ ticket.score + "</p>\
+								</div>\
+							</div>\\";
+
+	if (type == 0 || type == 1) {
+		container.innerHTML += "<div class=\"eventBox\">\
+									<img src=\"img/icons/time-left.svg\">\
+									<p class=\"openHours\"><strong>Open:</strong> " + open[0] + ":" + open[1] + "-" + close[0] + ":" + close[1] + "</p>\
+									<p class=\"duration\"><strong>Duration:</strong> " + ticket.duration + " min.</p>\
+								</div>\\";
+	}
+
+	else {
+		container.innerHTML += "<div class=\"eventBox\">\
+									<img src=\"img/icons/time-left.svg\">\
+									<p class=\"openHoursTransports\"><strong>Open:</strong> " + ticket.open + "-" + ticket.close + "</p>\
+								</div>\\";
+	}
+
+	container.innerHTML += "<div class=\"routeBox\">\
+								<img src=\"img/icons/footprint.svg\">\
+								<p class=\"distance\"><strong>Distance:</strong> 750 m</p>\
+								<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
+							</div>\
+							<div class=\"rateTicket\">\
+								<p>Rate:</p>\
+								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+							</div>";
+	
+
+	var cont = page.children[0];
+	cont.scrollTop = 0
+	switchPages("ticketApp", "fullTicket");
+
 }
