@@ -712,6 +712,7 @@ function openBuyTicket(type, place) {
 	minusBtn.setAttribute("onclick", "minusTicket("+price+")");
 	plusBtn.setAttribute("onclick", "plusTicket("+price+")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
+	minusBtn.classList.add("inactiveBtn");
 	value.innerHTML = "1";
 	priceTxt.innerHTML = price + "€";
 
