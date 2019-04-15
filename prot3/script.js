@@ -657,16 +657,16 @@ function openFullTicket(type, place) {
 
 	container.innerHTML += "<div class=\"routeBox\">\
 								<img src=\"img/icons/footprint.svg\">\
-								<p class=\"distance\"><strong>Distance:</strong> 750 m</p>\
+								<p class=\"distance\"><strong>Distance:</strong> " + ticket.distance + "</p>\
 								<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
 							</div>\
 							<div class=\"rateTicket\">\
 								<p>Rate:</p>\
-								<img src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img src=\"img/icons/star-of-favorites-outline.svg\">\
-								<img src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star1\" src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star2\" src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star3\" src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star4\" src=\"img/icons/star-of-favorites-outline.svg\">\
+								<img id=\"star5\" src=\"img/icons/star-of-favorites-outline.svg\">\
 							</div>";
 	
 
