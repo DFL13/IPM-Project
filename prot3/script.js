@@ -585,20 +585,26 @@ function selectTab(n) {
 	var tabs = document.getElementsByClassName("tab");
 	var content = app.children[1];
 	var places = tickets[n].places;
+
+	if (tabs[n].classList.contains("tabSelected")) {
+		return;
+	}
+
 	for (var i = 0; i < tabs.length; i++) {
 		tabs[i].classList.remove("tabSelected");
 	}
 	tabs[n].classList.add("tabSelected");
+
 	content.innerHTML="";
 	for (var i = 0; i < places.length; i++) {
 		var open = (places[i].open / 100).toFixed(2).split(".");
 		var close = (places[i].close / 100).toFixed(2).split(".");
-		content.innerHTML += "<div class=\"ticketPreview\">\
-					<img src=\"" + places[i].img + "\">\
-					<div class=\"info\">\
-						<p class=\"title\">" + places[i].name + "</p>\
-					</div>\
-				</div>";
+		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket()'>\
+									<img src=\"" + places[i].img + "\">\
+									<div class=\"info\">\
+										<p class=\"title\">" + places[i].name + "</p>\
+									</div>\
+								</div>";
 		if (tickets[n].type != "transports")
 			content.getElementsByClassName("info")[i].innerHTML += "<p class=\"schedule\">" + open[0] + ":" 
 				+ open[1] + "-" + close[0] + ":" + close[1] + "</p>";
@@ -606,4 +612,9 @@ function selectTab(n) {
 			content.getElementsByClassName("info")[i].innerHTML += "<p class=\"timeAway\">" + places[i].timeAway + " min. away</p>";
 		content.getElementsByClassName("info")[i].innerHTML += "<p class=\"price\">" + places[i].price + "€</p>";
 	}
+	content.scrollTop = 0;
+}
+
+function openFullTicket() {
+	switchPages("ticketApp", "fullTicket");
 }

@@ -802,32 +802,7 @@ div.btnMenu {
 }
 
 
-/*table.tabsbar{
-	table-layout: fixed;
-	height: 100%;
-	width: 20%;
-	border-right: 2px solid white;
-	background: transparent;
-	border-collapse: collapse;
-}
 
-tr.tab{
-	border-bottom: 2px solid white;
-	cursor: pointer;
-	background:#4f90b9e3;
-}
-
-div#tabSelector{
-	position:absolute;
-	width: 10px;
-	height: 72px;
-	background-color: #2f4c50; 
-	left: 75px;
-}
-
-tr.noBorder{
-	border-bottom: 0px;
-}*/
 
 
 div.tabsBar {
@@ -851,7 +826,7 @@ div.tab svg {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 60%;
+	width: 55%;
 	fill: #454545;
 	transition: fill ease 300ms, width ease 300ms;
 }
@@ -862,7 +837,7 @@ div.tabSelected {
 
 div.tabSelected svg {
 	fill: white;
-	width: 80%;
+	width: 85%;
 }
 
 div.ticketApp div.content {
@@ -878,6 +853,7 @@ div.ticketPreview {
 	overflow: hidden;
 	direction: ltr;
 	border: solid 4px white;
+	cursor: pointer;
 }
 
 div.ticketPreview img {
@@ -950,6 +926,135 @@ div.btnCart{
 div.btnCart img{
 	transform: translateY(1px);
 }
+
+
+div.fullTicket div.container {
+	padding: 10px;
+}
+
+div.fullTicket p.title {
+	color: black;
+	font-weight: bold;
+	font-size: 1.2em;
+	margin: 0px 10px 5px 10px;
+}
+
+div.fullTicket div.duo {
+	display: grid;
+	position: relative;
+	grid-template-columns: 50% 50%;
+	height: 150px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+div.fullTicket div.duo::after {
+	content: '';
+	position: absolute;
+	display: block;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 20px;
+	box-shadow:	inset 0 0 10px black;
+}
+
+div.imgContainer {
+	overflow: hidden;
+	position: relative;
+}
+
+div.imgContainer img.pic {
+	display: block;
+	text-align: center;
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+div.fullTicket div.score {
+	background-color: #18b44b;
+}
+
+div.fullTicket div.score img {
+	margin-top: 15px; 
+	width: 50%;
+}
+
+div.fullTicket div.score p {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+
+div.eventBox {
+	position: relative;
+	background-color: #1a7ec6;
+	margin: 15px 0px;
+	border-radius: 50px; 
+	text-align: left;
+}
+
+div.eventBox img {
+	margin: 10px;
+	width: 50px;
+}
+
+div.eventBox p.openHours {
+	position: absolute;
+	left: 75px;
+	top: 13px;
+}
+
+div.eventBox p.duration {
+	position: absolute;
+	left: 75px;
+	top: 40px;
+}
+
+div.routeBox {
+	position: relative;
+	background-color: #1aa48b;
+	margin: 15px 0px;
+	border-radius: 50px; 
+	text-align: left;
+}
+
+div.routeBox img {
+	margin: 10px;
+	margin-left: 220px;
+	width: 50px;
+}
+
+div.routeBox p.distance {
+	position: absolute;
+	right: 75px;
+	top: 13px;
+}
+
+div.routeBox p.travelTime {
+	position: absolute;
+	right: 75px;
+	top: 40px;
+}
+
+div.rateTicket p {
+	color: black;
+	font-size: 1.2em;
+}
+
+div.rateTicket img {
+	width: 16%;
+	padding: 10px 2px;
+	cursor: pointer;
+}
+
+
+
+
+
 
 div.hidden {
 	opacity: 0;
