@@ -216,7 +216,8 @@ var tickets=[{
 							distance: "200 m",
 							duration: 120,
 							score: 3.6,
-							rate: 0
+							rate: 0,
+							cart: 0
 						},
 						{
 							name:"The Phantom of the Opera",
@@ -228,7 +229,8 @@ var tickets=[{
 							distance: "850 m",
 							duration: 90,
 							score: 4.7,
-							rate: 0
+							rate: 0,
+							cart: 0
 						},
 						{
 							name:"Arsenal vs Chelsea",
@@ -240,7 +242,8 @@ var tickets=[{
 							distance: "1.7 km",
 							duration: 120,
 							score: 4.5,
-							rate: 0
+							rate: 0,
+							cart: 0
 						}
 						]
 			},
@@ -256,7 +259,8 @@ var tickets=[{
 							distance: "500 m",
 							duration: 90,
 							score: 2.9,
-							rate: 0
+							rate: 0,
+							cart: 0
 						},
 						{
 							name: "Science Museum",
@@ -268,7 +272,8 @@ var tickets=[{
 							distance: "670 m",
 							duration: 60,
 							score: 3.8,
-							rate: 0
+							rate: 0,
+							cart: 0
 						},
 						{
 							name: "Oceanarium",
@@ -280,7 +285,8 @@ var tickets=[{
 							distance: "950 m",
 							duration: 90,
 							score: 4.1,
-							rate: 0
+							rate: 0,
+							cart: 0
 						}
 						]
 			},
@@ -295,7 +301,8 @@ var tickets=[{
 							timeAway: 2,
 							distance: "175 m",
 							score: 3.0,
-							rate: 0
+							rate: 0,
+							cart: 0
 						},
 						{
 							name: "Subway Ticket",
@@ -306,7 +313,8 @@ var tickets=[{
 							timeAway: 5,
 							distance: "512 m",
 							score: 3.2,
-							rate: 0
+							rate: 0,
+							cart: 0
 						}
 						]
 			}

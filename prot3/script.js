@@ -639,21 +639,21 @@ function openFullTicket(type, place) {
 									<p>Score:</p>\
 									<p>"+ ticket.score + "</p>\
 								</div>\
-							</div>\\";
+							</div>";
 
 	if (type == 0 || type == 1) {
 		container.innerHTML += "<div class=\"eventBox\">\
 									<img src=\"img/icons/time-left.svg\">\
 									<p class=\"openHours\"><strong>Open:</strong> " + open[0] + ":" + open[1] + "-" + close[0] + ":" + close[1] + "</p>\
 									<p class=\"duration\"><strong>Duration:</strong> " + ticket.duration + " min.</p>\
-								</div>\\";
+								</div>";
 	}
 
 	else {
 		container.innerHTML += "<div class=\"eventBox\">\
 									<img src=\"img/icons/time-left.svg\">\
 									<p class=\"openHoursTransports\"><strong>Open:</strong> " + ticket.open + "-" + ticket.close + "</p>\
-								</div>\\";
+								</div>";
 	}
 
 	container.innerHTML += "<div class=\"routeBox\">\
@@ -673,6 +673,8 @@ function openFullTicket(type, place) {
 
 	var cont = page.children[0];
 	cont.scrollTop = 0
+	var buyBtn = page.children[1].children[1];
+	buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 	fillStars(type, place);
 	switchPages("ticketApp", "fullTicket");
 }
@@ -696,4 +698,64 @@ function fillStars(type, place) {
 			star.src = "img/icons/star-of-favorites-outline.svg";
 		}
 	}
+}
+
+
+function openBuyTicket(type, place) {
+	var popup = document.getElementsByClassName("buyTicket")[0];
+	var minusBtn = popup.children[0].children[1];
+	var value = popup.children[0].children[2];
+	var plusBtn = popup.children[0].children[3];
+	var priceTxt = popup.children[0].children[4];
+	var addBtn = popup.children[0].children[6];
+	var price = tickets[type].places[place].price;
+	minusBtn.setAttribute("onclick", "minusTicket("+price+")");
+	plusBtn.setAttribute("onclick", "plusTicket("+price+")");
+	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
+	value.innerHTML = "1";
+	priceTxt.innerHTML = price + "€";
+
+	showPage("buyTicket");
+}
+
+
+function minusTicket(price) {
+	var popup = document.getElementsByClassName("buyTicket")[0];
+	var btn = popup.children[0].children[1];
+	var value = popup.children[0].children[2];
+	var priceTxt = popup.children[0].children[4];
+	var n = parseInt(value.innerHTML);
+
+	if (n == 1) {
+		return;
+	}
+
+	if (n == 2) {
+		btn.classList.add("inactiveBtn");
+	}
+	value.innerHTML = --n;
+	priceTxt.innerHTML = n*price + "€";
+}
+
+function plusTicket(price) {
+	var popup = document.getElementsByClassName("buyTicket")[0];
+	var btn = popup.children[0].children[1];
+	var value = popup.children[0].children[2];
+	var priceTxt = popup.children[0].children[4];
+	var n = parseInt(value.innerHTML);
+
+	if (n == 1) {
+		btn.classList.remove("inactiveBtn");
+	}
+	value.innerHTML = ++n;
+	priceTxt.innerHTML = n*price + "€";
+}
+
+function addToCart(type, place) {
+	var popup = document.getElementsByClassName("buyTicket")[0];
+	var n = parseInt(popup.children[0].children[2].innerHTML);
+	tickets[type].places[place].cart += n;
+	localStorage.tickets3 = JSON.stringify(tickets);
+	goBack();
+	goBack();
 }

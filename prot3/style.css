@@ -420,7 +420,7 @@ div.button {
 	background: white;
 	cursor: pointer;
 	border: solid 2px white;
-	box-shadow:	inset 0 0 6px black;
+	box-shadow:	inset 0 0 3px black;
 }
 
 /*div.button::before { 
@@ -484,6 +484,16 @@ div.btnOK {
 
 div.sendToSpecific div.btnCancel {
 	margin-top: 60px;
+}
+
+
+div.fullTicket div.btnBuy {
+	margin-top: 60px;
+	background-color: rgb(35, 121, 216);
+}
+
+div.fullTicket div.btnCancel {
+	margin-top: 15px;
 }
 
 
@@ -993,7 +1003,7 @@ div.eventBox {
 	position: relative;
 	background-color: #1a7ec6;
 	margin: 10px 0px;
-	margin-bottom: 0px:;
+	margin-top: 25px;
 	border-radius: 50px; 
 	text-align: left;
 }
@@ -1024,8 +1034,7 @@ div.eventBox p.duration {
 div.routeBox {
 	position: relative;
 	background-color: #1aa48b;
-	margin: -15px 0px;
-	margin-bottom: 10px;
+	margin: 10px 0px;
 	border-radius: 50px; 
 	text-align: left;
 }
@@ -1062,6 +1071,47 @@ div.rateTicket img {
 
 
 
+div.buyTicket div.popupBtn {
+	font-size: 1.2em;
+	width: 90px;
+}
+
+div.buyTicket p.value {
+	margin: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+div.buyTicket img.valueBtn {
+	position: absolute;
+	top: 55px;
+	width: 30px;
+	background: rgb(35, 121, 216);
+	border-radius: 50px;
+	padding: 3px;
+	cursor: pointer;
+}
+
+img.inactiveBtn {
+	opacity: 0.4;
+	cursor: auto;
+	pointer-events: none;
+}
+
+div.buyTicket img.minus {
+	left: 60px;
+}
+
+div.buyTicket img.plus {
+	right: 60px;
+}
+
+div.buyTicket p.price {
+	margin: 0;
+	margin-top: 10px;
+	color: white;
+	background-color: rgb(35, 121, 216);
+}
 
 
 div.hidden {

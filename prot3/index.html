@@ -379,12 +379,32 @@
 
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnBuy" onclick=""><!-- js fill -->
+					<img src="img/icons/add-cart.svg">
+				</div>
 				<div class="button btnCancel" onclick="goBack()">
 					<img src="img/icons/close-cross.svg">
 				</div>
 			</div>
 		</div>
 
+		<div class="popup buyTicket hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p>How many?</p>
+
+				<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
+				<p class="value">1</p>
+				<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
+				<p class="price">12,34€</p>
+
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>Cancel</p>
+				</div>
+				<div class="popupBtn btnYes" onclick="">
+					<p>Add</p>
+				</div>
+			</div>
+		</div>
 
 
 
