@@ -333,7 +333,7 @@
 				<div class="button btnBought">
 					<img src="img/icons/store-receipt.svg">
 				</div>
-				<div class="button btnCart">
+				<div class="button btnCart" onclick="openCart()">
 					<img src="img/icons/online-shopping-cart.svg">
 					<div class="dot"></div>
 				</div>
@@ -394,9 +394,9 @@
 				<p>How many?</p>
 
 				<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
-				<p class="value">1</p>
+				<p class="value"></p>
 				<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
-				<p class="price">12,34€</p>
+				<p class="price"></p>
 
 				<div class="popupBtn btnNo" onclick="goBack()">
 					<p>Cancel</p>
@@ -405,6 +405,62 @@
 					<p>Add</p>
 				</div>
 			</div>
+		</div>
+
+
+		<div class="page cartPage hidden">
+			<div class="content">
+				<div class="cartItem">
+					<img class="delete" src="img/icons/close-cross.png">
+					<div class="itemInfo">
+						<p class="title">The phantom of the opera</p>
+						<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
+						<p class="value">10</p>
+						<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
+						<p class="price">12,34€</p>
+					</div>
+				</div>
+				<div class="cartItem">
+					<img class="delete" src="img/icons/close-cross.png">
+					<div class="itemInfo">
+						<p class="title">Movie: The Avengers</p>
+						<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
+						<p class="value">1</p>
+						<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
+						<p class="price">12,34€</p>
+					</div>
+				</div>
+				<div class="cartItem">
+					<img class="delete" src="img/icons/close-cross.png">
+					<div class="itemInfo">
+						<p class="title">Oceanarium</p>
+						<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
+						<p class="value">2</p>
+						<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
+						<p class="price">12,34€</p>
+					</div>
+				</div>
+				<div class="cartItem">
+					<img class="delete" src="img/icons/close-cross.png">
+					<div class="itemInfo">
+						<p class="title">Bus Ticket</p>
+						<img class="valueBtn inactiveBtn minus" src="img/icons/minus-big-symbol.svg" onclick="">
+						<p class="value">4</p>
+						<img class="valueBtn plus" src="img/icons/addition-sign.svg" onclick="">
+						<p class="price">12,34€</p>
+					</div>
+				</div>
+
+				<p class="total">Total: 52,14€</p>
+				<p class="checkout">Checkout</p>
+			</div>
+			<div class="sidebar">
+				<p class="time" onclick="goToHome()"></p>
+				<div class="button btnCancel" onclick="goBack()">
+					<img src="img/icons/close-cross.svg">
+				</div>		
+			</div>
+			
 		</div>
 
 

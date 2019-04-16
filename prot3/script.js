@@ -710,8 +710,8 @@ function openBuyTicket(type, place) {
 	var priceTxt = popup.children[0].children[4];
 	var addBtn = popup.children[0].children[6];
 	var price = tickets[type].places[place].price;
-	minusBtn.setAttribute("onclick", "minusTicket("+price+")");
-	plusBtn.setAttribute("onclick", "plusTicket("+price+")");
+	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+")");
+	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
 	minusBtn.classList.add("inactiveBtn");
 	value.innerHTML = "1";
@@ -721,11 +721,9 @@ function openBuyTicket(type, place) {
 }
 
 
-function minusTicket(price) {
-	var popup = document.getElementsByClassName("buyTicket")[0];
-	var btn = popup.children[0].children[1];
-	var value = popup.children[0].children[2];
-	var priceTxt = popup.children[0].children[4];
+function minusTicket(minusBtn, price) {
+	var value = minusBtn.nextElementSibling;
+	var priceTxt = value.nextElementSibling.nextElementSibling;
 	var n = parseInt(value.innerHTML);
 
 	if (n == 1) {
@@ -733,21 +731,20 @@ function minusTicket(price) {
 	}
 
 	if (n == 2) {
-		btn.classList.add("inactiveBtn");
+		minusBtn.classList.add("inactiveBtn");
 	}
 	value.innerHTML = --n;
 	priceTxt.innerHTML = n*price + "€";
 }
 
-function plusTicket(price) {
-	var popup = document.getElementsByClassName("buyTicket")[0];
-	var btn = popup.children[0].children[1];
-	var value = popup.children[0].children[2];
-	var priceTxt = popup.children[0].children[4];
+function plusTicket(plusBtn, price) {
+	var priceTxt = plusBtn.nextElementSibling;
+	var value = plusBtn.previousElementSibling;
+	var minusBtn = value.previousElementSibling;
 	var n = parseInt(value.innerHTML);
 
 	if (n == 1) {
-		btn.classList.remove("inactiveBtn");
+		minusBtn.classList.remove("inactiveBtn");
 	}
 	value.innerHTML = ++n;
 	priceTxt.innerHTML = n*price + "€";
@@ -777,4 +774,9 @@ function updateCartDot() {
 		}
 	}
 	dot.style.visibility = "hidden";
+}
+
+
+function openCart() {
+	switchPages("ticketApp", "cartPage");
 }
