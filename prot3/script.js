@@ -222,6 +222,7 @@ function openApp(appName) {
 		cont.scrollTop = 0;
 	} else if (appName == "ticketApp") {
 		selectTab(0);
+		updateCartDot();
 	}
 }
 
@@ -757,6 +758,23 @@ function addToCart(type, place) {
 	var n = parseInt(popup.children[0].children[2].innerHTML);
 	tickets[type].places[place].cart += n;
 	localStorage.tickets3 = JSON.stringify(tickets);
+	updateCartDot();
 	goBack();
 	goBack();
+}
+
+
+function updateCartDot() {
+	var btn = document.getElementsByClassName("btnCart")[0];
+	var dot = btn.children[1];
+	for (var i = 0; i < tickets.length; i++) {
+		for (var j = 0; j < tickets[i].places.length; j++) {
+			var place = tickets[i].places[j];
+			if (place.cart > 0) {
+				dot.style.visibility = "visible";
+				return;
+			}
+		}
+	}
+	dot.style.visibility = "hidden";
 }

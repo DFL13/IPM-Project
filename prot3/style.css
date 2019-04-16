@@ -931,10 +931,24 @@ div.btnLocation img{
 
 div.btnCart{
 	margin-top: 10px;
+	background-color: rgb(35, 121, 216);
+	position: relative;
 }
 
 div.btnCart img{
 	transform: translateY(1px);
+}
+
+
+div.dot {
+	position: absolute;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	top: -7px;
+	right: -4px;
+	background-color: #ff4646;
+	border: solid 3px #111e38;
 }
 
 
