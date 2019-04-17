@@ -1186,7 +1186,8 @@ div.itemInfo img.plus {
 
 div.itemInfo p.value {
 	margin: 10px;
-	transform: translateX(-40px);
+	transform: translateX(77px);
+	width: max-content;
 }
 
 div.itemInfo p.price {

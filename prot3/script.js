@@ -597,7 +597,7 @@ function selectTab(n) {
 	for (var i = 0; i < places.length; i++) {
 		var open = (places[i].open / 100).toFixed(2).split(".");
 		var close = (places[i].close / 100).toFixed(2).split(".");
-		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket("+ n + "," + i + ")'>\
+		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket("+ n + "," + i + ", \"ticketApp\")'>\
 									<img src=\"" + places[i].img + "\">\
 									<div class=\"info\">\
 										<p class=\"title\">" + places[i].name + "</p>\
@@ -621,11 +621,11 @@ function selectTab(n) {
 }
 */
 
-function openFullTicket(type, place) {
+function openFullTicket(type, place, app) {
 	var page = document.getElementsByClassName("fullTicket")[0];
 	var container = page.children[0].children[0];
 	var ticket = tickets[type].places[place];
-	
+
 	if (type == 0 || type == 1) {
 		var open = (ticket.open / 100).toFixed(2).split(".");
 		var close = (ticket.close / 100).toFixed(2).split(".");
@@ -677,7 +677,12 @@ function openFullTicket(type, place) {
 	var buyBtn = page.children[1].children[1];
 	buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 	fillStars(type, place);
-	switchPages("ticketApp", "fullTicket");
+	if (app == "cartPage" && !buyBtn.classList.contains("hidden")) {
+		buyBtn.classList.toggle("hidden");
+	} else if (app != "cartPage" && buyBtn.classList.contains("hidden")) {
+		buyBtn.classList.toggle("hidden");
+	}
+	switchPages(app, "fullTicket");
 }
 
 function rateTicket(type, place, rate) {
@@ -710,8 +715,8 @@ function openBuyTicket(type, place) {
 	var priceTxt = popup.children[0].children[4];
 	var addBtn = popup.children[0].children[6];
 	var price = tickets[type].places[place].price;
-	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+")");
-	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+")");
+	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+", \"buyTicket\")");
+	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+", \"buyTicket\")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
 	minusBtn.classList.add("inactiveBtn");
 	value.innerHTML = "1";
@@ -721,11 +726,10 @@ function openBuyTicket(type, place) {
 }
 
 
-function minusTicket(minusBtn, price) {
+function minusTicket(minusBtn, price, app) {
 	var value = minusBtn.nextElementSibling;
 	var priceTxt = value.nextElementSibling.nextElementSibling;
 	var n = parseInt(value.innerHTML);
-
 	if (n == 1) {
 		return;
 	}
@@ -733,11 +737,19 @@ function minusTicket(minusBtn, price) {
 	if (n == 2) {
 		minusBtn.classList.add("inactiveBtn");
 	}
+	if (app == "cartPage") {
+		var page = document.getElementsByClassName("cartPage")[0];
+		var val = page.getElementsByClassName("total")[0];
+		var num = parseInt(val.innerHTML.split(" ")[1]);
+		num -= price;
+		val.innerHTML = "Total: " + num;
+	}else {
+		priceTxt.innerHTML = n*price + "€";
+	}
 	value.innerHTML = --n;
-	priceTxt.innerHTML = n*price + "€";
 }
 
-function plusTicket(plusBtn, price) {
+function plusTicket(plusBtn, price, app) {
 	var priceTxt = plusBtn.nextElementSibling;
 	var value = plusBtn.previousElementSibling;
 	var minusBtn = value.previousElementSibling;
@@ -746,8 +758,16 @@ function plusTicket(plusBtn, price) {
 	if (n == 1) {
 		minusBtn.classList.remove("inactiveBtn");
 	}
+	if (app == "cartPage") {
+		var page = document.getElementsByClassName("cartPage")[0];
+		var val = page.getElementsByClassName("total")[0];
+		var num = parseInt(val.innerHTML.split(" ")[1]);
+		num += price;
+		val.innerHTML = "Total: " + num;
+	}else {
+		priceTxt.innerHTML = n*price + "€";
+	}
 	value.innerHTML = ++n;
-	priceTxt.innerHTML = n*price + "€";
 }
 
 function addToCart(type, place) {
@@ -778,5 +798,51 @@ function updateCartDot() {
 
 
 function openCart() {
+	var cart = document.getElementsByClassName("cartPage")[0];
+	var content = cart.children[0];
+	var total = 0;
+	content.innerHTML = "";
 	switchPages("ticketApp", "cartPage");
+	for (var i = 0; i < tickets.length; i++)
+		for (var j = 0; j < tickets[i].places.length; j++){
+			var place = tickets[i].places[j];
+			if (place.cart == 1) {
+				content.innerHTML += "<div class=\"cartItem\">\
+										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='deleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<div class=\"itemInfo\">\
+											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
+											<p class=\"value\">" + place.cart + "</p>\
+											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + ", \"cartPage\")'>\
+											<p class=\"price\">" + place.price + "€</p>\
+										</div>\
+									</div>";
+			} else if(place.cart > 1){
+				content.innerHTML += "<div class=\"cartItem\">\
+										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='deleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<div class=\"itemInfo\">\
+											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
+											<p class=\"value\">" + place.cart + "</p>\
+											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + ", \"cartPage\")'>\
+											<p class=\"price\">" + place.price + "€</p>\
+										</div>\
+									</div>";
+			}
+			total += place.cart*place.price;
+		}
+	content.innerHTML += "<p class=\"total\">Total: " + total + "€</p>\
+				<p class=\"checkout\">Checkout</p>";
+}
+
+function deleteCart(type, place, item){
+	var page = document.getElementsByClassName("cartPage")[0];
+	var content = page.children[0];
+	var ticket = tickets[type].places[place];
+	var value = page.getElementsByClassName("total")[0];
+	var n = parseInt(value.innerHTML.split(" ")[1]);
+	n -= ticket.cart*ticket.price;
+	value.innerHTML = "Total: " + n;
+	ticket.cart = 0;
+	item.parentNode.removeChild(item);
 }
