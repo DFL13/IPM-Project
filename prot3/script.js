@@ -785,7 +785,7 @@ function openCart() {
 			var place = tickets[i].places[j];
 			if (place.cart == 1) {
 				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='deleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
 											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
@@ -796,7 +796,7 @@ function openCart() {
 									</div>";
 			} else if(place.cart > 1){
 				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='deleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
 											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
@@ -812,6 +812,16 @@ function openCart() {
 				<p class=\"checkout\" onclick='checkout()'>Checkout</p>";
 }
 
+function tryDeleteCart(type, place, item) {
+	var popup = document.getElementsByClassName("verifyRemove")[0];
+	var btnyes = popup.children[0].children[2];
+
+	showPage("verifyRemove");
+	btnyes.onclick = function() { 
+		deleteCart(type, place, item); 
+	}
+}
+
 function deleteCart(type, place, item){
 	var page = document.getElementsByClassName("cartPage")[0];
 	var content = page.children[0];
@@ -823,6 +833,7 @@ function deleteCart(type, place, item){
 	ticket.cart = 0;
 	item.parentNode.removeChild(item);
 	updateCartDot();
+	goBack();
 }
 
 
