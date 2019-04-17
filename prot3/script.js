@@ -838,6 +838,7 @@ function deleteCart(type, place, item){
 	value.innerHTML = "Total: " + n;
 	ticket.cart = 0;
 	item.parentNode.removeChild(item);
+	localStorage.tickets3 = JSON.stringify(tickets);
 	updateCartDot();
 	goBack();
 }
