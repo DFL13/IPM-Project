@@ -926,5 +926,13 @@ function saveBuy() {
 }
 
 function emptyCart() {
-
+	for (var i = 0; i < tickets.length; i++) {
+		for (var j = 0; j < tickets[i].places.length; j++) { 
+			var ticket = tickets[i].places[j];
+			if (ticket.cart != 0) {
+				ticket.cart = 0;
+			}
+		}
+	}
+	localStorage.tickets3 = JSON.stringify(tickets);
 }
