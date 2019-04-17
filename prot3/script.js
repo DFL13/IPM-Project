@@ -694,8 +694,8 @@ function openBuyTicket(type, place) {
 	var addBtn = popup.children[0].children[6];
 	var price = tickets[type].places[place].price;
 	value.innerHTML = "1";
-	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+", \"buyTicket\")");
-	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+", \"buyTicket\")");
+	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
+	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
 	minusBtn.classList.add("inactiveBtn");
 	priceTxt.innerHTML = price + "€";
@@ -703,7 +703,7 @@ function openBuyTicket(type, place) {
 }
 
 
-function minusTicket(minusBtn, price, app) {
+function minusTicket(minusBtn, price, type, place, app) {
 	var value = minusBtn.nextElementSibling;
 	var priceTxt = value.nextElementSibling.nextElementSibling;
 	var n = parseInt(value.innerHTML);
@@ -713,6 +713,8 @@ function minusTicket(minusBtn, price, app) {
 		minusBtn.classList.add("inactiveBtn");
 	}
 	if (app == "cartPage") {
+		tickets[type].places[place].cart --;
+		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseInt(val.innerHTML.split(" ")[1]);
@@ -723,18 +725,19 @@ function minusTicket(minusBtn, price, app) {
 	}
 }
 
-function plusTicket(plusBtn, price, app) {
+function plusTicket(plusBtn, price, type, place, app) {
 	var priceTxt = plusBtn.nextElementSibling;
 	var value = plusBtn.previousElementSibling;
 	var minusBtn = value.previousElementSibling;
 	var n = parseInt(value.innerHTML);
 	value.innerHTML = ++n;
-	console.log(n);
 
 	if (n > 1) {
 		minusBtn.classList.remove("inactiveBtn");
 	}
 	if (app == "cartPage") {
+		tickets[type].places[place].cart ++;
+		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseInt(val.innerHTML.split(" ")[1]);
@@ -743,14 +746,17 @@ function plusTicket(plusBtn, price, app) {
 	}else {
 		priceTxt.innerHTML = n*price + "€";
 	}
-
 }
 
 function addToCart(type, place) {
 	var popup = document.getElementsByClassName("buyTicket")[0];
 	var n = parseInt(popup.children[0].children[2].innerHTML);
+
+
 	tickets[type].places[place].cart += n;
 	localStorage.tickets3 = JSON.stringify(tickets);
+	
+
 	updateCartDot();
 	goBack();
 	goBack();
@@ -788,9 +794,9 @@ function openCart() {
 										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
+											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + ", \"cartPage\")'>\
+											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
 											<p class=\"price\">" + place.price + "€</p>\
 										</div>\
 									</div>";
@@ -799,9 +805,9 @@ function openCart() {
 										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + ", \"cartPage\")'>\
+											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + ", \"cartPage\")'>\
+											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"price\">" + place.price + "€</p>\
 										</div>\
 									</div>";
@@ -848,8 +854,6 @@ function tryCheckout() {
 }
 
 
-
-
 function checkout() {
 	var div = document.getElementsByClassName("round")[0];
 	div.style.transform = 'translateY(-50%) scale(1)';
@@ -871,6 +875,7 @@ function checkout() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	/*drawBar("progressBar", 100);*/
 	setTimeout(loading, 600, p, 1);
+
 }
 
 function loading(p, n) {
