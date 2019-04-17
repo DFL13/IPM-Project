@@ -832,7 +832,7 @@ function openCart() {
 			total += place.cart*place.price;
 		}
 	content.innerHTML += "<p class=\"total\">Total: " + total + "€</p>\
-				<p class=\"checkout\">Checkout</p>";
+				<p class=\"checkout\" onclick='checkout()'>Checkout</p>";
 }
 
 function deleteCart(type, place, item){
@@ -845,4 +845,80 @@ function deleteCart(type, place, item){
 	value.innerHTML = "Total: " + n;
 	ticket.cart = 0;
 	item.parentNode.removeChild(item);
+}
+
+
+
+
+function checkout() {
+	var div = document.getElementsByClassName("round")[0];
+	div.style.transform = 'translateY(-50%) scale(1)';
+	var screen = document.getElementsByClassName("screen")[0];
+	screen.setAttribute("style", "pointer-events:none");
+	var circle = div.children[0];
+	var p = div.children[2];
+
+	p.innerHTML = "0%";
+
+	circle.style.transitionDelay = "-1s";
+	circle.style.borderWidth = "0px";
+
+	p.style.color = "black";
+
+
+	var canvas = document.getElementById("progressBar");
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	/*drawBar("progressBar", 100);*/
+	setTimeout(loading, 600, p, 1);
+}
+
+function loading(p, n) {
+	p.innerHTML = n+"%";
+	drawBar("progressBar", n);
+	if (n < 100) {
+		setTimeout(loading, 10, p, n+1);
+	}
+	if (n == 100) {
+		var div = document.getElementsByClassName("round")[0];
+		var circle = div.children[0];
+		circle.style.transitionDelay = "0s";
+		circle.style.borderWidth = "81px";
+		p.style.color = "transparent";
+
+		setTimeout(endLoading, 1500);
+	}
+}
+
+function drawBar(id, percent) {
+	var canvas = document.getElementById("progressBar");
+	var ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineCap = "round";
+	ctx.lineWidth = 20;
+	ctx.strokeStyle = "#18ab5c";
+	ctx.arc(90, 90, 70, -0.5 * Math.PI, ((2*percent)/100-0.5) * Math.PI);
+	ctx.stroke();
+}
+
+
+function endLoading() {
+	var div = document.getElementsByClassName("round")[0];
+	div.style.transform = "translateY(-50%) scale(0)";
+	var screen = document.getElementsByClassName("screen")[0];
+	screen.setAttribute("style", "pointer-events:auto");
+
+	saveBuy();
+	emptyCart();
+	updateCartDot();
+	goBack();
+}
+
+
+function saveBuy() {
+
+}
+
+function emptyCart() {
+
 }
