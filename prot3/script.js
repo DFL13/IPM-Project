@@ -109,27 +109,6 @@ function fillPostPreviews() {
 						<img src=" + posts[i].image + " onclick='showPost(\"" + i + "\", \"shareApp\")'>\
 					</div>";
 
-		/*var pp = document.createElement("DIV");
-		cols[n].appendChild(pp);
-		pp.className = "postPreview";
-		pp.setAttribute("onclick", "showPost("+i+")");
-
-		var header = document.createElement("DIV");
-		pp.appendChild(header);
-		header.className = "header";
-
-		var pic = document.createElement("IMG");
-		header.appendChild(pic);
-		pic.src = people[posts[i].person].pic;
-
-		var name = document.createElement("P");
-		header.appendChild(name);
-		name.innerHTML = posts[i].person;
-		
-		var img = document.createElement("IMG");
-		pp.appendChild(img);
-		img.src = posts[i].image;*/
-
 		n = (n+1)%2;
 	}
 }
@@ -188,7 +167,6 @@ function goBack() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
 		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
-
 		current.classList.toggle("hidden");
 		if (!current.classList.contains("popup")) {
 			previous.classList.toggle("hidden");
@@ -844,6 +822,7 @@ function deleteCart(type, place, item){
 	value.innerHTML = "Total: " + n;
 	ticket.cart = 0;
 	item.parentNode.removeChild(item);
+	updateCartDot();
 }
 
 
