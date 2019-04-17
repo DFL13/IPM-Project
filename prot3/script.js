@@ -715,13 +715,12 @@ function openBuyTicket(type, place) {
 	var priceTxt = popup.children[0].children[4];
 	var addBtn = popup.children[0].children[6];
 	var price = tickets[type].places[place].price;
+	value.innerHTML = "1";
 	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+", \"buyTicket\")");
 	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+", \"buyTicket\")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
 	minusBtn.classList.add("inactiveBtn");
-	value.innerHTML = "1";
 	priceTxt.innerHTML = price + "€";
-
 	showPage("buyTicket");
 }
 
@@ -730,11 +729,9 @@ function minusTicket(minusBtn, price, app) {
 	var value = minusBtn.nextElementSibling;
 	var priceTxt = value.nextElementSibling.nextElementSibling;
 	var n = parseInt(value.innerHTML);
-	if (n == 1) {
-		return;
-	}
+	value.innerHTML = --n;
 
-	if (n == 2) {
+	if (n == 1) {
 		minusBtn.classList.add("inactiveBtn");
 	}
 	if (app == "cartPage") {
@@ -746,7 +743,6 @@ function minusTicket(minusBtn, price, app) {
 	}else {
 		priceTxt.innerHTML = n*price + "€";
 	}
-	value.innerHTML = --n;
 }
 
 function plusTicket(plusBtn, price, app) {
@@ -754,8 +750,10 @@ function plusTicket(plusBtn, price, app) {
 	var value = plusBtn.previousElementSibling;
 	var minusBtn = value.previousElementSibling;
 	var n = parseInt(value.innerHTML);
+	value.innerHTML = ++n;
+	console.log(n);
 
-	if (n == 1) {
+	if (n > 1) {
 		minusBtn.classList.remove("inactiveBtn");
 	}
 	if (app == "cartPage") {
@@ -767,7 +765,7 @@ function plusTicket(plusBtn, price, app) {
 	}else {
 		priceTxt.innerHTML = n*price + "€";
 	}
-	value.innerHTML = ++n;
+
 }
 
 function addToCart(type, place) {
@@ -800,6 +798,7 @@ function updateCartDot() {
 function openCart() {
 	var cart = document.getElementsByClassName("cartPage")[0];
 	var content = cart.children[0];
+	content.scrollTop = 0;
 	var total = 0;
 	content.innerHTML = "";
 	switchPages("ticketApp", "cartPage");
