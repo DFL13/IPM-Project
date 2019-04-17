@@ -720,6 +720,7 @@ function minusTicket(minusBtn, price, type, place, app) {
 		var num = parseInt(val.innerHTML.split(" ")[1]);
 		num -= price;
 		val.innerHTML = "Total: " + num;
+		priceTxt.innerHTML = tickets[type].places[place].cart * price + "€";
 	}else {
 		priceTxt.innerHTML = n*price + "€";
 	}
@@ -743,6 +744,7 @@ function plusTicket(plusBtn, price, type, place, app) {
 		var num = parseInt(val.innerHTML.split(" ")[1]);
 		num += price;
 		val.innerHTML = "Total: " + num;
+		priceTxt.innerHTML = tickets[type].places[place].cart * price + "€";
 	}else {
 		priceTxt.innerHTML = n*price + "€";
 	}
@@ -797,7 +799,7 @@ function openCart() {
 											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
 											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
-											<p class=\"price\">" + place.price + "€</p>\
+											<p class=\"price\">" + place.price*place.cart + "€</p>\
 										</div>\
 									</div>";
 			} else if(place.cart > 1){
@@ -808,7 +810,7 @@ function openCart() {
 											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
 											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"price\">" + place.price + "€</p>\
+											<p class=\"price\">" + place.price*place.cart + "€</p>\
 										</div>\
 									</div>";
 			}
