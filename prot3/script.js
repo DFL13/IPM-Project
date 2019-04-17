@@ -809,7 +809,7 @@ function openCart() {
 			total += place.cart*place.price;
 		}
 	content.innerHTML += "<p class=\"total\">Total: " + total + "€</p>\
-				<p class=\"checkout\" onclick='checkout()'>Checkout</p>";
+				<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
 }
 
 function tryDeleteCart(type, place, item) {
@@ -834,6 +834,17 @@ function deleteCart(type, place, item){
 	item.parentNode.removeChild(item);
 	updateCartDot();
 	goBack();
+}
+
+function tryCheckout() {
+	var popup = document.getElementsByClassName("verifyCheckout")[0];
+	var btnyes = popup.children[0].children[2];
+
+	showPage("verifyCheckout");
+	btnyes.onclick = function() { 
+		goBack();
+		checkout(); 
+	}
 }
 
 
