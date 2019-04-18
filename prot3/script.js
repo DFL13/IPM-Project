@@ -600,6 +600,8 @@ function selectTab(n) {
 */
 
 function openFullTicket(type, place, app) {
+	var colors = ["#e04242", "#e04242", "#e04242", "#f08130", "#18b44b", "#18b44b"];
+
 	var page = document.getElementsByClassName("fullTicket")[0];
 	var container = page.children[0].children[0];
 	var ticket = tickets[type].places[place];
@@ -613,12 +615,13 @@ function openFullTicket(type, place, app) {
 								<div class=\"imgContainer\">\
 									<img class=\"pic\" src="+ ticket.img +">\
 								</div>\
-								<div class=\"score\">\
+								<div class=\"score\" style='background-color:"+colors[Math.round(ticket.score)]+"'>\
 									<img src=\"img/icons/favourites-filled-star-symbol.svg\">\
 									<p>Score:</p>\
 									<p>"+ ticket.score + "</p>\
 								</div>\
-							</div>";
+							</div>\
+							<p class=\"price\">" + ticket.price +"€/un.</p>";
 
 	if (type == 0 || type == 1) {
 		container.innerHTML += "<div class=\"eventBox\">\
@@ -713,17 +716,15 @@ function minusTicket(minusBtn, price, type, place, app) {
 		minusBtn.classList.add("inactiveBtn");
 	}
 	if (app == "cartPage") {
-		tickets[type].places[place].cart --;
+		tickets[type].places[place].cart = n;
 		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseInt(val.innerHTML.split(" ")[1]);
 		num -= price;
-		val.innerHTML = "Total: " + num;
-		priceTxt.innerHTML = tickets[type].places[place].cart * price + "€";
-	}else {
-		priceTxt.innerHTML = n*price + "€";
+		val.innerHTML = "Total: " + num + "€";
 	}
+	priceTxt.innerHTML = n*price + "€";
 }
 
 function plusTicket(plusBtn, price, type, place, app) {
@@ -737,17 +738,15 @@ function plusTicket(plusBtn, price, type, place, app) {
 		minusBtn.classList.remove("inactiveBtn");
 	}
 	if (app == "cartPage") {
-		tickets[type].places[place].cart ++;
+		tickets[type].places[place].cart = n;
 		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseInt(val.innerHTML.split(" ")[1]);
 		num += price;
-		val.innerHTML = "Total: " + num;
-		priceTxt.innerHTML = tickets[type].places[place].cart * price + "€";
-	}else {
-		priceTxt.innerHTML = n*price + "€";
+		val.innerHTML = "Total: " + num + "€";
 	}
+	priceTxt.innerHTML = n*price + "€";
 }
 
 function addToCart(type, place) {
@@ -785,9 +784,16 @@ function openCart() {
 	var cart = document.getElementsByClassName("cartPage")[0];
 	var content = cart.children[0];
 	content.scrollTop = 0;
+
+	fillCart();
+	switchPages("ticketApp", "cartPage");
+}
+
+function fillCart() {
+	var cart = document.getElementsByClassName("cartPage")[0];
+	var content = cart.children[0];
 	var total = 0;
 	content.innerHTML = "";
-	switchPages("ticketApp", "cartPage");
 	for (var i = 0; i < tickets.length; i++)
 		for (var j = 0; j < tickets[i].places.length; j++){
 			var place = tickets[i].places[j];
@@ -816,9 +822,15 @@ function openCart() {
 			}
 			total += place.cart*place.price;
 		}
-	content.innerHTML += "<p class=\"total\">Total: " + total + "€</p>\
-				<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
+
+	if (content.innerHTML == "") {
+		content.innerHTML = "<p class=\"noItems\">No items have yet been added to the cart.</p>"
+	} else {
+		content.innerHTML += 	"<p class=\"total\">Total: " + total + "€</p>\
+								<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
+	}
 }
+
 
 function tryDeleteCart(type, place, item) {
 	var popup = document.getElementsByClassName("verifyRemove")[0];
@@ -831,16 +843,9 @@ function tryDeleteCart(type, place, item) {
 }
 
 function deleteCart(type, place, item){
-	var page = document.getElementsByClassName("cartPage")[0];
-	var content = page.children[0];
-	var ticket = tickets[type].places[place];
-	var value = page.getElementsByClassName("total")[0];
-	var n = parseInt(value.innerHTML.split(" ")[1]);
-	n -= ticket.cart*ticket.price;
-	value.innerHTML = "Total: " + n;
-	ticket.cart = 0;
-	item.parentNode.removeChild(item);
+	tickets[type].places[place].cart = 0;
 	localStorage.tickets3 = JSON.stringify(tickets);
+	fillCart();
 	updateCartDot();
 	goBack();
 }

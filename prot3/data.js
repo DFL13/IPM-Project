@@ -258,7 +258,7 @@ var tickets=[{
 							timeAway: 5,
 							distance: "500 m",
 							duration: 90,
-							score: 2.9,
+							score: 2.2,
 							rate: 0,
 							cart: 0
 						},
@@ -271,7 +271,7 @@ var tickets=[{
 							timeAway: 7,
 							distance: "670 m",
 							duration: 60,
-							score: 3.8,
+							score: 3.4,
 							rate: 0,
 							cart: 0
 						},

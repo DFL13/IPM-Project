@@ -1012,12 +1012,21 @@ div.fullTicket div.score p {
 	font-size: 1.2em;
 }
 
+div.fullTicket p.price {
+	font-weight: bold;
+	font-size: 1.1em;
+	color: black;
+	margin: 10px auto;
+	padding: 10px 20px;
+	border-radius: 10px;
+	width: max-content; 
+	box-shadow: inset 0px 0px 6px 0px black;
+}
 
 div.eventBox {
 	position: relative;
 	background-color: #1a7ec6;
 	margin: 10px 0px;
-	margin-top: 25px;
 	border-radius: 50px; 
 	text-align: left;
 }
@@ -1145,7 +1154,8 @@ div.cartItem {
 }
 
 div.cartItem img.delete {
-	width: 15px;
+	width: 38px;
+	padding: 10px;
 	margin: auto;
 	align-self: center;
 	cursor: pointer;
@@ -1172,21 +1182,21 @@ div.itemInfo img.valueBtn {
 
 div.itemInfo img.minus {
 	position: absolute;
-	bottom: 7px;
+	bottom: 12px;
 	left: 74px;
-	transform: translateX(-40px);
+	transform: translateX(-20px);
 }
 
 div.itemInfo img.plus {
 	position: absolute;
-	bottom: 7px;
+	bottom: 12px;
 	right: 74px;
-	transform: translateX(-40px);
+	transform: translateX(-20px);
 }
 
 div.itemInfo p.value {
-	margin: 10px;
-	transform: translateX(77px);
+	margin: 15px auto;
+	transform: translateX(-20px);
 	width: max-content;
 }
 
@@ -1196,11 +1206,12 @@ div.itemInfo p.price {
 	text-align: right;
 	top: 50%;
 	transform: translateY(-50%);
+	font-size: 1.2em;
 }
 
 p.total {
 	width: max-content;
-	margin: auto;
+	margin: 15px auto;
 	padding: 5px 15px;
 	font-size: 1.4em;
 	color: black;
@@ -1218,6 +1229,19 @@ p.checkout {
 	background: #18ab5c;
 	border-radius: 50px;
 	cursor: pointer;
+}
+
+
+p.noItems {
+	background-color: white;
+	border-radius: 15px;
+	padding: 8px 15px;
+	width: 250px;
+	margin: auto;
+	margin-top: 75px;
+	color: black;
+	direction: ltr;
+	font-size: 1.1em;
 }
 
 
