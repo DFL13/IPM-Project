@@ -204,6 +204,8 @@ var myPosts =
 				"img/myPosts/wolfgang-frick-695728-unsplash.jpg"			// good
 			];
 
+var bought = [];
+
 var tickets=[{
 				type: "events",
 				places:[{

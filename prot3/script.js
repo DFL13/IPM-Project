@@ -52,16 +52,18 @@ function triggerHome() {
 
 
 function loadData() {
-	if (localStorage.posts3 == undefined && localStorage.people3 == undefined && localStorage.myPosts3 == undefined) {
+	if (localStorage.posts3 == undefined) {
 		localStorage.posts3 = JSON.stringify(posts);
 		localStorage.people3 = JSON.stringify(people);
 		localStorage.myPosts3 = JSON.stringify(myPosts);
 		localStorage.tickets3 = JSON.stringify(tickets);
+		localStorage.bought3 = JSON.stringify(bought);
 	} else {
 		posts = JSON.parse(localStorage.posts3);
 		people = JSON.parse(localStorage.people3);
 		myPosts = JSON.parse(localStorage.myPosts3);
 		tickets = JSON.parse(localStorage.tickets3);
+		bought = JSON.parse(localStorage.bought3);
 	}
 	fillPostPreviews();
 }
@@ -72,6 +74,7 @@ function reset() {
 		localStorage.removeItem("people3");
 		localStorage.removeItem("myPosts3");
 		localStorage.removeItem("tickets3");
+		localStorage.removeItem("bought3");
 		location.reload();
 	}
 }
@@ -922,24 +925,42 @@ function endLoading() {
 	screen.setAttribute("style", "pointer-events:auto");
 
 	saveBuy();
-	emptyCart();
 	updateCartDot();
 	goBack();
 }
 
 
 function saveBuy() {
+	var d = new Date();
+	var total = 0;
+	var items = [];
 
-}
-
-function emptyCart() {
 	for (var i = 0; i < tickets.length; i++) {
-		for (var j = 0; j < tickets[i].places.length; j++) { 
-			var ticket = tickets[i].places[j];
-			if (ticket.cart != 0) {
-				ticket.cart = 0;
+		for (var j = 0; j < tickets[i].places.length; j++) {
+			var n = tickets[i].places[j].cart;
+			if (n > 0) {
+				items.push({
+								type: i,
+								place: j,
+								tickets: n
+							});
+				total += n*tickets[i].places[j].price;
+				tickets[i].places[j].cart = 0;
 			}
 		}
 	}
+
+	bought.push({
+					date: twoDigit(d.getDate())+"/"+twoDigit(d.getMonth())+"/"+d.getFullYear(),
+					time: twoDigit(d.getHours())+":"+twoDigit(d.getMinutes())+":"+twoDigit(d.getSeconds()),
+					items: items,
+					total: total
+				});
+
 	localStorage.tickets3 = JSON.stringify(tickets);
+	localStorage.bought3 = JSON.stringify(bought);
+}
+
+function twoDigit(n) {
+    return n < 10 ? "0"+n : ""+n;
 }
