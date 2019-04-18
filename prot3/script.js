@@ -971,5 +971,24 @@ function openReceiptPage() {
 }
 
 function fillReceipts() {
-	
+	var page = document.getElementsByClassName("receiptPage")[0];
+	var container = page.children[0].children[0];
+	container.innerHTML = "";
+	for (var i = 0; i < bought.length; i++) {
+		var purchase = bought[i];
+		container.innerHTML += 
+					"<div class=\"receipt\">\
+						<div class=\"header\">\
+							<img src=\"img/icons/chevron-arrow-up.png\">\
+							<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
+							<p class=\"price\">" + purchase.total + "€</p>\
+						</div>\
+						<div class=\"items\">\
+							<div class=\"item\">\
+								<p></p>\
+								<p></p>\
+							</div>\
+						</div>\
+					</div>"
+	}
 }
