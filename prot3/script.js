@@ -81,6 +81,35 @@ function reset() {
 	}
 }
 
+function querySize() {
+	var sel = document.getElementsByTagName("SELECT")[0];
+	if (localStorage.selIndex == undefined) {
+		localStorage.selIndex = JSON.stringify(sel.selectedIndex);
+	} else {
+		sel.selectedIndex = JSON.parse(localStorage.selIndex);
+	}
+	adjustSize();
+}
+
+function adjustSize() {
+	var sel = document.getElementsByTagName("SELECT")[0];
+	localStorage.selIndex = JSON.stringify(sel.selectedIndex);
+	var diagInch = parseFloat(sel.value);
+	var diagCm = diagInch * 2.54;
+	var diagPix = Math.sqrt(screen.width*screen.width + screen.height*screen.height);
+	var divWidthPix = 6.5 * diagPix / diagCm;
+	var div = document.getElementsByClassName("screen")[0];
+	var scale = divWidthPix / parseInt(getComputedStyle(div).width);
+	var zoom = window.devicePixelRatio;
+
+	if (zoom != 1 && navigator.userAgent.indexOf("Chrome") != -1) {
+		scale = scale/zoom;
+	}
+	div.style.transform = "scale("+scale+")";
+}
+
+
+
 function showPage(name) {
 	var page = document.getElementsByClassName(name)[0];
 	page.classList.remove("hidden");

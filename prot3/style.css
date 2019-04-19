@@ -56,6 +56,26 @@ div.resetBtn p {
 	font-weight: bold;
 }
 
+select {
+	position: absolute;
+	top: 20px;
+	left: 150px;
+	width: 80px;
+	height: 40px;
+	border: solid 3px black;
+	color: black;
+	background-color: transparent;
+	font-size: 1em;
+	/*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+}
+
+option {
+	background-color: black;
+	color: white
+	
+}
+
 div.screen {
 	margin: auto; 
 	position: relative;

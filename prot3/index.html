@@ -7,10 +7,17 @@
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </head>
-<body onload="updateClock(); loadData();">
+<body onload="updateClock(); loadData(); querySize();" onresize="adjustSize()">
 	<div class="resetBtn" onclick="reset()">
 		<p>Reset</p>
 	</div>
+
+	<select onchange="adjustSize()">
+		<option value="15.6">15.6"</option>
+		<option value="17">17"</option>
+		<option value="24">24"</option>
+		<option value="27">27"</option>
+	</select>
 
 	<div class="screen">
 		<div class="outerBtn" id="btnL" onmousedown="btnMouseDown(this, null)" onmouseup="btnMouseUp(this, turnOnOff)"></div>
