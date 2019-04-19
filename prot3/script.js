@@ -655,7 +655,7 @@ function openFullTicket(type, place, app) {
 									<p>"+ ticket.score + "</p>\
 								</div>\
 							</div>\
-							<p class=\"price\">" + ticket.price +"€/un.</p>";
+							<p class=\"price\">" + ticket.price.toFixed(2) +"€/un.</p>";
 
 	if (type == 0 || type == 1) {
 		container.innerHTML += "<div class=\"eventBox\">\
@@ -735,7 +735,7 @@ function openBuyTicket(type, place) {
 	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
 	minusBtn.classList.add("inactiveBtn");
-	priceTxt.innerHTML = price + "€";
+	priceTxt.innerHTML = price.toFixed(2) + "€";
 	showPage("buyTicket");
 }
 
@@ -754,11 +754,12 @@ function minusTicket(minusBtn, price, type, place, app) {
 		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
-		var num = parseInt(val.innerHTML.split(" ")[1]);
+		var num = parseFloat(val.innerHTML.split(" ")[1]);
+		console.log(num);
 		num -= price;
-		val.innerHTML = "Total: " + num + "€";
+		val.innerHTML = "Total: " + num.toFixed(2) + "€";
 	}
-	priceTxt.innerHTML = n*price + "€";
+	priceTxt.innerHTML = (n*price).toFixed(2) + "€";
 }
 
 function plusTicket(plusBtn, price, type, place, app) {
@@ -776,11 +777,11 @@ function plusTicket(plusBtn, price, type, place, app) {
 		localStorage.tickets3 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
-		var num = parseInt(val.innerHTML.split(" ")[1]);
+		var num = parseFloat(val.innerHTML.split(" ")[1]);
 		num += price;
-		val.innerHTML = "Total: " + num + "€";
+		val.innerHTML = "Total: " + num.toFixed(2) + "€";
 	}
-	priceTxt.innerHTML = n*price + "€";
+	priceTxt.innerHTML = (n*price).toFixed(2) + "€";
 }
 
 function addToCart(type, place) {
@@ -839,7 +840,7 @@ function fillCart() {
 											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
 											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
-											<p class=\"price\">" + place.price*place.cart + "€</p>\
+											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
 			} else if(place.cart > 1){
@@ -850,7 +851,7 @@ function fillCart() {
 											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
 											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"price\">" + place.price*place.cart + "€</p>\
+											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
 			}
@@ -860,7 +861,7 @@ function fillCart() {
 	if (content.innerHTML == "") {
 		content.innerHTML = "<p class=\"noItems\">No items have yet been added to the cart.</p>"
 	} else {
-		content.innerHTML += 	"<p class=\"total\">Total: " + total + "€</p>\
+		content.innerHTML += 	"<p class=\"total\">Total: " + total.toFixed(2) + "€</p>\
 								<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
 	}
 }
@@ -1003,8 +1004,14 @@ function openReceiptPage() {
 
 function fillReceipts() {
 	var page = document.getElementsByClassName("receiptPage")[0];
-	var container = page.children[0].children[0];
-	container.innerHTML = "";
+	if (bought.length == 0) {
+		page.children[0].innerHTML += "<p class=\"noItems\"> No items have been bought yet </p>";
+	} else {
+		page.children[0].innerHTML = "<div class=\"container\">\
+									</div>";
+		var container = page.children[0].children[0];
+		container.innerHTML = "";
+	}
 	for (var i = bought.length-1; i >= 0; i--) {
 		var purchase = bought[i];
 		container.innerHTML += 
@@ -1012,7 +1019,7 @@ function fillReceipts() {
 						<div class=\"header\" onclick='expandItems("+(bought.length-1-i)+")'>\
 							<img src=\"img/icons/chevron-arrow-up.png\">\
 							<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
-							<p class=\"price\">" + purchase.total + "€</p>\
+							<p class=\"price\">" + purchase.total.toFixed(2) + "€</p>\
 						</div>\
 						<div class=\"items\">\
 							<div class=\"item\">\
@@ -1032,7 +1039,7 @@ function fillReceipts() {
 						"<div class=\"item\">\
 							<p class=\"value\">" + purchase.items[j].tickets + "</p>\
 							<p class=\"name\" onclick=\"openFullTicket("+purchase.items[j].type+","+ purchase.items[j].place+",'receiptPage')\">" + ticket.name + "</p>\
-							<p class=\"price\">" +  price + "€</p>\
+							<p class=\"price\">" +  price.toFixed(2) + "€</p>\
 						</div>";
 		}
 
