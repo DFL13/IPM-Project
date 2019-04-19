@@ -663,10 +663,10 @@ function openFullTicket(type, place, app) {
 	var buyBtn = page.children[1].children[1];
 	buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 	fillStars(type, place);
-	if (app == "cartPage" && !buyBtn.classList.contains("hidden")) {
-		buyBtn.classList.toggle("hidden");
-	} else if (app != "cartPage" && buyBtn.classList.contains("hidden")) {
-		buyBtn.classList.toggle("hidden");
+	if (app == "cartPage" || app == "receiptPage") {
+		buyBtn.classList.add("hidden");
+	} else {
+		buyBtn.classList.remove("hidden");
 	}
 	switchPages(app, "fullTicket");
 }
@@ -1002,7 +1002,7 @@ function fillReceipts() {
 			items.innerHTML +=
 						"<div class=\"item\">\
 							<p class=\"value\">" + purchase.items[j].tickets + "</p>\
-							<p class=\"name\">" + ticket.name + "</p>\
+							<p class=\"name\" onclick=\"openFullTicket("+purchase.items[j].type+","+ purchase.items[j].place+",'receiptPage')\">" + ticket.name + "</p>\
 							<p class=\"price\">" +  price + "€</p>\
 						</div>";
 		}
