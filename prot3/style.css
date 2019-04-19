@@ -1295,20 +1295,20 @@ div.receipt {
 	padding: 15px 0px;
 	margin: 0px 15px; 
 	border-bottom: solid 2px grey;
-	text-align: left
+	text-align: left;
+	color: black;
 }
 
 div.receipt div.header {
 	cursor: pointer;
 	font-size: 1.1em;
-	color: black;
 	display: grid;
 	grid-template-columns: 15px auto auto;
 	align-items: center;
 }
 
 div.receipt div.header img {
-	transform: rotate(180deg);
+	transform: rotate(90deg);
 	width: 100%;
 }
 
@@ -1318,13 +1318,54 @@ div.receipt div.header p.price {
 	background-color: rgb(35, 121, 216);
 	font-weight: bold;
 	color: white;
-	min-width: 55%;
+	min-width: 55px;
 
 }
 
 div.receipt div.items {
-	padding: 5px 0px 10px 15px;
-	max-height: 200px; /*js to calc, and trasition duration too*/
+	/*padding-left: 15px;*/
+	max-height: 0px; /*js to calc, and trasition duration too*/
+	font-size: 0.9em;
+	overflow: hidden;
+}
+
+div.receipt div.item {
+	display: grid;
+	grid-template-columns: 25px auto 50px;
+	align-items: center;
+	padding: 6px 0px;
+}
+
+div.receipt div.item:nth-child(1) {
+	padding-top: 20px;
+}
+
+div.receipt div.item p.value {
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+	border-radius: 50px;
+	background-color: rgb(35, 121, 216);
+	padding: 2px;
+	/*margin-right: 5px;*/
+
+}
+
+div.receipt div.item p.name {
+	margin-left: 5px;
+	width: max-content;
+	font-size: 0.94em;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.receipt div.item p.price {
+	text-align: center;
+	border-radius: 50px;
+	border: solid 2px rgb(35, 121, 216);
+	/*font-weight: bold;*/
+	/*min-width: 40px;*/
 }
 
 
