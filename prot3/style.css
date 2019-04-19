@@ -1310,6 +1310,7 @@ div.receipt div.header {
 div.receipt div.header img {
 	transform: rotate(90deg);
 	width: 100%;
+	transition: transform ease 600ms;
 }
 
 div.receipt div.header p.price {
@@ -1327,6 +1328,7 @@ div.receipt div.items {
 	max-height: 0px; /*js to calc, and trasition duration too*/
 	font-size: 0.9em;
 	overflow: hidden;
+	transition: max-height ease 600ms;
 }
 
 div.receipt div.item {

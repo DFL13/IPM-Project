@@ -10,6 +10,8 @@ var timeEnded;
 var timeout_id;
 var virgin = true;
 
+var openedItems;
+
 
 window.ondragstart = function() { return false; } 
 
@@ -974,11 +976,11 @@ function fillReceipts() {
 	var page = document.getElementsByClassName("receiptPage")[0];
 	var container = page.children[0].children[0];
 	container.innerHTML = "";
-	for (var i = 0; i < bought.length; i++) {
+	for (var i = bought.length-1; i >= 0; i--) {
 		var purchase = bought[i];
 		container.innerHTML += 
 					"<div class=\"receipt\">\
-						<div class=\"header\">\
+						<div class=\"header\" onclick='expandItems("+(bought.length-1-i)+")'>\
 							<img src=\"img/icons/chevron-arrow-up.png\">\
 							<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
 							<p class=\"price\">" + purchase.total + "€</p>\
@@ -989,7 +991,7 @@ function fillReceipts() {
 						</div>\
 					</div>"
 	
-		var items = container.getElementsByClassName("items")[0];
+		var items = container.lastElementChild.children[1];
 		items.innerHTML = "";
 		for (var j = 0; j < purchase.items.length; j++) {
 			var type = purchase.items[j].type;
@@ -998,12 +1000,43 @@ function fillReceipts() {
 			var price = ticket.price*purchase.items[j].tickets;
 
 			items.innerHTML +=
-						"<p class=\"value\">" + purchase.items[j].tickets + "</p>\
-						<p class=\"name\">" + ticket.name + "</p>\
-						<p class=\"price\">" +  price + "€</p>";
+						"<div class=\"item\">\
+							<p class=\"value\">" + purchase.items[j].tickets + "</p>\
+							<p class=\"name\">" + ticket.name + "</p>\
+							<p class=\"price\">" +  price + "€</p>\
+						</div>";
 		}
 
 	}
+	openedItems = -1;
+}
 
+function expandItems(n) {
+	console.log(openedItems);
+	if (openedItems != -1) {
+		toggleItems(openedItems, false);
+	}
 
+	if (n != openedItems) {
+		toggleItems(n, true);
+		openedItems = n;
+	} else {
+		openedItems = -1;
+	}
+}
+
+function toggleItems(n, open) {
+	var page = document.getElementsByClassName("receiptPage")[0];
+	var container = page.children[0].children[0];
+	var receipt = container.children[n];
+	var arrow = receipt.children[0].children[0];
+	var items = receipt.children[1];
+
+	if (open) {
+		arrow.style.transform = "rotate(180deg)";
+		items.style.maxHeight = items.children.length*35 + 20+"px";
+	} else {
+		arrow.style.transform = "rotate(90deg)";
+		items.style.maxHeight = "0px";
+	}
 }
