@@ -985,10 +985,25 @@ function fillReceipts() {
 						</div>\
 						<div class=\"items\">\
 							<div class=\"item\">\
-								<p></p>\
-								<p></p>\
 							</div>\
 						</div>\
 					</div>"
+	
+		var items = container.getElementsByClassName("items")[0];
+		items.innerHTML = "";
+		for (var j = 0; j < purchase.items.length; j++) {
+			var type = purchase.items[j].type;
+			var place = purchase.items[j].place;
+			var ticket = tickets[type].places[place];
+			var price = ticket.price*purchase.items[j].tickets;
+
+			items.innerHTML +=
+						"<p class=\"value\">" + purchase.items[j].tickets + "</p>\
+						<p class=\"name\">" + ticket.name + "</p>\
+						<p class=\"price\">" +  price + "€</p>";
+		}
+
 	}
+
+
 }
