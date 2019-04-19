@@ -964,3 +964,12 @@ function saveBuy() {
 function twoDigit(n) {
     return n < 10 ? "0"+n : ""+n;
 }
+
+function openReceiptPage() {
+	fillReceipts();
+	switchPages("ticketApp", "receiptPage");
+}
+
+function fillReceipts() {
+	
+}
