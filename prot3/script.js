@@ -1012,7 +1012,6 @@ function fillReceipts() {
 }
 
 function expandItems(n) {
-	console.log(openedItems);
 	if (openedItems != -1) {
 		toggleItems(openedItems, false);
 	}
