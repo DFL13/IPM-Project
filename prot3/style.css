@@ -73,7 +73,7 @@ select {
 option {
 	background-color: black;
 	color: white
-	
+
 }
 
 div.screen {
@@ -1186,9 +1186,10 @@ div.itemInfo {
 }
 
 div.itemInfo p.title {
-	max-width: 180px;
+	max-width: 205px;
 	width: max-content;
 	margin: 5px 10px;
+	margin-left: 0px;
 	font-size: 1em;
 	text-decoration: underline;
 	font-weight: bold;
@@ -1215,9 +1216,10 @@ div.itemInfo img.plus {
 }
 
 div.itemInfo p.value {
-	margin: 15px auto;
+	margin: 12px auto;
 	transform: translateX(-20px);
 	width: max-content;
+	font-size: 1.2em;
 }
 
 div.itemInfo p.price {
@@ -1226,7 +1228,7 @@ div.itemInfo p.price {
 	text-align: right;
 	top: 50%;
 	transform: translateY(-50%);
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 p.total {
@@ -1313,7 +1315,7 @@ div.round img {
 
 div.receipt {
 	padding: 15px 0px;
-	margin: 0px 15px; 
+	margin: 0px 10px; 
 	border-bottom: solid 2px grey;
 	text-align: left;
 	color: black;
@@ -1352,8 +1354,9 @@ div.receipt div.items {
 }
 
 div.receipt div.item {
+	position: relative;
 	display: grid;
-	grid-template-columns: 25px auto 50px;
+	grid-template-columns: 25px auto;
 	align-items: center;
 	padding: 6px 0px;
 }
@@ -1377,15 +1380,20 @@ div.receipt div.item p.value {
 div.receipt div.item p.name {
 	margin-left: 5px;
 	width: max-content;
-	font-size: 0.94em;
+	font-size: 1.1em;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 div.receipt div.item p.price {
+	position: absolute;
+	right: 0;
+	bottom: 5px;
 	text-align: center;
 	border-radius: 50px;
 	border: solid 2px rgb(35, 121, 216);
+	padding: 1px 5px;
+	width: max-content;
 	/*font-weight: bold;*/
 	/*min-width: 40px;*/
 }

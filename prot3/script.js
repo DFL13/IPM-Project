@@ -901,7 +901,7 @@ function checkout() {
 	var div = document.getElementsByClassName("round")[0];
 	div.style.transform = 'translateY(-50%) scale(1)';
 	var screen = document.getElementsByClassName("screen")[0];
-	screen.setAttribute("style", "pointer-events:none");
+	screen.style["pointer-events"] = "none";
 	var circle = div.children[0];
 	var p = div.children[2];
 
@@ -954,7 +954,7 @@ function endLoading() {
 	var div = document.getElementsByClassName("round")[0];
 	div.style.transform = "translateY(-50%) scale(0)";
 	var screen = document.getElementsByClassName("screen")[0];
-	screen.setAttribute("style", "pointer-events:auto");
+	screen.style["pointer-events"] = "auto";
 
 	saveBuy();
 	updateCartDot();
@@ -983,8 +983,8 @@ function saveBuy() {
 	}
 
 	bought.push({
-					date: twoDigit(d.getDate())+"/"+twoDigit(d.getMonth())+"/"+d.getFullYear(),
-					time: twoDigit(d.getHours())+":"+twoDigit(d.getMinutes())+":"+twoDigit(d.getSeconds()),
+					date: twoDigit(d.getDate())+"-"+twoDigit(d.getMonth())+"-"+d.getFullYear(),
+					time: twoDigit(d.getHours())+"h"+twoDigit(d.getMinutes())/*+":"+twoDigit(d.getSeconds())*/,
 					items: items,
 					total: total
 				});
@@ -1005,7 +1005,7 @@ function openReceiptPage() {
 function fillReceipts() {
 	var page = document.getElementsByClassName("receiptPage")[0];
 	if (bought.length == 0) {
-		page.children[0].innerHTML += "<p class=\"noItems\"> No items have been bought yet </p>";
+		page.children[0].innerHTML = "<p class=\"noItems\"> No items have been bought yet </p>";
 	} else {
 		page.children[0].innerHTML = "<div class=\"container\">\
 									</div>";

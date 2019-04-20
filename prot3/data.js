@@ -222,7 +222,7 @@ var tickets=[{
 							cart: 0
 						},
 						{
-							name:"The Phantom of the Opera",
+							name:"Phantom of the Opera",
 							img: "img/ticketPlaces/free-1641264_640.jpg",
 							price: 20,
 							open: 2000,
