@@ -702,7 +702,17 @@ function openFullTicket(type, place, app) {
 
 function rateTicket(type, place, rate) {
 	var ticket = tickets[type].places[place];
-	ticket.rate = (ticket.rate == rate ? 0 : rate);
+	if (ticket.rate == rate) {
+		ticket.rate = 0;
+		showNotif("Rating removed");
+	} else {
+		if (ticket.rate == 0) {
+			showNotif("Rating added");
+		} else {
+			showNotif("Rating changed");
+		}
+		ticket.rate = rate;
+	}
 	localStorage.tickets3 = JSON.stringify(tickets);
 	fillStars(type, place);
 }
@@ -733,7 +743,7 @@ function openBuyTicket(type, place) {
 	value.innerHTML = "1";
 	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
-	addBtn.setAttribute("onclick", "addToCart("+type+","+place+")");
+	addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
 	minusBtn.classList.add("inactiveBtn");
 	priceTxt.innerHTML = price.toFixed(2) + "€";
 	showPage("buyTicket");
@@ -1082,4 +1092,14 @@ function toggleItems(n, open) {
 		arrow.style.transform = "rotate(90deg)";
 		items.style.maxHeight = "0px";
 	}
+}
+
+var notifTime;
+
+function showNotif(msg) {
+	var notif = document.getElementsByClassName("notif")[0];
+	notif.innerHTML = msg;
+	clearTimeout(notifTime);
+	notif.classList.add("visNotif");
+	notifTime = setTimeout(function(notif) {notif.classList.remove("visNotif")}, 4000, notif);
 }

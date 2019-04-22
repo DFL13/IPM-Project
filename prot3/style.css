@@ -1399,6 +1399,26 @@ div.receipt div.item p.price {
 }
 
 
+div.notif {
+	position: absolute;
+	left: 50%;
+	top: 20px;
+	transform: translateX(-50%);
+	padding: 10px 20px;
+	text-align: center;
+	color: white;
+	background-color: #474747;
+	border-radius: 50px;
+	z-index: 10;
+	opacity: 0;
+	transition: opacity ease 500ms, top ease 500ms;
+}
+
+div.visNotif {
+	/*top: 20px;*/
+	opacity: 1;
+}
+
 
 
 
