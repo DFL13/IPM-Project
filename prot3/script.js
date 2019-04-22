@@ -744,8 +744,12 @@ function minusTicket(minusBtn, price, type, place, app) {
 	var value = minusBtn.nextElementSibling;
 	var priceTxt = value.nextElementSibling.nextElementSibling;
 	var n = parseInt(value.innerHTML);
+	var plusBtn = value.nextElementSibling;
 	value.innerHTML = --n;
 
+	if (n == 9) {
+		plusBtn.classList.remove("inactiveBtn");
+	}
 	if (n == 1) {
 		minusBtn.classList.add("inactiveBtn");
 	}
@@ -767,6 +771,7 @@ function plusTicket(plusBtn, price, type, place, app) {
 	var value = plusBtn.previousElementSibling;
 	var minusBtn = value.previousElementSibling;
 	var n = parseInt(value.innerHTML);
+	var ticket = tickets[type].places[place].cart;
 	value.innerHTML = ++n;
 
 	if (n > 1) {
@@ -780,6 +785,9 @@ function plusTicket(plusBtn, price, type, place, app) {
 		var num = parseFloat(val.innerHTML.split(" ")[1]);
 		num += price;
 		val.innerHTML = "Total: " + num.toFixed(2) + "€";
+	}
+	if (n == 10) {
+		plusBtn.classList.toggle("inactiveBtn");
 	}
 	priceTxt.innerHTML = (n*price).toFixed(2) + "€";
 }
