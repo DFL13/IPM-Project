@@ -1427,3 +1427,39 @@ div.hidden {
 	opacity: 0;
 	visibility: hidden;
 }
+
+
+div.payment{
+	position: relative;
+	height: 100%;
+}
+
+td.payMethod{
+	border-radius: 15px;
+}
+
+table#pay {
+	position: absolute;
+	transform:translate(10px,10px);
+	width: 80%;
+	height: 90%;
+	border-spacing: 10px;
+}
+
+img#Paypal{
+	width: 53%;
+}
+
+img#Visa{
+	width: 65%; 
+	height: 79px;
+}
+
+img#MBway{
+	width: 148px;
+	height: 79px;
+}
+
+img#NewCard{
+	width: 50%;
+}
