@@ -904,14 +904,23 @@ function deleteCart(type, place, item){
 }
 
 function tryCheckout() {
-	var popup = document.getElementsByClassName("verifyCheckout")[0];
+	/*var popup = document.getElementsByClassName("verifyCheckout")[0];
 	var btnyes = popup.children[0].children[2];
 
 	showPage("verifyCheckout");
 	btnyes.onclick = function() { 
 		goBack();
 		checkout(); 
-	}
+	}*/
+	switchPages("cartPage", "paymentPage");
+}
+
+function choosePay(card) {
+	var popup = document.getElementsByClassName("verifyCheckout")[0];
+	var p = popup.children[0].children[0];
+	p.innerHTML = "Purchase items with "+card+"?";
+
+	showPage("verifyCheckout");
 }
 
 
@@ -1100,6 +1109,13 @@ function showNotif(msg) {
 	var notif = document.getElementsByClassName("notif")[0];
 	notif.innerHTML = msg;
 	clearTimeout(notifTime);
-	notif.classList.add("visNotif");
-	notifTime = setTimeout(function(notif) {notif.classList.remove("visNotif")}, 4000, notif);
+	notif.style.opacity = "1";
+	notif.style.visibility = "visible";
+	notifTime = setTimeout(hideNotif, 4000);
+}
+
+function hideNotif() {
+	var notif = document.getElementsByClassName("notif")[0];
+	notif.style.opacity = "0";
+	setTimeout(function(notif){notif.style.visibility = "hidden";}, 500, notif);
 }

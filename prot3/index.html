@@ -406,54 +406,67 @@
 					<img src="img/icons/close-cross.svg">
 				</div>		
 			</div>
-			<div class="popup verifyRemove hidden" onclick="goBack()">
-				<div class="popupBox" onclick="event.stopPropagation()">
-					<p>Remove ticket?</p>
-					<div class="popupBtn btnNo" onclick="goBack()">
-						<p>No</p>
-					</div>
-					<div class="popupBtn btnYes">
-						<p>Yes</p>
-					</div>
-				</div>
-			</div>
-			<div class="popup verifyCheckout hidden" onclick="goBack()">
-				<div class="popupBox" onclick="event.stopPropagation()">
-					<p>Are you sure you want to checkout?</p>
-					<div class="popupBtn btnNo" onclick="goBack()">
-						<p>No</p>
-					</div>
-					<div class="popupBtn btnYes">
-						<p>Yes</p>
-					</div>
-				</div>
-			</div>
 			
 		</div>
 
-		<div class="page payment hidden">
-			<table id="pay">
-				<tr>
-					<td class="payMethod">
-						<img src="img/icons/MB-WAY_logo.png" id="MBway">
-					</td>
-					<td class="payMethod">
-						<img src="img/icons/visa.svg" id="Visa">
-					</td>
-				</tr>
-				<tr>
-					<td class="payMethod">
-						<img src="img/icons/paypal.svg" id="Paypal">
-					</td>
-					<td class="payMethod">
-						<img src="img/icons/credit-card-with-plus-sign.svg" id="NewCard">
-					</td>
-				</tr>
-			</table>
+		<div class="popup verifyRemove hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p>Remove ticket?</p>
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>No</p>
+				</div>
+				<div class="popupBtn btnYes">
+					<p>Yes</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="page paymentPage hidden">
+			<div class="content">
+				<p class="title">:Choose pre-added method</p>
+				<div class="payments">
+					<div class="payMethod" onclick="choosePay('MB-WAY')">
+						<img src="img/icons/MB-WAY_logo.png">
+					</div>
+					<div class="payMethod" onclick="choosePay('VISA')">
+						<img src="img/icons/visa.svg">
+					</div>
+					<div class="payMethod" onclick="choosePay('PayPal')">
+						<img src="img/icons/paypal.svg" style="height: 120%">
+					</div>
+					<div class="payMethod" onclick="showPage('newCard')">
+						<img src="img/icons/credit-card-with-plus-sign.svg">
+					</div>
+				</div>
+			</div>
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
 				<div class="button btnCancel" onclick="goBack()">
 					<img src="img/icons/close-cross.svg">
+				</div>
+			</div>
+		</div>
+
+		<div class="popup verifyCheckout hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p></p> <!-- js fills -->
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>No</p>
+				</div>
+				<div class="popupBtn btnYes" onclick="goBack();goBack();checkout();">
+					<p>Yes</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="popup newCard hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p>Fill new card data in your smartphone.</p> <!-- js fills -->
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>Cancel</p>
+				</div>
+				<div class="popupBtn btnYes" onclick="goBack();choosePay('new card');">
+					<p>Done</p>
 				</div>
 			</div>
 		</div>
@@ -494,6 +507,9 @@
 			</div>
 			
 		</div>
+
+
+
 
 
 		<div class="notif"></div>
