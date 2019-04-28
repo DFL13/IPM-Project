@@ -479,6 +479,13 @@ div.btnCancel {
 	padding: 12px;
 }
 
+div.btnGoBack {
+	margin-top: 125px;
+	background-color: white;
+	padding: 8px;
+}
+
+
 div.btnShutter {
 	margin-top: 50px;
 	padding: 0px;
@@ -512,7 +519,7 @@ div.fullTicket div.btnBuy {
 	background-color: rgb(35, 121, 216);
 }
 
-div.fullTicket div.btnCancel {
+div.fullTicket div.btnGoBack {
 	margin-top: 15px;
 }
 
