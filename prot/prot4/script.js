@@ -740,12 +740,24 @@ function openBuyTicket(type, place) {
 	var priceTxt = popup.children[0].children[4];
 	var addBtn = popup.children[0].children[6];
 	var price = tickets[type].places[place].price;
+	var ticket = tickets[type].places[place];
 	value.innerHTML = "1";
+	if (ticket.cart > 0) {
+		value.innerHTML = ticket.cart;
+	}
 	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 	addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
+	plusBtn.classList.remove("inactiveBtn");
 	minusBtn.classList.add("inactiveBtn");
 	priceTxt.innerHTML = price.toFixed(2) + "€";
+	if(ticket.cart>0){
+		minusBtn.classList.remove("inactiveBtn");
+		priceTxt.innerHTML = price.toFixed(2)*ticket.cart + "€";
+	}
+	if (ticket.cart == 10) {
+		plusBtn.classList.add("inactiveBtn");
+	}
 	showPage("buyTicket");
 }
 
@@ -807,7 +819,7 @@ function addToCart(type, place) {
 	var n = parseInt(popup.children[0].children[2].innerHTML);
 
 
-	tickets[type].places[place].cart += n;
+	tickets[type].places[place].cart = n;
 	localStorage.tickets4 = JSON.stringify(tickets);
 	
 
