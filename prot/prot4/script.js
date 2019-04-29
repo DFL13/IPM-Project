@@ -861,7 +861,7 @@ function fillCart() {
 											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
-			} else if(place.cart > 1){
+			} else if(place.cart < 10 && place.cart > 1){
 				content.innerHTML += "<div class=\"cartItem\">\
 										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
@@ -869,6 +869,17 @@ function fillCart() {
 											<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
 											<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
+										</div>\
+									</div>";
+			} else if(place.cart==10){
+				content.innerHTML += "<div class=\"cartItem\">\
+										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<div class=\"itemInfo\">\
+											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+											<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+											<p class=\"value\">" + place.cart + "</p>\
+											<img class=\"valueBtn plus inactiveBtn\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
