@@ -1126,9 +1126,12 @@ function hideNotif() {
 
 
 var map = {
+	/*width: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("width")),
+	height: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("height")),*/
 	grabbing: false,
 	top: 0,
-	left: 0
+	left: 0,
+	zoom: 1
 }
 
 function grabMap(mapDiv) {
@@ -1144,7 +1147,16 @@ function releaseMap(mapDiv) {
 function moveMap(mapDiv) {
 	if (map.grabbing) {
 		map.top += event.movementY;
+		if (map.top > 0) {
+			map.top = 0;
+		} /*else if (map.top < map.height+) {
+
+		}*/
 		map.left += event.movementX;
+		if (map.left > 0) {
+			map.left = 0;
+		}
+
 		mapDiv.style.top = map.top+"px";
 		mapDiv.style.left = map.left+"px";
 	}

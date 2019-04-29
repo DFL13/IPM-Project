@@ -1441,7 +1441,7 @@ div.payMethod img {
 
 
 
-div.map {
+div#map {
 	position: absolute;
 	top: 0;
 	left: 0;
