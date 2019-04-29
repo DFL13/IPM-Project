@@ -263,7 +263,7 @@ function fillPost(postNumber) {
 	header.children[1].setAttribute("onclick", "openProfile(\"fullPost\",\"" + post.person + "\")");
 	header.children[2].innerHTML = post.place;
 	if (posts[postNumber].person == "User") {
-		header.children[3].src = "img/icons/trash-can-black-symbol.svg";
+		header.children[3].src = "../img/icons/trash-can-black-symbol.svg";
 		header.children[3].setAttribute("onclick", "tryDeletePost(" + postNumber + ")");
 	} else {
 		header.children[3].src = "";
@@ -272,9 +272,9 @@ function fillPost(postNumber) {
 
 	img.src = post.image;
 	if (posts[postNumber].upvoted) {
-		bar.children[0].src = "img/icons/up-arrow-full.svg";
+		bar.children[0].src = "../img/icons/up-arrow-full.svg";
 	} else {
-		bar.children[0].src = "img/icons/up-arrow.svg";
+		bar.children[0].src = "../img/icons/up-arrow.svg";
 	}
 	bar.children[0].setAttribute("onclick", "upvote(" + postNumber + ")");
 	bar.children[1].innerHTML = post.upvotes;
@@ -577,11 +577,11 @@ function upvote(postNumber) {
 	var postPage = document.getElementsByClassName("fullPost")[0];
 	var bar = postPage.children[0].children[0].children[2];
 	if (!posts[postNumber].upvoted) {
-		bar.children[0].src = "img/icons/up-arrow-full.svg";
+		bar.children[0].src = "../img/icons/up-arrow-full.svg";
 		posts[postNumber].upvotes++;
 		posts[postNumber].upvoted = true;
 	} else {
-		bar.children[0].src = "img/icons/up-arrow.svg";
+		bar.children[0].src = "../img/icons/up-arrow.svg";
 		posts[postNumber].upvotes--;
 		posts[postNumber].upvoted = false;
 	}
@@ -650,7 +650,7 @@ function openFullTicket(type, place, app) {
 									<img class=\"pic\" src="+ ticket.img +">\
 								</div>\
 								<div class=\"score\" style='background-color:"+colors[Math.round(ticket.score)]+"'>\
-									<img src=\"img/icons/favourites-filled-star-symbol.svg\">\
+									<img src=\"../img/icons/favourites-filled-star-symbol.svg\">\
 									<p>Score:</p>\
 									<p>"+ ticket.score + "</p>\
 								</div>\
@@ -659,7 +659,7 @@ function openFullTicket(type, place, app) {
 
 	if (type == 0 || type == 1) {
 		container.innerHTML += "<div class=\"eventBox\">\
-									<img src=\"img/icons/time-left.svg\">\
+									<img src=\"../img/icons/time-left.svg\">\
 									<p class=\"openHours\"><strong>Open:</strong> " + open[0] + ":" + open[1] + "-" + close[0] + ":" + close[1] + "</p>\
 									<p class=\"duration\"><strong>Duration:</strong> " + ticket.duration + " min.</p>\
 								</div>";
@@ -667,23 +667,23 @@ function openFullTicket(type, place, app) {
 
 	else {
 		container.innerHTML += "<div class=\"eventBox\">\
-									<img src=\"img/icons/time-left.svg\">\
+									<img src=\"../img/icons/time-left.svg\">\
 									<p class=\"openHoursTransports\"><strong>Open:</strong> " + ticket.open + "-" + ticket.close + "</p>\
 								</div>";
 	}
 
 	container.innerHTML += "<div class=\"routeBox\">\
-								<img src=\"img/icons/footprint.svg\">\
+								<img src=\"../img/icons/footprint.svg\">\
 								<p class=\"distance\"><strong>Distance:</strong> " + ticket.distance + "</p>\
 								<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
 							</div>\
 							<div class=\"rateTicket\">\
 								<p>Rate:</p>\
-								<img id=\"star1\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 1 + ")'>\
-								<img id=\"star2\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 2 + ")'>\
-								<img id=\"star3\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 3 + ")'>\
-								<img id=\"star4\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 4 + ")'>\
-								<img id=\"star5\" src=\"img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 5 + ")'>\
+								<img id=\"star1\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 1 + ")'>\
+								<img id=\"star2\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 2 + ")'>\
+								<img id=\"star3\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 3 + ")'>\
+								<img id=\"star4\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 4 + ")'>\
+								<img id=\"star5\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 5 + ")'>\
 							</div>";
 	
 
@@ -714,9 +714,9 @@ function fillStars(type, place) {
 		var starID = "star" + i;
 		var star = document.getElementById(starID);
 		if (i <= ticket.rate) {
-			star.src = "img/icons/favourites-filled-star-symbol-orange.svg";
+			star.src = "../img/icons/favourites-filled-star-symbol-orange.svg";
 		} else {
-			star.src = "img/icons/star-of-favorites-outline.svg";
+			star.src = "../img/icons/star-of-favorites-outline.svg";
 		}
 	}
 }
@@ -834,23 +834,23 @@ function fillCart() {
 			var place = tickets[i].places[j];
 			if (place.cart == 1) {
 				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn inactiveBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+											<img class=\"valueBtn inactiveBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
+											<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
 											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
 			} else if(place.cart > 1){
 				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
 										<div class=\"itemInfo\">\
 											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn minus\" src=\"img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+											<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+											<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
 											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
 										</div>\
 									</div>";
@@ -1017,7 +1017,7 @@ function fillReceipts() {
 		container.innerHTML += 
 					"<div class=\"receipt\">\
 						<div class=\"header\" onclick='expandItems("+(bought.length-1-i)+")'>\
-							<img src=\"img/icons/chevron-arrow-up.png\">\
+							<img src=\"../img/icons/chevron-arrow-up.png\">\
 							<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
 							<p class=\"price\">" + purchase.total.toFixed(2) + "€</p>\
 						</div>\
