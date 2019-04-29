@@ -1,7 +1,7 @@
 var posts = [{
 				person: "Jon Snow",
 				place: "Green Lake, Austria",
-				image: "../img/posts/ales-krivec-24158-unsplash1.jpg",
+				image: "img/posts/ales-krivec-24158-unsplash1.jpg",
 				upvotes: 53,
 				upvoted: false,
 				date: "18 JAN 2018",
@@ -16,7 +16,7 @@ var posts = [{
 			{
 				person: "Tony Stark",
 				place: "Kraków, Poland",
-				image: "../img/posts/jacek-dylag-579738-unsplash.jpg",
+				image: "img/posts/jacek-dylag-579738-unsplash.jpg",
 				upvotes: 105,
 				upvoted: false,
 				date: "3 MAR 2018",
@@ -32,7 +32,7 @@ var posts = [{
 			{
 				person: "Peter Parker",
 				place: "Moscow, Russia",
-				image: "../img/posts/david-marcu-4654-unsplash.jpg",
+				image: "img/posts/david-marcu-4654-unsplash.jpg",
 				upvotes: 26,
 				upvoted: false,
 				date: "2 JUL 2018",
@@ -47,7 +47,7 @@ var posts = [{
 			{
 				person: "Johnny Depp",
 				place: "Agueda, Portugal",
-				image: "../img/posts/roman-kraft-106708-unsplash.jpg",
+				image: "img/posts/roman-kraft-106708-unsplash.jpg",
 				upvotes: 10,
 				upvoted: false,
 				date: "17 JUL 2018",
@@ -63,7 +63,7 @@ var posts = [{
 			{
 				person: "Ryan Reynolds",
 				place: "Santorini, Greece",
-				image: "../img/posts/margaret-barley-42-unsplash.jpg",
+				image: "img/posts/margaret-barley-42-unsplash.jpg",
 				upvotes: 9000,
 				upvoted: false,
 				date: "20 JUL 2018",
@@ -79,7 +79,7 @@ var posts = [{
 			{
 				person: "Harry Potter",
 				place: "Majorca, Spain",
-				image: "../img/posts/igor-oliyarnik-1430265-unsplash.jpg",
+				image: "img/posts/igor-oliyarnik-1430265-unsplash.jpg",
 				upvotes: 526,
 				upvoted: false,
 				date: "6 AUG 2018",
@@ -94,7 +94,7 @@ var posts = [{
 			{
 				person: "Jon Snow",
 				place: "Beach, Somewhere",
-				image: "../img/posts/kelly-lund-1397985-unsplash.jpg",
+				image: "img/posts/kelly-lund-1397985-unsplash.jpg",
 				upvotes: 25,
 				upvoted: false,
 				date: "11 AUG 2018",
@@ -108,7 +108,7 @@ var posts = [{
 			{
 				person: "Johnny Depp",
 				place: "Lisbon Zoo, Portugal",
-				image: "../img/posts/david-clode-1378369-unsplash.jpg",
+				image: "img/posts/david-clode-1378369-unsplash.jpg",
 				upvotes: 3,
 				upvoted: false,
 				date: "29 AUG 2018",
@@ -122,7 +122,7 @@ var posts = [{
 			{
 				person: "Tony Stark",
 				place: "Lisbon Zoo, Portugal",
-				image: "../img/posts/amy-reed-1258751-unsplash.jpg",
+				image: "img/posts/amy-reed-1258751-unsplash.jpg",
 				upvotes: 150,
 				upvoted: false,
 				date: "30 SEP 2018",
@@ -138,7 +138,7 @@ var posts = [{
 			{
 				person: "Ryan Reynolds",
 				place: "Santa's Backyard, North Pole",
-				image: "../img/posts/annie-spratt-1288425-unsplash.jpg",
+				image: "img/posts/annie-spratt-1288425-unsplash.jpg",
 				upvotes: 1500,
 				upvoted: false,
 				date: "24 DEC 2018",
@@ -152,7 +152,7 @@ var posts = [{
 			{
 				person: "Peter Parker",
 				place: "Santa's Frontyard, North Pole",
-				image: "../img/posts/eberhard-grossgasteiger-1482753-unsplash.jpg",
+				image: "img/posts/eberhard-grossgasteiger-1482753-unsplash.jpg",
 				upvotes: 150,
 				upvoted: false,
 				date: "25 DEC 2018",
@@ -167,7 +167,7 @@ var posts = [{
 			{
 				person: "Harry Potter",
 				place: "London Zoo, England",
-				image: "../img/posts/david-clode-1398034-unsplash.jpg",
+				image: "img/posts/david-clode-1398034-unsplash.jpg",
 				upvotes: 99,
 				upvoted: false,
 				date: "12 MAR 2019",
@@ -180,28 +180,28 @@ var posts = [{
 			}];
 
 var people = {
-				"User": {pic: "../img/icons/user.svg", quote: ""},
-				"Jon Snow": {pic: "../img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "Winter is coming."},
-				"Tony Stark": {pic: "../img/profile_pics/umanoide-408098-unsplash.jpg", quote: "Genious, billionaire, playboy, philanthropist."},
-				"Peter Parker": {pic: "../img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "Well, wobble my webs and call me shaky!"},
-				"Johnny Depp": {pic: "../img/profile_pics/camille-couvez-424691-unsplash.jpg", quote: "Not all treasure is silver and gold, mate."},
-				"Ryan Reynolds": {pic: "../img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "I can say Chimichanga in seven languages."},
-				"Harry Potter": {pic: "../img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good."}
+				"User": {pic: "img/icons/user.svg", quote: ""},
+				"Jon Snow": {pic: "img/profile_pics/philippe-montes-549533-unsplash.jpg", quote: "Winter is coming."},
+				"Tony Stark": {pic: "img/profile_pics/umanoide-408098-unsplash.jpg", quote: "Genious, billionaire, playboy, philanthropist."},
+				"Peter Parker": {pic: "img/profile_pics/nicolas-picard-241854-unsplash.jpg", quote: "Well, wobble my webs and call me shaky!"},
+				"Johnny Depp": {pic: "img/profile_pics/camille-couvez-424691-unsplash.jpg", quote: "Not all treasure is silver and gold, mate."},
+				"Ryan Reynolds": {pic: "img/profile_pics/ayo-ogunseinde-325040-unsplash.jpg", quote: "I can say Chimichanga in seven languages."},
+				"Harry Potter": {pic: "img/profile_pics/harry-potter.svg", quote: "I solemnly swear i am up to no good."}
 			};
 
 var myPosts = 
 			[
-				"../img/myPosts/diego-jimenez-263102-unsplash.jpg",			// good
-				"../img/myPosts/jack-b-1150435-unsplash.jpg",					// good
-				"../img/myPosts/gautam-krishnan-1452479-unsplash.jpg",			// good
-				"../img/myPosts/joshua-ness-322881-unsplash.jpg",				// good
-				"../img/myPosts/igor-francetic-623667-unsplash.jpg",			// good
-				"../img/myPosts/matt-1253905-unsplash.jpg",					// good
-				"../img/myPosts/sebastian-pichler-750136-unsplash.jpg",		// good
-				"../img/myPosts/les-anderson-174222-unsplash.jpg",				// good
-				"../img/myPosts/stephen-walker-1177763-unsplash.jpg",			// good
-				"../img/myPosts/les-anderson-276551-unsplash.jpg",				// good
-				"../img/myPosts/wolfgang-frick-695728-unsplash.jpg"			// good
+				"img/myPosts/diego-jimenez-263102-unsplash.jpg",			// good
+				"img/myPosts/jack-b-1150435-unsplash.jpg",					// good
+				"img/myPosts/gautam-krishnan-1452479-unsplash.jpg",			// good
+				"img/myPosts/joshua-ness-322881-unsplash.jpg",				// good
+				"img/myPosts/igor-francetic-623667-unsplash.jpg",			// good
+				"img/myPosts/matt-1253905-unsplash.jpg",					// good
+				"img/myPosts/sebastian-pichler-750136-unsplash.jpg",		// good
+				"img/myPosts/les-anderson-174222-unsplash.jpg",				// good
+				"img/myPosts/stephen-walker-1177763-unsplash.jpg",			// good
+				"img/myPosts/les-anderson-276551-unsplash.jpg",				// good
+				"img/myPosts/wolfgang-frick-695728-unsplash.jpg"			// good
 			];
 
 var bought = [];
@@ -210,7 +210,7 @@ var tickets=[{
 				type: "events",
 				places:[{
 							name:"Movie: The Avengers",
-							img: "../img/ticketPlaces/infinity-4027067_640.png",
+							img: "img/ticketPlaces/infinity-4027067_640.png",
 							price: 13,
 							open:1800,
 							close:2000,
@@ -223,7 +223,7 @@ var tickets=[{
 						},
 						{
 							name:"Phantom of the Opera",
-							img: "../img/ticketPlaces/free-1641264_640.jpg",
+							img: "img/ticketPlaces/free-1641264_640.jpg",
 							price: 20,
 							open: 2000,
 							close: 2130,
@@ -236,7 +236,7 @@ var tickets=[{
 						},
 						{
 							name:"Arsenal vs Chelsea",
-							img: "../img/ticketPlaces/stadium-709181_640.jpg",
+							img: "img/ticketPlaces/stadium-709181_640.jpg",
 							price: 25,
 							open: 2000,
 							close: 2200,
@@ -253,7 +253,7 @@ var tickets=[{
 				type: "museums",
 				places: [{
 							name: "Art Gallery",
-							img: "../img/ticketPlaces/woman-1283009_640.jpg",
+							img: "img/ticketPlaces/woman-1283009_640.jpg",
 							price: 10,
 							open: 1000,
 							close: 2000,
@@ -266,7 +266,7 @@ var tickets=[{
 						},
 						{
 							name: "Science Museum",
-							img: "../img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
+							img: "img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
 							price: 15,
 							open:1000,
 							close: 1900,
@@ -279,7 +279,7 @@ var tickets=[{
 						},
 						{
 							name: "Oceanarium",
-							img: "../img/ticketPlaces/oceanarium-2048720_640.jpg",
+							img: "img/ticketPlaces/oceanarium-2048720_640.jpg",
 							price: 18,
 							open: 1030,
 							close: 1930,
@@ -296,7 +296,7 @@ var tickets=[{
 				type:"transports",
 				places:[{
 							name: "Bus Ticket",
-							img: "../img/ticketPlaces/london-2665352_640.jpg",
+							img: "img/ticketPlaces/london-2665352_640.jpg",
 							open: "06:30",
 							close: "23:00",
 							price: 1.18,
@@ -308,7 +308,7 @@ var tickets=[{
 						},
 						{
 							name: "Subway Ticket",
-							img: "../img/ticketPlaces/train-1285358_640.jpg",
+							img: "img/ticketPlaces/train-1285358_640.jpg",
 							open: "06:00",
 							close: "01:00",
 							price: 1,
