@@ -1,0 +1,1485 @@
+@font-face {
+	font-family: 'Montserrat';
+	src: url("Montserrat/Montserrat-Medium.ttf");
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Montserrat', sans-serif;
+	scrollbar-width: thin;
+	scrollbar-color: white transparent;
+	user-select: none;
+	-moz-user-select: none;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: white;
+}
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+body {
+	background: #e3e3e3;
+}
+
+div.resetBtn {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 80px;
+	height: 40px;
+	background-color: transparent;
+	border-radius: 30px;
+	color: black;
+	text-align: center;
+	display: table;
+	border: solid 3px black;
+	cursor: pointer;
+	transition: all ease 200ms;
+}
+
+div.resetBtn:hover {
+	background-color: black;
+	color: white;
+}
+
+div.resetBtn p {
+	display: table-cell;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+select {
+	position: absolute;
+	top: 20px;
+	left: 150px;
+	width: 80px;
+	height: 40px;
+	border: solid 3px black;
+	color: black;
+	background-color: transparent;
+	font-size: 1em;
+	/*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+}
+
+option {
+	background-color: black;
+	color: white
+
+}
+
+div.screen {
+	margin: auto; 
+	position: relative;
+	margin-top: 30vh;
+	width: 400px;
+	height: 215px;
+	background: black;
+	border-radius: 20px;
+}
+
+div.outerBtn {
+	position: absolute;
+	bottom: 100%;
+	left: 65%;
+	width: 40px;
+	height: 13px;
+	background: black;
+	border-radius: 8px 8px  0px 0px;
+	cursor: pointer;
+}
+
+#btnL {
+	left: 60%;
+}
+
+#btnR {
+	left: 80%;
+}
+
+
+div.page {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	color: white;
+	background: #111e38;
+    text-align: center;
+    border-radius: 20px;
+	overflow: hidden;
+	opacity: 1;
+	transition: opacity ease 500ms, visibility ease 150ms;
+}
+
+div.popup {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	color: black;
+	background: rgba(0,0,0,0.5);
+    text-align: center;
+    border-radius: 20px;
+	overflow: hidden;
+	transition: opacity ease 500ms, visibility ease 150ms;
+}
+
+div.popupBox {
+	position: absolute;
+	top: 50%;
+	left: 50px;
+    transform: translateY(-50%);
+    width: 60%;
+    /*height: 55%;*/
+    background-color: white;
+    border-radius: 25px;
+}
+
+div.popupBox > p {
+	margin: 15px auto;
+	font-size: 1.4em;
+}
+
+div.popupBtn {
+	display: inline-block;
+	width: 70px;
+	margin: 15px 10px;
+	padding: 5px;
+	border-radius: 50px;
+	background-color: black;
+	color: white;
+	font-size: 1.4em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+div.btnNo {
+	background-color: #ff4646;
+}
+
+div.btnYes {
+	background-color: #18ab5c;
+}
+
+
+div.lockscreen {
+    background: linear-gradient(to left, #47748d 0%, #111e38 40%);
+}
+
+div.lockscreen div.clock {
+	position: absolute;
+	left: 50px;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+div.clock .time {
+	font-size: 4em;
+}
+
+div.clock .date {
+	font-size: 1.2em;
+}
+
+div.fingerprint {
+	width: 30%;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+    transform: translateY(-40%);
+    cursor: pointer;
+}
+
+div.main {
+    background: linear-gradient(to top, #47748d 40%, #111e38 80%);
+}
+
+div.main div.clock {
+	margin-top: 10px;
+}
+
+div.main div.clock .time {
+	font-size: 2.2em;
+}
+
+div.main div.clock .date {
+	font-size: 1em;
+}
+
+div.appSlider {
+	margin-top: 25px;
+	padding-top: 1px;
+}
+
+div.appIcon {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	padding: 15px;
+	margin: 0px 10px;
+	border-radius: 100%;
+	background: white;
+	cursor: pointer;
+}
+
+div.appIcon img {
+	width: 100%;
+}
+
+
+div.shareApp, div.fullPost, div.profile {
+	background: linear-gradient(to right, #47748d 70%, #111e38 90%);
+}
+
+div.content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 82%;
+	padding: 0px 10px;
+	margin-left: 5px;
+	overflow-y: auto;
+	direction: rtl;
+}
+
+div.shareApp > div.content {
+	display: grid;
+  	grid-gap: 15px;
+  	grid-template-columns: auto auto;
+}
+
+div.col {
+	direction: ltr;
+	width: 100%;
+
+}
+
+div.postPreview {
+	/*width: 100%;*/
+	/*height: 80px;*/
+	position: relative;
+	margin: 15px 0px;
+	border-radius: 15px;
+	background: white;
+	overflow: hidden;
+	box-shadow: 0px 0px 6px 0px black;
+
+	cursor: pointer;
+	/*border: solid 3px white;*/
+}
+
+div.postPreview div.header {
+	position: relative;
+	/*position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;*/
+	padding: 3px;
+	background: white;
+	/*border-radius: 20px;*/
+	overflow: hidden;
+
+}
+
+div.postPreview div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 80%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
+}
+
+div.postPreview div.header img {
+	display: block;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+}
+
+div.postPreview div.header p {
+	position: absolute;
+	left: 35px;
+	top: 7px;
+	width: 200%;
+	text-align: left;
+	color: black;
+	font-size: 0.9em;
+}
+
+div.postPreview img {
+	display: block;
+	width: 100%;
+	height: 100px;
+}
+
+div.post div.header img.pic, div.post div.header p.name{
+	cursor: pointer;
+}
+
+div.comment img, div.comment div.header p{
+	cursor:pointer;
+}
+
+div.profile > div.content {
+	display: grid;
+  	grid-column-gap: 15px;
+  	grid-auto-columns: 1fr;
+  	grid-template-rows: max-content max-content auto;
+}
+
+div.profile div.container {
+	grid-column: 1 / span 2;
+	margin-bottom: 0px;
+	z-index: 1;
+	/*height: 100px;*/
+}
+
+div.profile div.header {
+	/*position: relative;*/
+	/*padding: 5px;*/
+	/*height: 100px;*/
+	/*background: white;*/
+}
+
+div.profile div.header::after {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 85%;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 90%);
+}
+
+div.profile div.header img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	border-radius: 0px 25px 25px 0px;
+}
+
+div.profile div.header p.name {
+	position: absolute;
+	width: max-content;
+	left: 90px;
+	top: 25px;
+	right: 0;
+	text-align: left;
+	color: black;
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+div.profile div.quote {
+	margin: 0px auto;
+	margin-bottom: 5px; 
+	border-radius: 0px 0px 25px 25px;
+	width: 80%;
+	z-index: 0;
+	background: #b0561f;
+	max-height: 0px;
+	transition: max-height ease 600ms;
+}
+
+div.profile /*div.header*/ p.quote {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 5px 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+div.profile img.expandArrow {
+	width: 25px;
+	grid-column: 1 / span 2;
+	margin: 0px auto;
+	transform: rotate(180deg);
+	cursor: pointer;
+	transition: transform ease 600ms;
+}
+
+div.sidebar {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 18%;
+	/*border: solid 2px white;*/
+}
+
+div.sidebar .time {
+	font-size: 1.2em;
+	margin: 5px 0px;
+	cursor: pointer;
+}
+
+div.button {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	margin: 5px auto;
+	border-radius: 100%;
+	padding: 8px;
+	background: white;
+	cursor: pointer;
+	border: solid 2px white;
+	box-shadow:	inset 0 0 3px black;
+}
+
+/*div.button::before { 
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    background: transparent;
+    border: solid 2px white;
+    border-radius: 100px;
+}
+*/
+
+div.button img {
+	width: 100%;
+}
+
+div.btnProfile{
+	margin-top:10px;
+}
+
+div.btnFriends  {
+	margin-top: 10px;
+}
+
+div.btnAddPost {
+	margin-top: 10px;
+}
+
+div.btnCancel {
+	margin-top: 125px;
+	background-color: #ff4646;
+	padding: 12px;
+}
+
+div.btnGoBack {
+	margin-top: 125px;
+	background-color: white;
+	padding: 8px;
+}
+
+
+div.btnShutter {
+	margin-top: 50px;
+	padding: 0px;
+}
+
+div.camApp div.btnCancel {
+	margin-top: 25px;
+}
+
+div.publishMenu div.btnCancel {
+	margin-top: 60px;
+}
+
+div.btnAccept {
+	margin-top: 15px;
+	background-color: rgb(35, 121, 216);
+}
+
+div.btnOK {			
+	margin-top: 15px;
+	background-color: #18ab5c;
+}
+
+div.sendToSpecific div.btnCancel {
+	margin-top: 60px;
+}
+
+
+div.fullTicket div.btnBuy {
+	margin-top: 60px;
+	background-color: rgb(35, 121, 216);
+}
+
+div.fullTicket div.btnGoBack {
+	margin-top: 15px;
+}
+
+
+div.container {
+	/*grid-column: 1 / span 2;*/
+	width: 100%;
+	position: relative;
+	margin: 15px 0px;
+	border-radius: 25px;
+	direction: ltr;
+	/*overflow: hidden;*/
+	box-shadow: 0px 0px 8px 0px black;
+	background: white;
+	overflow: hidden;
+	/*border: solid 3px white;*/
+}
+
+div.post div.header {
+	position: relative;
+	padding: 5px;
+	/*background: white;*/
+}
+
+div.post div.header img.pic {
+	display: block;
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+}
+
+div.post div.header p.name {
+	position: absolute;
+	width: max-content;
+	left: 60px;
+	top: 14px;
+	right: 0;
+	text-align: left;
+	color: black;
+	font-size: 1.4em;
+}
+
+div.post div.header p.place {
+	/*position: absolute;
+	left: 65px;
+	top: 35px;
+	right: 0;*/
+	margin: 3px 0px 0px 10px;
+	text-align: left;
+	color: #747474;
+	font-size: 1em;
+}
+
+div.post div.header img.trash {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	width: 25px;
+	cursor: pointer;
+}
+
+div.post > img {
+	display: block;
+	width: 100%;
+	height: 215px;
+}
+
+div.postInfoBar {
+	position: relative;
+	margin: 0px 20px;
+	padding: 3px 0px 7px 7px;
+	border-bottom: solid 2px #747474;
+	color: black;
+	font-size: 1.1em;
+}
+
+div.post p.shareInfo {
+	color: black;
+	text-align: center;
+	margin: 6px 25px;
+	font-size: 0.9em;
+}
+
+div.postInfoBar img {
+	display: block;
+	width: 20px;
+	cursor: pointer;
+}
+
+div.postInfoBar p.upvotes {
+	position: absolute;
+	left: 35px;
+	top: 5px;
+}
+
+div.postInfoBar p.postDate {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+div.commentSection {
+	padding: 0px 20px 10px 20px;
+}
+
+div.comment {
+	margin: 5px 0px;
+}
+
+div.comment div.header {
+	position: relative;
+	padding: 5px;
+	width: 100%;
+}
+
+div.comment div.header img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.comment div.header p {
+	position: absolute;
+	left: 45px;
+	top: 10px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+div.commentBody {
+	padding: 0px 5px 0px 40px;
+	color: #333;
+	font-size: 0.9em;
+	text-align: left; 
+}
+
+/*div.friendList div.container {
+	background: transparent;
+}*/
+
+div.personListItem {
+	/*margin: 0px 15px;*/
+	padding: 8px 25px;
+	position: relative;
+	/*border-bottom: solid 1px #747474;*/
+	cursor: pointer;
+
+	/*margin: 5px 0px;
+	padding: 6px 10px;
+	background: white;
+	border-radius: 50px;
+	border-bottom: none;*/
+}
+
+div.personListItem::after {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	right: 20px;
+	left: 20px;
+	background-color: transparent;
+	border-bottom: solid 2px #747474;
+}
+
+div.personListItem img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+div.personListItem p {
+	position: absolute;
+	left: 65px;
+	top: 14px;
+	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+
+
+div.pillBox {
+	position: relative;
+	margin: 0px auto;
+	margin-top: 60px;
+	width: 220px;
+	/*height: 90px;*/
+	background: white;
+	border-radius: 50px;
+	direction: ltr;
+}
+
+div.pillBox::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #111e38;
+	top: 10px;
+	bottom: 10px;
+	left: 49%;
+	right: 49%;
+	border-radius: 10px;
+}
+
+div.pillBox img {
+	width: 100px;
+	padding: 15px;
+	cursor: pointer;
+}
+
+div.camApp div.content {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+div.camApp div.content img {
+	width: 100%;
+}
+
+div.publishMenu div.content {
+	overflow: hidden
+}
+
+div.publishMenu img.arrow {
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	left: 46%;
+	width: 35px;
+	transform: rotate(0deg);
+	border-radius: 100%;
+	border: solid 2px white;
+	padding: 6px;
+	cursor: pointer;
+	background-color: rgb(35, 121, 216);
+	transition: bottom ease 600ms, transform ease 600ms;
+}
+
+table.choiceBar {
+	direction: ltr;
+	/*margin-top: 0px;
+	margin-bottom: 7px;*/
+	position: absolute;
+	bottom: -40px;
+	left: 10px;
+	color: black;
+	background: white;
+	border-radius: 50px;
+	font-size: 1.1em;
+	text-align: center;
+	/*width: 100%;*/
+	width: 94%;
+	border-collapse: collapse;
+	box-shadow: 0px 0px 8px 0px black;
+	overflow: hidden;
+	transition: bottom ease 600ms;
+}
+
+table.choiceBar td {
+	border-right: solid 2px black;
+	width: 33%;
+	padding: 8px;
+	background-color: white;
+	cursor: pointer;
+}
+
+table.choiceBar td:last-child {
+	border-right: none;
+}
+
+img.publishImg {
+	border-radius: 25px;
+	width: 100%;
+	height: 90%;
+	box-shadow: 0px 0px 8px 0px black;
+	margin: 10px auto;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	/*border: dashed 5px white;*/
+}
+
+
+div.btnZoomOut {
+	height: 40px;
+	width: 40px;
+	padding: 0px;
+	background: transparent;
+	margin-top: 15px;
+}
+
+div.btnZoomIn {
+	height: 40px;
+	width: 40px;
+	padding: 0px;
+	background: transparent;
+	margin-top: 15px;
+}
+
+div.btnZoomOut img{
+	height: 40px;
+	width: 80%;
+}
+ 
+div.btnZoomIn img{
+	height: 40px;
+	width: 80%;
+}
+
+div.btnMenu {
+	margin-top: 20px;
+}
+
+
+
+
+
+div.tabsBar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 17%;
+	background: white;
+	display: grid;
+}
+
+div.tab {
+	position: relative;
+	cursor: pointer;
+	transition: background-color ease 300ms;
+}
+
+div.tab svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 55%;
+	fill: #454545;
+	transition: fill ease 300ms, width ease 300ms;
+}
+
+div.tabSelected {
+	background-color: rgb(35, 121, 216);
+}
+
+div.tabSelected svg {
+	fill: white;
+	width: 85%;
+}
+
+div.ticketApp div.content {
+	left: 17%;
+	width: 65%;
+}
+
+div.ticketPreview {
+	position: relative;
+	margin: 12px 0px;
+	background-color: white;
+	border-radius: 20px;
+	overflow: hidden;
+	direction: ltr;
+	border: solid 4px white;
+	cursor: pointer;
+}
+
+div.ticketPreview img {
+	display: block;
+	height: 100px;
+	width: 100px;
+	border-radius: 20px;
+}
+
+div.ticketPreview div.info {
+	position: absolute;
+	left: 108px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	text-align: left;
+	color: black;
+}
+
+div.ticketPreview p.title {
+	margin-top: 3px; 
+	font-size: 1em;
+	font-weight: bold;
+}
+
+div.ticketPreview p.schedule {
+	margin-top: 8px; 
+	font-size: 0.9em;
+}
+
+div.ticketPreview p.timeAway {
+	margin-top: 8px; 
+	font-size: 0.9em;
+}
+
+div.ticketPreview p.price {
+	position: absolute;
+	bottom: 0px;
+	left: 20px;
+	width: 80px;
+	padding: 3px;
+	background-color: rgb(35, 121, 216);
+	border-radius: 50px;
+	color: white;
+	font-size: 0.9em;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+div.btnBought{
+	margin-top: 60px;
+	margin-bottom: 15px;
+}
+
+div.btnLocation  > .button{
+	padding: 0px;
+	margin-bottom: 10px;
+}
+
+div.btnLocation img{
+	transform: translate(-4px,-5px); 
+	width:130%;
+}
+
+div.btnCart{
+	margin-top: 10px;
+	background-color: rgb(35, 121, 216);
+	position: relative;
+}
+
+div.btnCart img{
+	transform: translateY(1px);
+}
+
+
+div.dot {
+	position: absolute;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	top: -7px;
+	right: -4px;
+	background-color: #ff4646;
+	border: solid 3px #111e38;
+}
+
+
+div.fullTicket div.container {
+	padding: 10px;
+}
+
+div.fullTicket p.title {
+	color: black;
+	font-weight: bold;
+	font-size: 1.2em;
+	margin: 0px 10px 5px 10px;
+}
+
+div.fullTicket div.duo {
+	display: grid;
+	position: relative;
+	grid-template-columns: 50% 50%;
+	height: 150px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+div.fullTicket div.duo::after {
+	content: '';
+	position: absolute;
+	display: block;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 20px;
+	box-shadow:	inset 0 0 10px black;
+}
+
+div.imgContainer {
+	overflow: hidden;
+	position: relative;
+}
+
+div.imgContainer img.pic {
+	display: block;
+	text-align: center;
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+div.fullTicket div.score {
+	background-color: #18b44b;
+}
+
+div.fullTicket div.score img {
+	margin-top: 15px; 
+	width: 50%;
+}
+
+div.fullTicket div.score p {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+div.fullTicket p.price {
+	font-weight: bold;
+	font-size: 1.1em;
+	color: black;
+	margin: 10px auto;
+	padding: 10px 20px;
+	border-radius: 10px;
+	width: max-content; 
+	box-shadow: inset 0px 0px 6px 0px black;
+}
+
+div.eventBox {
+	position: relative;
+	background-color: #1a7ec6;
+	margin: 10px 0px;
+	border-radius: 50px; 
+	text-align: left;
+}
+
+div.eventBox img {
+	margin: 10px;
+	width: 50px;
+}
+
+div.eventBox p.openHours {
+	position: absolute;
+	left: 75px;
+	top: 13px;
+}
+
+div.eventBox p.openHoursTransports {
+	position: absolute;
+	left: 75px;
+	top: 25px;
+}
+
+div.eventBox p.duration {
+	position: absolute;
+	left: 75px;
+	top: 40px;
+}
+
+div.routeBox {
+	position: relative;
+	background-color: #1aa48b;
+	margin: 10px 0px;
+	border-radius: 50px; 
+	text-align: left;
+}
+
+div.routeBox img {
+	margin: 10px;
+	margin-left: 220px;
+	width: 50px;
+}
+
+div.routeBox p.distance {
+	position: absolute;
+	right: 75px;
+	top: 13px;
+}
+
+div.routeBox p.travelTime {
+	position: absolute;
+	right: 75px;
+	top: 40px;
+}
+
+div.rateTicket p {
+	color: black;
+	font-size: 1.2em;
+}
+
+div.rateTicket img {
+	width: 16%;
+	padding: 10px 2px;
+	cursor: pointer;
+}
+
+
+
+
+div.buyTicket div.popupBtn, div.newCard div.popupBtn {
+	font-size: 1.2em;
+	width: 90px;
+}
+
+div.buyTicket p.value {
+	margin: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+img.valueBtn {
+	background: rgb(35, 121, 216);
+	border-radius: 50px;
+	padding: 3px;
+	width: 30px;
+	cursor: pointer;
+}
+
+img.inactiveBtn {
+	opacity: 0.4;
+	cursor: auto;
+	pointer-events: none;
+}
+
+div.buyTicket img.valueBtn {
+	position: absolute;
+	top: 55px;
+}
+
+div.buyTicket img.minus {
+	left: 60px;
+}
+
+div.buyTicket img.plus {
+	right: 60px;
+}
+
+div.buyTicket p.price {
+	margin: 0;
+	margin-top: 10px;
+	color: white;
+	background-color: rgb(35, 121, 216);
+}
+
+
+div.cartItem {
+	position: relative;
+	margin: 10px 10px;
+	color: black;
+	/*border-bottom: solid 2px grey;*/
+	display: grid;
+	grid-template-columns: 40px auto;
+	border-radius: 50px;
+	background-color: white;
+	direction: ltr;
+	margin: 10px 0px;
+}
+
+div.cartItem img.delete {
+	width: 38px;
+	padding: 10px;
+	margin: auto;
+	align-self: center;
+	cursor: pointer;
+}
+
+div.itemInfo {
+	position: relative;
+}
+
+div.itemInfo p.title {
+	max-width: 205px;
+	width: max-content;
+	margin: 5px 10px;
+	margin-left: 0px;
+	font-size: 1em;
+	text-decoration: underline;
+	font-weight: bold;
+	cursor: pointer;
+	text-align: left;
+}
+
+div.itemInfo img.valueBtn {
+	width: 25px;
+}
+
+div.itemInfo img.minus {
+	position: absolute;
+	bottom: 12px;
+	left: 74px;
+	transform: translateX(-20px);
+}
+
+div.itemInfo img.plus {
+	position: absolute;
+	bottom: 12px;
+	right: 74px;
+	transform: translateX(-20px);
+}
+
+div.itemInfo p.value {
+	margin: 12px auto;
+	transform: translateX(-20px);
+	width: max-content;
+	font-size: 1.2em;
+}
+
+div.itemInfo p.price {
+	position: absolute;
+	right: 10px;
+	text-align: right;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.1em;
+}
+
+p.total {
+	width: max-content;
+	margin: 15px auto;
+	padding: 5px 15px;
+	font-size: 1.4em;
+	color: black;
+	background: white;
+	border-radius: 10px;
+}
+
+p.checkout {
+	width: max-content;
+	margin: 15px auto;
+	padding: 5px 15px;
+	font-weight: bold;
+	font-size: 1.2em;
+	color: white;
+	background: #18ab5c;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+
+p.noItems {
+	background-color: white;
+	border-radius: 15px;
+	padding: 8px 15px;
+	width: 250px;
+	margin: auto;
+	margin-top: 75px;
+	color: black;
+	direction: ltr;
+	font-size: 1.1em;
+}
+
+
+
+div.round {
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	transform: translateY(-50%) scale(0);
+	width: 180px;
+	height: 180px;
+	background: white;
+	border-radius: 100%;
+	box-shadow: 0px 0px 80px 10px black;
+	transition: transform ease 600ms;
+}
+
+div.round p {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.6em;
+	color: black;
+}
+
+
+div.circle {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+	background: transparent;
+	border: solid 0px #18ab5c;
+	border-radius: 100%;
+	transition: border-width ease 600ms;
+}
+
+div.round img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 60px;
+	background: transparent;
+}
+
+
+div.receipt {
+	padding: 15px 0px;
+	margin: 0px 10px; 
+	border-bottom: solid 2px grey;
+	text-align: left;
+	color: black;
+}
+
+div.receipt div.header {
+	cursor: pointer;
+	font-size: 1.1em;
+	display: grid;
+	grid-template-columns: 15px auto auto;
+	align-items: center;
+}
+
+div.receipt div.header img {
+	transform: rotate(90deg);
+	width: 100%;
+	transition: transform ease 600ms;
+}
+
+div.receipt div.header p.price {
+	text-align: center;
+	border-radius: 50px;
+	background-color: rgb(35, 121, 216);
+	font-weight: bold;
+	color: white;
+	min-width: 55px;
+
+}
+
+div.receipt div.items {
+	/*padding-left: 15px;*/
+	max-height: 0px; /*js to calc, and trasition duration too*/
+	font-size: 0.9em;
+	overflow: hidden;
+	transition: max-height ease 600ms;
+}
+
+div.receipt div.item {
+	position: relative;
+	display: grid;
+	grid-template-columns: 25px auto;
+	align-items: center;
+	padding: 6px 0px;
+}
+
+div.receipt div.item:nth-child(1) {
+	padding-top: 20px;
+}
+
+div.receipt div.item p.value {
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+	border-radius: 50px;
+	background-color: rgb(35, 121, 216);
+	padding: 2px;
+	/*margin-right: 5px;*/
+
+}
+
+div.receipt div.item p.name {
+	margin-left: 5px;
+	width: max-content;
+	font-size: 1.1em;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.receipt div.item p.price {
+	position: absolute;
+	right: 0;
+	bottom: 5px;
+	text-align: center;
+	border-radius: 50px;
+	border: solid 2px rgb(35, 121, 216);
+	padding: 1px 5px;
+	width: max-content;
+	/*font-weight: bold;*/
+	/*min-width: 40px;*/
+}
+
+
+div.paymentPage p.title {
+	color: white;
+	font-size: 1.3em;
+	margin: 5px auto;
+}
+
+div.payments {
+	height: 75%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 15px;
+	margin-top: 10px;
+	direction: ltr;
+}
+
+div.payMethod {
+	position: relative;
+	width: 100%;
+	background-color: white;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+div.payMethod img {
+	display: block;
+	position: absolute;
+	height: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+
+
+div.map {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: grab;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.notif {
+	position: absolute;
+	left: 44%;
+	top: 5px;
+	transform: translateX(-50%);
+	padding: 10px 20px;
+	text-align: center;
+	color: white;
+	background-color: #474747;
+	border-radius: 50px;
+	z-index: 10;
+	font-weight: bold;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity ease 500ms;
+}
+
+
+
+div.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
