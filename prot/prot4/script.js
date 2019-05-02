@@ -91,6 +91,8 @@ function querySize() {
 	adjustSize();
 }
 
+var screenScale;
+
 function adjustSize() {
 	var sel = document.getElementsByTagName("SELECT")[0];
 	localStorage.selIndex = JSON.stringify(sel.selectedIndex);
@@ -99,13 +101,13 @@ function adjustSize() {
 	var diagPix = Math.sqrt(screen.width*screen.width + screen.height*screen.height);
 	var divWidthPix = 6.5 * diagPix / diagCm;
 	var div = document.getElementsByClassName("screen")[0];
-	var scale = divWidthPix / parseInt(getComputedStyle(div).width);
+	screenScale = divWidthPix / parseInt(getComputedStyle(div).width);
 	var zoom = window.devicePixelRatio;
 
 	if (zoom != 1 && navigator.userAgent.indexOf("Chrome") != -1) {
-		scale = scale/zoom;
+		screenScale = screenScale/zoom;
 	}
-	div.style.transform = "scale("+scale+")";
+	div.style.transform = "scale("+screenScale+")";
 }
 
 
@@ -1168,6 +1170,9 @@ function releaseMap(mapDiv) {
 }
 
 function moveMap(mapDiv) {
+	var originX = parseInt(event.offsetX*map.zoom*screenScale);
+	var originY = parseInt(event.offsetY*map.zoom*screenScale);
+	console.log(originX+", "+originY);
 	if (map.grabbing) {
 		map.top += event.movementY;
 		if (map.top > 0) {
@@ -1184,3 +1189,38 @@ function moveMap(mapDiv) {
 		mapDiv.style.left = map.left+"px";
 	}
 }
+
+function zoomMap(type) {
+	var mapDiv = document.getElementById("map");
+	if (type == "button+" || type == "button-") {
+		var screen = document.getElementsByClassName("screen")[0];
+		var originX = parseFloat(getComputedStyle(screen, null).getPropertyValue("width"))*screenScale/2 - map.left;
+		var originY = parseFloat(getComputedStyle(screen, null).getPropertyValue("height"))*screenScale/2 - map.top;
+
+		if (type == "button+") {
+			map.zoom += 0.05;
+		} else {
+			map.zoom -= 0.05;
+		}
+		mapDiv.style.transformOrigin = originX+"px "+originY+"px";
+		mapDiv.style.transform = "scale("+map.zoom+")";
+
+	} else if (type == "mouse") {
+		var originX = parseInt(event.offsetX*map.zoom*screenScale);
+		var originY = parseInt(event.offsetY*map.zoom*screenScale);
+		console.log(originX+", "+originY);
+
+		if (event.deltaY<0) {
+			/*zoom in*/
+			map.zoom += 0.05;
+		} else {
+			map.zoom -= 0.05;
+		}
+
+		mapDiv.style.transformOrigin = originX+"px "+originY+"px";
+		mapDiv.style.transform = "scale("+map.zoom+")";
+		/*mapDiv.style.width = parseInt(getComputedStyle(mapDiv, null).getPropertyValue("width"))*map.zoom+"px";*/
+	}
+}
+
+
