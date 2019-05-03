@@ -1170,9 +1170,9 @@ function releaseMap(mapDiv) {
 }
 
 function moveMap(mapDiv) {
-	var originX = parseInt(event.offsetX*map.zoom*screenScale);
+	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
 	var originY = parseInt(event.offsetY*map.zoom*screenScale);
-	console.log(originX+", "+originY);
+	console.log(originX+", "+originY);*/
 	if (map.grabbing) {
 		map.top += event.movementY;
 		if (map.top > 0) {
@@ -1190,6 +1190,8 @@ function moveMap(mapDiv) {
 	}
 }
 
+
+
 function zoomMap(type) {
 	var mapDiv = document.getElementById("map");
 	if (type == "button+" || type == "button-") {
@@ -1206,21 +1208,99 @@ function zoomMap(type) {
 		mapDiv.style.transform = "scale("+map.zoom+")";
 
 	} else if (type == "mouse") {
-		var originX = parseInt(event.offsetX*map.zoom*screenScale);
-		var originY = parseInt(event.offsetY*map.zoom*screenScale);
-		console.log(originX+", "+originY);
+		/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
+		var originY = parseInt(event.offsetY*map.zoom*screenScale);*/
 
-		if (event.deltaY<0) {
-			/*zoom in*/
+		var wheel = event.deltaY < 0 ? 1 : -1;
+		var newZoom = map.zoom*Math.exp(wheel*0.05);
+
+		var mousex = event.offsetX;
+    	var mousey = event.offsetY;
+
+		/*map.left -= event.offsetX/(newZoom) - event.offsetX/(map.zoom);
+		map.top -= event.offsetY/(newZoom) - event.offsetY/(map.zoom);*/
+		map.left -= mousex/(newZoom) - mousex/(map.zoom);
+		map.top -= mousey/(newZoom) - mousey/(map.zoom);
+
+		map.zoom = newZoom;
+
+		/*if (event.deltaY<0) {
 			map.zoom += 0.05;
 		} else {
 			map.zoom -= 0.05;
-		}
+		}*/
 
-		mapDiv.style.transformOrigin = originX+"px "+originY+"px";
+		/*mapDiv.style.transformOrigin = originX+"px "+originY+"px";*/
+		mapDiv.style.top = map.top+"px";
+		mapDiv.style.left = map.left+"px";
 		mapDiv.style.transform = "scale("+map.zoom+")";
 		/*mapDiv.style.width = parseInt(getComputedStyle(mapDiv, null).getPropertyValue("width"))*map.zoom+"px";*/
 	}
 }
 
 
+
+
+
+
+var zoomIntensity = 0.2;
+
+var width = 600;
+var height = 200;
+
+var scale = 1;
+var originx = 0;
+var originy = 0;
+var visibleWidth = width;
+var visibleHeight = height;
+
+
+function draw(){
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+    // Clear screen to white.
+    context.fillStyle = "white";
+    context.fillRect(originx,originy,800/scale,600/scale);
+    // Draw the black square.
+    context.fillStyle = "black";
+    context.fillRect(50,50,100,100);
+}
+// Draw loop at 60FPS.
+setInterval(draw, 1000/60);
+
+function canvasZoom(){
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+    event.preventDefault();
+    // Get mouse offset.
+    /*var mousex = event.clientX - canvas.offsetLeft;
+    var mousey = event.clientY - canvas.offsetTop;*/
+    var mousex = event.offsetX;
+    var mousey = event.offsetY;
+    // Normalize wheel to +1 or -1.
+    var wheel = event.deltaY < 0 ? 1 : -1;
+
+    // Compute zoom factor.
+    var zoom = Math.exp(wheel*zoomIntensity);
+    
+    // Translate so the visible origin is at the context's origin.
+    context.translate(originx, originy);
+  
+    // Compute the new visible origin. Originally the mouse is at a
+    // distance mouse/scale from the corner, we want the point under
+    // the mouse to remain in the same place after the zoom, but this
+    // is at mouse/new_scale away from the corner. Therefore we need to
+    // shift the origin (coordinates of the corner) to account for this.
+    originx -= mousex/(scale*zoom) - mousex/scale;
+    originy -= mousey/(scale*zoom) - mousey/scale;
+    
+    // Scale it (centered around the origin due to the trasnslate above).
+    context.scale(zoom, zoom);
+    // Offset the visible origin to it's proper position.
+    context.translate(-originx, -originy);
+
+    // Update scale and others.
+    scale *= zoom;
+    visibleWidth = width / scale;
+    visibleHeight = height / scale;
+}
