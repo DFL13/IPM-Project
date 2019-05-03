@@ -1175,15 +1175,15 @@ function moveMap(mapDiv) {
 	console.log(originX+", "+originY);*/
 	if (map.grabbing) {
 		map.top += event.movementY;
-		if (map.top > 0) {
+		/*if (map.top > 0) {
 			map.top = 0;
-		} /*else if (map.top < map.height+) {
+		}*/ /*else if (map.top < map.height+) {
 
 		}*/
 		map.left += event.movementX;
-		if (map.left > 0) {
+		/*if (map.left > 0) {
 			map.left = 0;
-		}
+		}*/
 
 		mapDiv.style.top = map.top+"px";
 		mapDiv.style.left = map.left+"px";
@@ -1208,33 +1208,38 @@ function zoomMap(type) {
 		mapDiv.style.transform = "scale("+map.zoom+")";
 
 	} else if (type == "mouse") {
-		/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
-		var originY = parseInt(event.offsetY*map.zoom*screenScale);*/
-
-		var wheel = event.deltaY < 0 ? 1 : -1;
-		var newZoom = map.zoom*Math.exp(wheel*0.05);
-
 		var mousex = event.offsetX;
-    	var mousey = event.offsetY;
+		var mousey = event.offsetY;
+		// Normalize wheel to +1 or -1.
+		var wheel = event.deltaY < 0 ? 1 : -1;
 
-		/*map.left -= event.offsetX/(newZoom) - event.offsetX/(map.zoom);
-		map.top -= event.offsetY/(newZoom) - event.offsetY/(map.zoom);*/
-		map.left -= mousex/(newZoom) - mousex/(map.zoom);
-		map.top -= mousey/(newZoom) - mousey/(map.zoom);
+		// Compute zoom factor.
+		var zoom = Math.exp(wheel*zoomIntensity);
 
-		map.zoom = newZoom;
+		// Translate so the visible origin is at the context's origin.
+		mapDiv.style.transform = "scale("+map.zoom+") translate("+0+"px,"+0+"px)";
+		/*context.translate(originx, originy);*/
 
-		/*if (event.deltaY<0) {
-			map.zoom += 0.05;
-		} else {
-			map.zoom -= 0.05;
-		}*/
+		// Compute the new visible origin. Originally the mouse is at a
+		// distance mouse/scale from the corner, we want the point under
+		// the mouse to remain in the same place after the zoom, but this
+		// is at mouse/new_scale away from the corner. Therefore we need to
+		// shift the origin (coordinates of the corner) to account for this.
+		originx -= mousex/(map.zoom*zoom) - mousex/map.zoom;
+		originy -= mousey/(map.zoom*zoom) - mousey/map.zoom;
 
-		/*mapDiv.style.transformOrigin = originX+"px "+originY+"px";*/
-		mapDiv.style.top = map.top+"px";
-		mapDiv.style.left = map.left+"px";
-		mapDiv.style.transform = "scale("+map.zoom+")";
-		/*mapDiv.style.width = parseInt(getComputedStyle(mapDiv, null).getPropertyValue("width"))*map.zoom+"px";*/
+		// Scale it (centered around the origin due to the trasnslate above).
+		/*context.scale(zoom, zoom);*/
+		// Offset the visible origin to it's proper position.
+		/*context.translate(-originx, -originy);*/
+
+		mapDiv.style.transform = "scale("+(map.zoom*zoom)+") translate("+(-originx)+"px,"+(-originy)+"px)";
+
+		// Update scale and others.
+		map.zoom *= zoom;
+
+		/*visibleWidth = width / scale;
+		visibleHeight = height / scale;*/
 	}
 }
 
@@ -1259,8 +1264,9 @@ function draw(){
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
     // Clear screen to white.
-    context.fillStyle = "white";
-    context.fillRect(originx,originy,800/scale,600/scale);
+    /*context.fillStyle = "white";
+    context.fillRect(originx,originy,800/scale,600/scale);*/
+    context.clearRect(0, 0, canvas.width, canvas.height);
     // Draw the black square.
     context.fillStyle = "black";
     context.fillRect(50,50,100,100);
@@ -1293,6 +1299,8 @@ function canvasZoom(){
     // shift the origin (coordinates of the corner) to account for this.
     originx -= mousex/(scale*zoom) - mousex/scale;
     originy -= mousey/(scale*zoom) - mousey/scale;
+
+    console.log(originx+", "+originy+", "+(scale*zoom));
     
     // Scale it (centered around the origin due to the trasnslate above).
     context.scale(zoom, zoom);
@@ -1304,3 +1312,60 @@ function canvasZoom(){
     visibleWidth = width / scale;
     visibleHeight = height / scale;
 }
+
+
+
+
+
+
+
+
+var max_scale = 8;
+var factor = 0.5;
+
+
+var pos = {x:0,y:0};
+var zoom_target = {x:0,y:0};
+var zoom_point = {x:0,y:0};
+var scale = 1;
+
+
+function scrolled(){
+	var container = document.getElementById("cont");
+	var target = container.children[0];
+	var size = {w:target.getBoundingClientRect().width,h:target.getBoundingClientRect().height};
+
+	zoom_point.x = event.offsetX;
+	zoom_point.y = event.offsetY;
+
+	/*e.preventDefault();*/
+
+    /*var delta = Math.max(-1,Math.min(1,event.deltaY));*/ // cap the delta to [-1,1] for cross browser consistency
+    var delta = event.deltaY < 0 ? 1 : -1;
+
+    // determine the point on where the slide is zoomed in
+    zoom_target.x = (zoom_point.x - pos.x)/scale;
+    zoom_target.y = (zoom_point.y - pos.y)/scale;
+
+    // apply zoom
+    scale += delta*factor * scale;
+    scale = Math.max(1,Math.min(max_scale,scale));
+
+    // calculate x and y based on zoom
+    pos.x = -zoom_target.x * scale + zoom_point.x;
+    pos.y = -zoom_target.y * scale + zoom_point.y;
+
+
+    // Make sure the slide stays in its container area when zooming out
+    /*if(pos.x>0)
+        pos.x = 0;
+    if(pos.x+size.w*scale<size.w)
+    	pos.x = -size.w*(scale-1);
+    if(pos.y>0)
+        pos.y = 0;
+     if(pos.y+size.h*scale<size.h)
+    	pos.y = -size.h*(scale-1);*/
+
+    target.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
+}
+
