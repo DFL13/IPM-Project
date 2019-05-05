@@ -1451,13 +1451,82 @@ div#map {
 
 
 
+div.mapApp .time {
+	font-size: 1.2em;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 5px 13px;
+	background-color: #111e38;
+	border-bottom-left-radius: 20px;
+	cursor: pointer;
+}
 
 
+div.mapMenu {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: white;
+	border-radius: 100%;
+	width: 120px;
+	height: 120px;
+	transform: translate(50%, 50%);
+	box-shadow: 0px 0px 10px 0px black;
+	transition: height ease 500ms, width ease 500ms, box-shadow ease 500ms;
+}
 
+div.openMapMenu {
+	width: 370px;
+	height: 370px;
+	box-shadow: 0px 0px 30px 0px black;
+}
 
+div.mapApp img.trigger {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 45px;
+	padding: 10px;
+	cursor: pointer;
+	transition: transform ease 500ms;
+}
 
+div.mapApp img.openTrigger {
+	transform: rotate(360deg);
+}
 
+div.mapMenu div {
+	position: absolute;
+	border-radius: 100%;
+	background-color: white;
+	padding: 10px;
+	width: 50px;
+	height: 50px;
+	opacity: 0;
+	cursor: pointer;
+	box-shadow:	inset 0 0 6px #626262;
+	transition: opacity ease 1.5s, background-color ease 500ms;
+}
 
+div.mapMenu div.visibleMapBtn {
+	opacity: 1;
+}
+
+div.mapMenu div img {
+	display: block;
+	width: 100%;
+	transition: filter ease 500ms;
+}
+
+div.mapMenu div.selectedMapBtn {
+	box-shadow: none;
+	background-color: rgb(35, 121, 216);
+}
+
+div.mapMenu div.selectedMapBtn img {
+	filter: invert(1);
+}
 
 
 div.notif {

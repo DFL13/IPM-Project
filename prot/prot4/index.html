@@ -490,14 +490,35 @@
 
 
 		<div class="page mapApp hidden">
-			
-			<div id="map" onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)" onwheel="zoomMap('mouse')">
+
+			<div id="map" onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)" >
 				<img src="../img/map/map_crop.png">
 			</div>
 
-			<canvas id="canvas" width="600" height="200" onwheel="canvasZoom()"></canvas>
+			<!-- <canvas id="canvas" width="600" height="200" onwheel="canvasZoom()"></canvas> -->
 
-			<div class="sidebar">
+			<p class="time" onclick="goToHome()"></p>
+
+			<div class="mapMenu">
+				<div style="top: 16px; left: 120px" onclick="selectMapOpt(0)">
+					<img src="../img/icons/bank.svg">
+				</div>
+				<div style="top: 56px; left: 54px" onclick="selectMapOpt(1)">
+					<img src="../img/icons/popcorn.svg">
+				</div>
+				<div style="top: 120px; left: 17px" onclick="selectMapOpt(2)">
+					<img src="../img/icons/airplane-shape.svg">
+				</div>
+				<div style="top: 80px; left: 121px" onclick="selectMapOpt(3)">
+					<img src="../img/icons/group-of-people.svg">
+				</div>
+				<div style="top: 123px; left: 80px" onclick="selectMapOpt(4)">
+					<img src="../img/icons/restaurant.svg">
+				</div>
+			</div>
+			<img class="trigger" src="../img/icons/menu-button-of-three-horizontal-lines.svg" onclick="openMapMenu(this)">
+
+			<!-- <div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
 				<div class="button btnZoomIn">
 					<img src="../img/icons/increasing-zoom-interface-symbol.svg">
@@ -508,7 +529,7 @@
 				<div class="button btnMenu">
 					<img src="../img/icons/menu-button-of-three-horizontal-lines.svg">
 				</div>				
-			</div>
+			</div> -->
 			
 		</div>
 
@@ -523,7 +544,7 @@
 
 	<div id="cont" onwheel="scrolled()" style="width: 300px; height: 300px; overflow: hidden; position: relative;">
 		<!-- <div id="slide"> -->
-			<img src="https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg" style="width: 1000px;transform-origin: 0 0; position: absolute; top: 30; left: 30;transition: transform .3s;" onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)">
+			<img src="https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg" style="width: 3000px;transform-origin: 0 0; position: absolute; top: 30; left: 30;transition: transform 80ms;" onmousedown="grabTest(this)" onmouseup="releaseTest(this)" onmouseleave="releaseTest(this)" onmousemove="moveTest(this)">
 		<!-- </div> -->
 	</div>
 

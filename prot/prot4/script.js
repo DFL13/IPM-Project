@@ -1148,6 +1148,50 @@ function hideNotif() {
 
 
 
+function openMapMenu(btn) {
+	var menu = document.getElementsByClassName("mapMenu")[0];
+	menu.classList.toggle("openMapMenu");
+	btn.classList.toggle("openTrigger");
+
+	for (var i = 0; i < menu.children.length; i++) {
+		menu.children[i].classList.toggle("visibleMapBtn");
+	}
+}
+
+function selectMapOpt(n) {
+	var menu = document.getElementsByClassName("mapMenu")[0];
+	var same = false;
+
+	if (menu.children[n].classList.contains("selectedMapBtn")) {
+		same = true;
+	}
+	for (var i = 0; i < menu.children.length; i++) {
+		menu.children[i].classList.remove("selectedMapBtn");
+	}
+	if (!same) {
+		menu.children[n].classList.add("selectedMapBtn");
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 var map = {
@@ -1272,7 +1316,7 @@ function draw(){
     context.fillRect(50,50,100,100);
 }
 // Draw loop at 60FPS.
-setInterval(draw, 1000/60);
+/*setInterval(draw, 1000/60);*/
 
 function canvasZoom(){
 	var canvas = document.getElementById("canvas");
@@ -1317,11 +1361,54 @@ function canvasZoom(){
 
 
 
+var testGrabbing = false;
+
+function grabTest(mapDiv) {
+	testGrabbing = true;
+	mapDiv.style.cursor = "grabbing";
+}
+
+function releaseTest(mapDiv) {
+	testGrabbing = false;
+	mapDiv.style.cursor = "grab";
+}
+
+function moveTest(mapDiv) {
+	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
+	var originY = parseInt(event.offsetY*map.zoom*screenScale);
+	console.log(originX+", "+originY);*/
+	if (testGrabbing) {
+		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
+
+
+		pos.y += event.movementY;
+		/*if (map.top > 0) {
+			map.top = 0;
+		}*/ /*else if (map.top < map.height+) {
+
+		}*/
+		pos.x += event.movementX;
+		/*if (map.left > 0) {
+			map.left = 0;
+		}*/
+		pos.x = pos.x>0? 0:pos.x;
+		pos.y = pos.y>0? 0:pos.y;
+
+		pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
+		pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
+
+		console.log(-(size.w-300)+", "+-(size.h-300));
+		console.log(pos.x+" - "+pos.y);
+
+		mapDiv.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
+	}
+}
 
 
 
 var max_scale = 8;
-var factor = 0.5;
+var min_scale = 0.4;
+var factor = 0.2;
 
 
 var pos = {x:0,y:0};
@@ -1334,6 +1421,8 @@ function scrolled(){
 	var container = document.getElementById("cont");
 	var target = container.children[0];
 	var size = {w:target.getBoundingClientRect().width,h:target.getBoundingClientRect().height};
+
+
 
 	zoom_point.x = event.offsetX;
 	zoom_point.y = event.offsetY;
@@ -1349,7 +1438,7 @@ function scrolled(){
 
     // apply zoom
     scale += delta*factor * scale;
-    scale = Math.max(1,Math.min(max_scale,scale));
+    scale = Math.max(min_scale,Math.min(max_scale,scale));
 
     // calculate x and y based on zoom
     pos.x = -zoom_target.x * scale + zoom_point.x;
@@ -1366,6 +1455,22 @@ function scrolled(){
      if(pos.y+size.h*scale<size.h)
     	pos.y = -size.h*(scale-1);*/
 
+    pos.x = pos.x>0? 0:pos.x;
+	pos.y = pos.y>0? 0:pos.y;
+
+	pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
+	pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
+
+	console.log(-(size.w-300)+", "+-(size.h-300));
+	console.log(pos.x+" - "+pos.y);
+
+
     target.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
+
+    /*map.left /= scale;
+    map.top /= scale;
+
+    target.style.top = map.top+"px";
+	target.style.left = map.left+"px";*/
 }
 
