@@ -1146,10 +1146,20 @@ function hideNotif() {
 	setTimeout(function(notif){notif.style.visibility = "hidden";}, 500, notif);
 }
 
-
+var menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+var open = false;
 
 function openMapMenu(btn) {
 	var menu = document.getElementsByClassName("mapMenu")[0];
+	if (!open) {
+		open =  true;
+		btn.src = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+	}
+	else if (open) {
+		open = false;
+		btn.src = menuIcon;
+	}
+	
 	menu.classList.toggle("openMapMenu");
 	btn.classList.toggle("openTrigger");
 
@@ -1158,20 +1168,23 @@ function openMapMenu(btn) {
 	}
 }
 
+
+
 function selectMapOpt(n) {
 	var menu = document.getElementsByClassName("mapMenu")[0];
 	var same = false;
 
 	if (menu.children[n].classList.contains("selectedMapBtn")) {
 		same = true;
+		menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
 	}
 	for (var i = 0; i < menu.children.length; i++) {
 		menu.children[i].classList.remove("selectedMapBtn");
 	}
 	if (!same) {
 		menu.children[n].classList.add("selectedMapBtn");
+		menuIcon = menu.children[n].children[0].src;
 	}
-
 }
 
 
