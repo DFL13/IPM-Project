@@ -493,11 +493,17 @@
 
 			<div id="map" onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)" >
 				<img src="../img/map/map_crop.png">
+				<div class="test"></div>
+				<img class="userArrow" src="../img/icons/navigation-arrow.svg">
 			</div>
 
 			<!-- <canvas id="canvas" width="600" height="200" onwheel="canvasZoom()"></canvas> -->
 
 			<p class="time" onclick="goToHome()"></p>
+
+			<div class="focusBtn" onclick="focusMap()">
+				<img src="../img/icons/gps-fixed-indicator.svg">
+			</div>
 
 			<div class="mapMenu">
 				<div style="top: 16px; left: 120px" onclick="selectMapOpt(0)">

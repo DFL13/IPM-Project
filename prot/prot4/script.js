@@ -237,6 +237,9 @@ function openApp(appName) {
 	} else if (appName == "ticketApp") {
 		selectTab(0);
 		updateCartDot();
+	} else if (appName == "mapApp") {
+		var mapDiv = document.getElementById("map");
+		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
 	}
 }
 
@@ -1185,6 +1188,9 @@ function selectMapOpt(n) {
 		menu.children[n].classList.add("selectedMapBtn");
 		menuIcon = menu.children[n].children[0].src;
 	}
+
+	setTimeout(openMapMenu, 400, menu.nextElementSibling);
+	/*openMapMenu(menu.nextElementSibling);*/
 }
 
 
@@ -1211,9 +1217,10 @@ var map = {
 	/*width: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("width")),
 	height: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("height")),*/
 	grabbing: false,
-	top: 0,
-	left: 0,
-	zoom: 1
+	userPos: {x:-1272,y:-1182},
+	offsetX: -1272,
+	offsetY: -1182,
+	zoom: 0.35
 }
 
 function grabMap(mapDiv) {
@@ -1231,20 +1238,30 @@ function moveMap(mapDiv) {
 	var originY = parseInt(event.offsetY*map.zoom*screenScale);
 	console.log(originX+", "+originY);*/
 	if (map.grabbing) {
-		map.top += event.movementY;
-		/*if (map.top > 0) {
-			map.top = 0;
-		}*/ /*else if (map.top < map.height+) {
+		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
+		var screenSize = {w:mapDiv.parentElement.getBoundingClientRect().width,h:mapDiv.parentElement.getBoundingClientRect().height};
 
-		}*/
-		map.left += event.movementX;
-		/*if (map.left > 0) {
-			map.left = 0;
-		}*/
+		map.offsetY += event.movementY/screenScale;
+		map.offsetX += event.movementX/screenScale;
 
-		mapDiv.style.top = map.top+"px";
-		mapDiv.style.left = map.left+"px";
+		map.offsetX = map.offsetX>0? 0:map.offsetX;
+		map.offsetY = map.offsetY>0? 0:map.offsetY;
+
+		map.offsetX = map.offsetX<-(size.w-screenSize.w)/screenScale? -(size.w-screenSize.w)/screenScale:map.offsetX;
+		map.offsetY = map.offsetY<-(size.h-screenSize.h)/screenScale? -(size.h-screenSize.h)/screenScale:map.offsetY;
+
+		console.log(-(size.w-screenSize.w)/screenScale+", "+-(size.h-screenSize.h)/screenScale);
+
+		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
 	}
+}
+
+
+function focusMap() {
+	var mapDiv = document.getElementById("map");
+	map.offsetY = map.userPos.y;
+	map.offsetX = map.userPos.x;
+	mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
 }
 
 
