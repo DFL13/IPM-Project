@@ -54,29 +54,29 @@ function triggerHome() {
 
 
 function loadData() {
-	if (localStorage.posts4 == undefined) {
-		localStorage.posts4 = JSON.stringify(posts);
-		localStorage.people4 = JSON.stringify(people);
-		localStorage.myPosts4 = JSON.stringify(myPosts);
-		localStorage.tickets4 = JSON.stringify(tickets);
-		localStorage.bought4 = JSON.stringify(bought);
+	if (localStorage.posts5 == undefined) {
+		localStorage.posts5 = JSON.stringify(posts);
+		localStorage.people5 = JSON.stringify(people);
+		localStorage.myPosts5 = JSON.stringify(myPosts);
+		localStorage.tickets5 = JSON.stringify(tickets);
+		localStorage.bought5 = JSON.stringify(bought);
 	} else {
-		posts = JSON.parse(localStorage.posts4);
-		people = JSON.parse(localStorage.people4);
-		myPosts = JSON.parse(localStorage.myPosts4);
-		tickets = JSON.parse(localStorage.tickets4);
-		bought = JSON.parse(localStorage.bought4);
+		posts = JSON.parse(localStorage.posts5);
+		people = JSON.parse(localStorage.people5);
+		myPosts = JSON.parse(localStorage.myPosts5);
+		tickets = JSON.parse(localStorage.tickets5);
+		bought = JSON.parse(localStorage.bought5);
 	}
 	fillPostPreviews();
 }
 
 function reset() {
 	if (confirm("Reset device data?")) {
-		localStorage.removeItem("posts4");
-		localStorage.removeItem("people4");
-		localStorage.removeItem("myPosts4");
-		localStorage.removeItem("tickets4");
-		localStorage.removeItem("bought4");
+		localStorage.removeItem("posts5");
+		localStorage.removeItem("people5");
+		localStorage.removeItem("myPosts5");
+		localStorage.removeItem("tickets5");
+		localStorage.removeItem("bought5");
 		location.reload();
 	}
 }
@@ -322,7 +322,7 @@ function tryDeletePost(postNumber) {
 function deletePost(postNumber) {
 	var name = posts[postNumber].person;
 	posts.splice(postNumber, 1);
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts5 = JSON.stringify(posts);
 
 	fillPostPreviews();
 	fillProfile(name);
@@ -565,7 +565,7 @@ function publishPost() {
 					}
 
 	posts.push(newPost);
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts5 = JSON.stringify(posts);
 
 	fillPostPreviews();
 
@@ -590,7 +590,7 @@ function upvote(postNumber) {
 		posts[postNumber].upvotes--;
 		posts[postNumber].upvoted = false;
 	}
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts5 = JSON.stringify(posts);
 	bar.children[1].innerHTML = posts[postNumber].upvotes;
 }
 
@@ -718,7 +718,7 @@ function rateTicket(type, place, rate) {
 		}
 		ticket.rate = rate;
 	}
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets5 = JSON.stringify(tickets);
 	fillStars(type, place);
 }
 
@@ -782,7 +782,7 @@ function minusTicket(minusBtn, price, type, place, app) {
 	}
 	if (app == "cartPage") {
 		tickets[type].places[place].cart = n;
-		localStorage.tickets4 = JSON.stringify(tickets);
+		localStorage.tickets5 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -806,7 +806,7 @@ function plusTicket(plusBtn, price, type, place, app) {
 	}
 	if (app == "cartPage") {
 		tickets[type].places[place].cart = n;
-		localStorage.tickets4 = JSON.stringify(tickets);
+		localStorage.tickets5 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -825,7 +825,7 @@ function addToCart(type, place) {
 
 
 	tickets[type].places[place].cart = n;
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets5 = JSON.stringify(tickets);
 	
 
 	updateCartDot();
@@ -925,7 +925,7 @@ function tryDeleteCart(type, place, item) {
 
 function deleteCart(type, place, item){
 	tickets[type].places[place].cart = 0;
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets5 = JSON.stringify(tickets);
 	fillCart();
 	updateCartDot();
 	goBack();
@@ -1045,8 +1045,8 @@ function saveBuy() {
 					total: total
 				});
 
-	localStorage.tickets4 = JSON.stringify(tickets);
-	localStorage.bought4 = JSON.stringify(bought);
+	localStorage.tickets5 = JSON.stringify(tickets);
+	localStorage.bought5 = JSON.stringify(bought);
 }
 
 function twoDigit(n) {

@@ -54,29 +54,29 @@ function triggerHome() {
 
 
 function loadData() {
-	if (localStorage.posts4 == undefined) {
-		localStorage.posts4 = JSON.stringify(posts);
-		localStorage.people4 = JSON.stringify(people);
-		localStorage.myPosts4 = JSON.stringify(myPosts);
-		localStorage.tickets4 = JSON.stringify(tickets);
-		localStorage.bought4 = JSON.stringify(bought);
+	if (localStorage.posts6 == undefined) {
+		localStorage.posts6 = JSON.stringify(posts);
+		localStorage.people6 = JSON.stringify(people);
+		localStorage.myPosts6 = JSON.stringify(myPosts);
+		localStorage.tickets6 = JSON.stringify(tickets);
+		localStorage.bought6 = JSON.stringify(bought);
 	} else {
-		posts = JSON.parse(localStorage.posts4);
-		people = JSON.parse(localStorage.people4);
-		myPosts = JSON.parse(localStorage.myPosts4);
-		tickets = JSON.parse(localStorage.tickets4);
-		bought = JSON.parse(localStorage.bought4);
+		posts = JSON.parse(localStorage.posts6);
+		people = JSON.parse(localStorage.people6);
+		myPosts = JSON.parse(localStorage.myPosts6);
+		tickets = JSON.parse(localStorage.tickets6);
+		bought = JSON.parse(localStorage.bought6);
 	}
 	fillPostPreviews();
 }
 
 function reset() {
 	if (confirm("Reset device data?")) {
-		localStorage.removeItem("posts4");
-		localStorage.removeItem("people4");
-		localStorage.removeItem("myPosts4");
-		localStorage.removeItem("tickets4");
-		localStorage.removeItem("bought4");
+		localStorage.removeItem("posts6");
+		localStorage.removeItem("people6");
+		localStorage.removeItem("myPosts6");
+		localStorage.removeItem("tickets6");
+		localStorage.removeItem("bought6");
 		location.reload();
 	}
 }
@@ -108,6 +108,17 @@ function adjustSize() {
 		screenScale = screenScale/zoom;
 	}
 	div.style.transform = "scale("+screenScale+")";
+	adjustMapWrapper();
+}
+
+function adjustMapWrapper() {
+	var wrapper = document.getElementById("mapWrapper");
+	var screenBox = document.getElementsByClassName("screen")[0].getBoundingClientRect();
+	wrapper.style.transformOrigin = " 0 0 0";
+	wrapper.style.transform = "scale("+(1/screenScale)+")";
+	wrapper.style.width = screenBox.width+"px";
+	wrapper.style.height = screenBox.height+"px";
+
 }
 
 
@@ -239,7 +250,7 @@ function openApp(appName) {
 		updateCartDot();
 	} else if (appName == "mapApp") {
 		var mapDiv = document.getElementById("map");
-		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
+		/*mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';*/
 	}
 }
 
@@ -322,7 +333,7 @@ function tryDeletePost(postNumber) {
 function deletePost(postNumber) {
 	var name = posts[postNumber].person;
 	posts.splice(postNumber, 1);
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts6 = JSON.stringify(posts);
 
 	fillPostPreviews();
 	fillProfile(name);
@@ -565,7 +576,7 @@ function publishPost() {
 					}
 
 	posts.push(newPost);
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts6 = JSON.stringify(posts);
 
 	fillPostPreviews();
 
@@ -590,7 +601,7 @@ function upvote(postNumber) {
 		posts[postNumber].upvotes--;
 		posts[postNumber].upvoted = false;
 	}
-	localStorage.posts4 = JSON.stringify(posts);
+	localStorage.posts6 = JSON.stringify(posts);
 	bar.children[1].innerHTML = posts[postNumber].upvotes;
 }
 
@@ -718,7 +729,7 @@ function rateTicket(type, place, rate) {
 		}
 		ticket.rate = rate;
 	}
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets6 = JSON.stringify(tickets);
 	fillStars(type, place);
 }
 
@@ -782,7 +793,7 @@ function minusTicket(minusBtn, price, type, place, app) {
 	}
 	if (app == "cartPage") {
 		tickets[type].places[place].cart = n;
-		localStorage.tickets4 = JSON.stringify(tickets);
+		localStorage.tickets6 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -806,7 +817,7 @@ function plusTicket(plusBtn, price, type, place, app) {
 	}
 	if (app == "cartPage") {
 		tickets[type].places[place].cart = n;
-		localStorage.tickets4 = JSON.stringify(tickets);
+		localStorage.tickets6 = JSON.stringify(tickets);
 		var page = document.getElementsByClassName("cartPage")[0];
 		var val = page.getElementsByClassName("total")[0];
 		var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -825,7 +836,7 @@ function addToCart(type, place) {
 
 
 	tickets[type].places[place].cart = n;
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets6 = JSON.stringify(tickets);
 	
 
 	updateCartDot();
@@ -925,7 +936,7 @@ function tryDeleteCart(type, place, item) {
 
 function deleteCart(type, place, item){
 	tickets[type].places[place].cart = 0;
-	localStorage.tickets4 = JSON.stringify(tickets);
+	localStorage.tickets6 = JSON.stringify(tickets);
 	fillCart();
 	updateCartDot();
 	goBack();
@@ -1045,8 +1056,8 @@ function saveBuy() {
 					total: total
 				});
 
-	localStorage.tickets4 = JSON.stringify(tickets);
-	localStorage.bought4 = JSON.stringify(bought);
+	localStorage.tickets6 = JSON.stringify(tickets);
+	localStorage.bought6 = JSON.stringify(bought);
 }
 
 function twoDigit(n) {
@@ -1188,6 +1199,20 @@ function selectMapOpt(n) {
 	setTimeout(openMapMenu, 400, menu.nextElementSibling);
 	/*openMapMenu(menu.nextElementSibling);*/
 }
+
+
+function mapload() {
+	panzoom(document.getElementById("map"), {
+		bounds:true, 
+		boundsPadding:0, 
+		maxZoom: 1, 
+		minZoom: 0.05, 
+		disableKeyboardInteraction: true
+	});
+}
+
+
+
 
 
 
@@ -1485,8 +1510,8 @@ function scrolled(){
 	pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
 	pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
 
-	console.log(-(size.w-300)+", "+-(size.h-300));
-	console.log(pos.x+" - "+pos.y);
+	/*console.log(-(size.w-300)+", "+-(size.h-300));
+	console.log(pos.x+" - "+pos.y);*/
 
 
     target.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
@@ -1497,4 +1522,3 @@ function scrolled(){
     target.style.top = map.top+"px";
 	target.style.left = map.left+"px";*/
 }
-
