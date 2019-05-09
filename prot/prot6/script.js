@@ -1200,6 +1200,18 @@ function selectMapOpt(n) {
 	/*openMapMenu(menu.nextElementSibling);*/
 }
 
+function openSidePanel() {
+	var panel = document.getElementsByClassName("sidePanel")[0];
+	panel.style.left = "0px";
+}
+
+function closeSidePanel() {
+	var panel = document.getElementsByClassName("sidePanel")[0];
+	panel.style.left = "-170px";
+}
+
+
+
 
 function mapload() {
 	panzoom(document.getElementById("map"), {
