@@ -492,11 +492,11 @@
 
 
 		<div class="page mapApp hidden">
+			<img class="preloader" src="../img/91.svg">
 
 			<div id="mapWrapper">
 				<div id="map"> <!-- onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)" > -->
 					<img src="../img/map/map_crop.png" style="display: block;">
-					<div class="test" onclick="console.log(1)"></div>
 					<div class="point1"></div>
 					<div class="point2"></div>
 					<div class="point3"></div>
@@ -506,7 +506,11 @@
 			</div>
 
 			<div class="sidePanel">
-				
+				<img class="closeBtn" src="../img/icons/close-cross.png" onclick="closeSidePanel()">
+				<p class="title">Phantom of the Opera</p>
+				<img class="previewPic" src="../img/ticketPlaces/free-1641264_640.jpg">
+				<p class="moreBtn" onclick="">More+</p>
+				<p class="directionsBtn" onclick="">Directions</p>
 			</div>
 
 
@@ -520,7 +524,7 @@
 				<img src="../img/icons/gps-fixed-indicator.svg">
 			</div>
 
-			<div class="mapMenu" onclick="closeSidePanel()">
+			<div class="mapMenu">
 				<div style="top: 16px; left: 120px" onclick="selectMapOpt(0)">
 					<img src="../img/icons/bank.svg">
 				</div>
