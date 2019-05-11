@@ -249,7 +249,7 @@ function openApp(appName) {
 		var mapDiv = document.getElementById("map");
 			var pins = document.getElementsByClassName("pin");
 		for (var i = 0; i < pins.length; i++) {
-			pins[i].style.visibility = "hidden";
+			pins[i].style.visibility = "visible";
 		}
 		/*mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';*/
 	}
@@ -1182,10 +1182,15 @@ function openMapMenu(btn) {
 function selectMapOpt(n) {
 	var menu = document.getElementsByClassName("mapMenu")[0];
 	var same = false;
+	var chosenPins = document.getElementsByClassName("opt" + n);
+	var pins = document.getElementsByClassName("pin");
 
 	if (menu.children[n].classList.contains("selectedMapBtn")) {
 		same = true;
 		menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+		for (var i = 0; i < pins.length; i++) {
+			pins[i].style.visibility = "visible";
+		}
 	}
 	for (var i = 0; i < menu.children.length; i++) {
 		menu.children[i].classList.remove("selectedMapBtn");
@@ -1193,17 +1198,21 @@ function selectMapOpt(n) {
 	if (!same) {
 		menu.children[n].classList.add("selectedMapBtn");
 		menuIcon = menu.children[n].children[0].src;
+		for (var i = 0; i < pins.length; i++) {
+			pins[i].style.visibility = "hidden";
+		}
+		for (var i = 0; i < chosenPins.length; i++) {
+			chosenPins[i].style.visibility = "visible";
+		}
 	}
 
 	setTimeout(openMapMenu, 400, menu.nextElementSibling);
-	var chosenPins = document.getElementsByClassName("opt" + n);
-	var pins = document.getElementsByClassName("pin");
-	for (var i = 0; i < pins.length; i++) {
-		pins[i].style.visibility = "hidden";
-	}
-	for (var i = 0; i < chosenPins.length; i++) {
-		chosenPins[i].style.visibility = "visible";
-	}
+	
+	
+	
+
+
+	
 	/*openMapMenu(menu.nextElementSibling);*/
 }
 
@@ -1224,16 +1233,19 @@ var mapType;
 function fillSidePanel(type, place) {
 	mapPlace = place;
 	mapType = type;
+	var itemTitle;
+	var pic;
 
 	var panel = document.getElementsByClassName("sidePanel")[0];
 	if (type >= 0) {
 		var item = tickets[type].places[place];
-		var itemTitle = item.name;
-		var pic = item.img;
+		itemTitle = item.name;
+		pic = item.img;
 	}
 
-	else if (type < 0) {
-		/* para os restaurantes e amigos */
+	else if (type == -1) {		// friends
+		itemTitle = place;
+		pic = people[itemTitle].pic;
 	}
 
 	var title = panel.getElementsByClassName("title")[0];
@@ -1245,6 +1257,10 @@ function fillSidePanel(type, place) {
 function openPlaceInfo() {
 	if (mapType >= 0) {
 		openFullTicket(mapType, mapPlace, "mapApp");
+	}
+
+	else if (mapType == -1) {
+		openProfile("mapApp", mapPlace);
 	}
 }
 
