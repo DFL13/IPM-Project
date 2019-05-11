@@ -1235,8 +1235,10 @@ function fillSidePanel(type, place) {
 	mapType = type;
 	var itemTitle;
 	var pic;
-
 	var panel = document.getElementsByClassName("sidePanel")[0];
+	var more = panel.getElementsByClassName("moreBtn")[0];
+	more.style.visibility = "visible";
+
 	if (type >= 0) {
 		var item = tickets[type].places[place];
 		itemTitle = item.name;
@@ -1246,6 +1248,10 @@ function fillSidePanel(type, place) {
 	else if (type == -1) {		// friends
 		itemTitle = place;
 		pic = people[itemTitle].pic;
+	}
+
+	else if (type == -2) {		// restaurants
+		more.style.visibility = "hidden";
 	}
 
 	var title = panel.getElementsByClassName("title")[0];

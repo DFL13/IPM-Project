@@ -1665,7 +1665,7 @@ div.pin p {
 }
 
 #Football {
-	top: 4659px;
+	top: 4661px;
 	left: 2732px;
 }
 
@@ -1684,7 +1684,16 @@ div.pin p {
 	left: 4572px;
 }
 
-#Bus {
+#Bus1 {
+	top: 5506px;
+	left: 3211px;
+}
+
+#Bus2 {
+	top: 5506px;
+	left: 3211px;
+}
+#Bus3 {
 	top: 5506px;
 	left: 3211px;
 }
@@ -1704,6 +1713,20 @@ div.pin p {
 	left: 4952px;
 }
 
+#Restaurant1 {
+	top: 4661px;
+	left: 3955px;
+}
+
+#Restaurant2 {
+	top: 5506px;
+	left: 3715px;
+}
+
+#Restaurant3 {
+	top: 5976px;
+	left: 2365px;
+}
 
 
 
