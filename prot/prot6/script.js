@@ -1233,7 +1233,7 @@ function fillSidePanel(type, place) {
 }
 
 function openPlaceInfo() {
-	if (mapType <= 0) {
+	if (mapType >= 0) {
 		openFullTicket(mapType, mapPlace, "mapApp");
 	}
 }

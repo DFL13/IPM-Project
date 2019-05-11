@@ -1540,7 +1540,7 @@ div.mapMenu div.selectedMapBtn img {
 
 div#map img.userArrow {
 	position: absolute;
-	top: 5953px;
+	top: 5486px;
 	left: 3314px;
 	width: 50px;
 	transform: rotate(40deg);
@@ -1656,17 +1656,42 @@ div.pin p {
 
 #Phantom {
 	top: 5088px;
-	left: 3715px;
+	left: 3955px;
 }
 
 #Movie {
-	top: 5976px;
+	top: 5502px;
 	left: 2971px;
 }
 
 #Football {
-	top: 5085px;
-	left: 2378px;
+	top: 4659px;
+	left: 2732px;
+}
+
+#Gallery {
+	top: 5976px;
+	left: 3715px;
+}
+
+#Museum {
+	top: 5088px;
+	left: 2731px;
+}
+
+#Oceanarium {
+	top: 5506px;
+	left: 4572px;
+}
+
+#Bus {
+	top: 5506px;
+	left: 3211px;
+}
+
+#Subway {
+	top: 5088px;
+	left: 3342px;
 }
 
 
