@@ -426,7 +426,6 @@ function expandQuote() {
 	}
 }
 
-
 function openCam() {
 	var cam  = document.getElementsByClassName("camApp")[0];
 	var img = cam.children[0].children[0];
@@ -438,7 +437,6 @@ function openCam() {
 
 	switchPages("shareApp", "camApp");
 }
-
 
 function openPublishMenu(srcImg) {
 	var img = document.getElementsByClassName("publishImg")[0];
@@ -564,7 +562,6 @@ function acceptSelectedFriends() {
 	goBack();
 }
 
-
 function publishPost() {
 	var img = document.getElementsByClassName("publishImg")[0];
 	var d = new Date();
@@ -592,7 +589,6 @@ function publishPost() {
 	goBack();
 }
 
-
 function upvote(postNumber) {
 	var postPage = document.getElementsByClassName("fullPost")[0];
 	var bar = postPage.children[0].children[0].children[2];
@@ -608,7 +604,6 @@ function upvote(postNumber) {
 	localStorage.posts6 = JSON.stringify(posts);
 	bar.children[1].innerHTML = posts[postNumber].upvotes;
 }
-
 
 function selectTab(n) {
 	var app = document.getElementsByClassName("ticketApp")[0];
@@ -645,13 +640,6 @@ function selectTab(n) {
 	content.scrollTop = 0;
 }
 
-/*function openFullTicket() {
-	var ticket = document.getElementsByClassName("fullTicket")[0];
-	var cont = ticket.children[0];
-	cont.scrollTop = 0
-	switchPages("ticketApp", "fullTicket");
-}
-*/
 
 function openFullTicket(type, place, app) {
 	var colors = ["#e04242", "#e04242", "#e04242", "#f08130", "#18b44b", "#18b44b"];
@@ -751,7 +739,6 @@ function fillStars(type, place) {
 	}
 }
 
-
 function openBuyTicket(type, place) {
 	var popup = document.getElementsByClassName("buyTicket")[0];
 	var minusBtn = popup.children[0].children[1];
@@ -780,7 +767,6 @@ function openBuyTicket(type, place) {
 	}
 	showPage("buyTicket");
 }
-
 
 function minusTicket(minusBtn, price, type, place, app) {
 	var value = minusBtn.nextElementSibling;
@@ -848,7 +834,6 @@ function addToCart(type, place) {
 	goBack();
 }
 
-
 function updateCartDot() {
 	var btn = document.getElementsByClassName("btnCart")[0];
 	var dot = btn.children[1];
@@ -863,7 +848,6 @@ function updateCartDot() {
 	}
 	dot.style.visibility = "hidden";
 }
-
 
 function openCart() {
 	var cart = document.getElementsByClassName("cartPage")[0];
@@ -927,7 +911,6 @@ function fillCart() {
 	}
 }
 
-
 function tryDeleteCart(type, place, item) {
 	var popup = document.getElementsByClassName("verifyRemove")[0];
 	var btnyes = popup.children[0].children[2];
@@ -947,14 +930,6 @@ function deleteCart(type, place, item){
 }
 
 function tryCheckout() {
-	/*var popup = document.getElementsByClassName("verifyCheckout")[0];
-	var btnyes = popup.children[0].children[2];
-
-	showPage("verifyCheckout");
-	btnyes.onclick = function() { 
-		goBack();
-		checkout(); 
-	}*/
 	switchPages("cartPage", "paymentPage");
 }
 
@@ -965,7 +940,6 @@ function choosePay(card) {
 
 	showPage("verifyCheckout");
 }
-
 
 function checkout() {
 	var div = document.getElementsByClassName("round")[0];
@@ -988,7 +962,6 @@ function checkout() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	/*drawBar("progressBar", 100);*/
 	setTimeout(loading, 600, p, 1);
-
 }
 
 function loading(p, n) {
@@ -1019,7 +992,6 @@ function drawBar(id, percent) {
 	ctx.stroke();
 }
 
-
 function endLoading() {
 	var div = document.getElementsByClassName("round")[0];
 	div.style.transform = "translateY(-50%) scale(0)";
@@ -1031,7 +1003,6 @@ function endLoading() {
 	updateCartDot();
 	goBack();
 }
-
 
 function saveBuy() {
 	var d = new Date();
@@ -1231,6 +1202,14 @@ function closeSidePanel() {
 }
 
 
+function callForTable(name) {
+	var popup = document.getElementsByClassName("callForTable")[0];
+	var p = popup.children[0].children[0];
+	p.innerHTML = "Do you want to call "+name+" to get a table?";
+	showPage("callForTable");
+}
+
+
 var mapPlace;
 var mapType;
 function fillSidePanel(type, place) {
@@ -1244,7 +1223,15 @@ function fillSidePanel(type, place) {
 
 	if (type >= 0) {
 		var item = tickets[type].places[place];
-		itemTitle = item.name;
+		if (item.name == "Bus Ticket") {
+			itemTitle = "Bus Station";
+		}
+		else if (item.name == "Subway Ticket") {
+			itemTitle = "Subway Station";
+		}
+		else {
+			itemTitle = item.name;
+		}
 		pic = item.img;
 	}
 
@@ -1254,13 +1241,12 @@ function fillSidePanel(type, place) {
 	}
 
 	else if (type == -2) {		// restaurants
-		more.style.visibility = "hidden";
+		//more.style.visibility = "hidden";
+		more.innerHTML = "Get Table";
 		var item = restaurants[place];
 		itemTitle = item.name;
 		pic = item.img; 
-		console.log(itemTitle);
-		console.log(pic);
-		console.log(item);
+		more.onclick = function() { callForTable(itemTitle); };
 	}
 
 	var title = panel.getElementsByClassName("title")[0];
