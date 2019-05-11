@@ -1267,17 +1267,53 @@ function openPlaceInfo() {
 
 
 
+
+var mapObj;
+
 function mapload() {
-	panzoom(document.getElementById("map"), {
+	mapObj = panzoom(document.getElementById("map"), {
 		bounds:true, 
 		boundsPadding:0, 
 		maxZoom: 1, 
-		minZoom: 0.05, 
+		minZoom: 0.05,
+		zoomSpeed: 0.12,
 		disableKeyboardInteraction: true
 	});
 }
 
 
+function focusOn(element) {
+	var elementBox = element.getBoundingClientRect();
+	var viewBox = $('#mapWrapper')[0].getBoundingClientRect();
+	var mapBox = $("#map")[0].getBoundingClientRect();
+	var inMap = {
+		x: elementBox.left + elementBox.width/2 - mapBox.left,
+		y: elementBox.top + elementBox.height/2 - mapBox.top
+	};
+	var pos = {
+		/*x: elementBox.left + elementBox.width/2 - viewBox.width/2,
+		y: elementBox.top + elementBox.height/2 - viewBox.height/2*/
+		x: inMap.x - viewBox.width/2,
+		y: inMap.y - viewBox.height/2
+		/*x: 4179 + 35 - viewBox.width/2,
+		y: 3670 + 35 - viewBox.height/2*/
+	};
+	/*console.log(elementBox.left+","+elementBox.top);
+	document.getElementById("test").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";
+	document.getElementById("map").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";*/
+	/*console.log("elementBox coords:"+elementBox.left+","+elementBox.top);
+	console.log("elementBox size:"+elementBox.width+","+elementBox.height);
+	console.log("elementBox offset size:"+element.offsetWidth+","+element.offsetHeight);
+	console.log("elementBox offset:"+element.offsetLeft+","+element.offsetTop);
+	console.log("viewBox size:"+viewBox.width+","+viewBox.height);
+	console.log("inMap: "+inMap.x+", "+inMap.y);
+	console.log(pos.x+","+pos.y);*/
+	mapObj.pause();
+	mapObj.resume();
+	$("#map")[0].style.transition = "transform ease 200ms";
+	setTimeout( function(){$("#map")[0].style.transition = "";},200);
+	mapObj.moveTo(-pos.x, -pos.y);
+}
 
 
 
