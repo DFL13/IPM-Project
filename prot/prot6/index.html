@@ -529,8 +529,16 @@
 					<div class="point2"></div>
 					<div class="point3"></div>
 					<div class="point4"></div>
-					<div class="pin" onclick="openSidePanel()">
+					<div class="pin" id="Phantom" onclick="openSidePanel(0, 1)">
 						<p>Phantom of the Opera</p>
+						<img src="../img/map/pin-event.png">
+					</div>
+					<div class="pin" id="Movie" onclick="openSidePanel(0, 0)">
+						<p>Movie: The Avengers</p>
+						<img src="../img/map/pin-event.png">
+					</div>
+					<div class="pin" id="Football" onclick="openSidePanel(0, 2)">
+						<p>Arsenal vs Chelsea</p>
 						<img src="../img/map/pin-event.png">
 					</div>
 					<img class="userArrow" src="../img/icons/navigation-arrow.svg">
@@ -539,9 +547,10 @@
 
 			<div class="sidePanel">
 				<img class="closeBtn" src="../img/icons/close-cross.png" onclick="closeSidePanel()">
-				<p class="title">Phantom of the Opera</p>
-				<img class="previewPic" src="../img/ticketPlaces/free-1641264_640.jpg">
-				<p class="moreBtn" onclick="">More+</p>
+				<p class="title"></p>
+				<img class="previewPic" src="">
+	
+				<p class="moreBtn" onclick="openPlaceInfo()">More+</p>
 				<p class="directionsBtn" onclick="">Directions</p>
 			</div>
 

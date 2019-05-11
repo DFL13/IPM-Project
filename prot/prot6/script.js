@@ -118,10 +118,7 @@ function adjustMapWrapper() {
 	wrapper.style.transform = "scale("+(1/screenScale)+")";
 	wrapper.style.width = screenBox.width+"px";
 	wrapper.style.height = screenBox.height+"px";
-
 }
-
-
 
 function showPage(name) {
 	var page = document.getElementsByClassName(name)[0];
@@ -1200,9 +1197,9 @@ function selectMapOpt(n) {
 	/*openMapMenu(menu.nextElementSibling);*/
 }
 
-function openSidePanel() {
+function openSidePanel(type, place) {
 	var panel = document.getElementsByClassName("sidePanel")[0];
-	fillSidePanel();
+	fillSidePanel(type, place);
 	panel.style.left = "0px";
 }
 
@@ -1211,8 +1208,34 @@ function closeSidePanel() {
 	panel.style.left = "-170px";
 }
 
-function fillSidePanel() {
+
+var mapPlace;
+var mapType;
+function fillSidePanel(type, place) {
+	mapPlace = place;
+	mapType = type;
+
 	var panel = document.getElementsByClassName("sidePanel")[0];
+	if (type >= 0) {
+		var item = tickets[type].places[place];
+		var itemTitle = item.name;
+		var pic = item.img;
+	}
+
+	else if (type < 0) {
+		/* para os restaurantes e amigos */
+	}
+
+	var title = panel.getElementsByClassName("title")[0];
+	title.innerHTML = itemTitle;
+	var previewPic = document.getElementsByClassName("previewPic")[0];
+	previewPic.src = pic;
+}
+
+function openPlaceInfo() {
+	if (mapType <= 0) {
+		openFullTicket(mapType, mapPlace, "mapApp");
+	}
 }
 
 
