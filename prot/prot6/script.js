@@ -1593,3 +1593,22 @@ function scrolled(){
     target.style.top = map.top+"px";
 	target.style.left = map.left+"px";*/
 }
+
+function changeSetting(div,name) {
+	var setting = document.getElementsByClassName(name)[0];
+	var slide = div.children[0];
+	if (slide.classList.contains("on")) {
+		slide.style.transform = "translate(-13%,-14%)";
+		div.style.backgroundColor= "White";
+		slide.classList.add("off");
+		slide.classList.remove("on");
+	} else{
+		slide.style.transform = "translate(110%,-14%)";
+		div.style.backgroundColor= "#05ca05";
+		slide.classList.add("on");
+		slide.classList.remove("off");
+	} 
+	slide.style.transitionDelay="0 ms";
+	slide.style.transitionDelay="0 ms";
+
+}

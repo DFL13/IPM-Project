@@ -38,7 +38,9 @@
 
 		<div class="page main hidden">
 			<div class="topBar">
-				
+				<img class="battery" src="../img/icons/battery.svg">
+				<img class="wifi" src="../img/icons/wifi.svg">
+				<img class="bluetooth" src="../img/icons/blueetooth-logo.svg">
 			</div>
 			<div class="clock">
 				<p class="time"></p>
@@ -66,15 +68,21 @@
 				<tbody>
 					<tr class="setting">
 						<td class="option">
-							<div class="slider">
-							</div><p>Wifi</p>
+							<div class="slider" onclick="changeSetting(this,'wifi')">
+								<div class="slide off">
+    							</div>
+							</div>
+							<p>Wifi</p>
 						</td>
 
 					</tr>
 					<tr class="setting">
 						<td class="option">
-							<div class="slider">
-							</div><p>Bluetooth</p>
+							<div class="slider" onclick="changeSetting(this,'bluetooth')">
+								<div class="slide off">
+    							</div>
+							</div>
+							<p>Bluetooth</p>
 						</td>
 					</tr>
 				</tbody>
