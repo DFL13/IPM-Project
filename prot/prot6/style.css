@@ -1627,6 +1627,35 @@ p.directionsBtn {
 }
 
 
+div.pin {
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 250px;
+	left: 350px;
+	cursor: pointer;
+}
+
+div.pin img {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	width: 150px;
+	transform: translateX(-50%);
+	/*transform-origin: 50% 100%;*/
+}
+
+div.pin p {
+	position: absolute;
+	bottom: 155px;
+	width: 200px;
+	color: black;
+	font-weight: bold;
+	font-size: 1.5em;
+	transform: translateX(-50%);
+	/*transform-origin: 50% 100%;*/
+}
+
 
 
 

@@ -1202,6 +1202,7 @@ function selectMapOpt(n) {
 
 function openSidePanel() {
 	var panel = document.getElementsByClassName("sidePanel")[0];
+	fillSidePanel();
 	panel.style.left = "0px";
 }
 
@@ -1210,6 +1211,9 @@ function closeSidePanel() {
 	panel.style.left = "-170px";
 }
 
+function fillSidePanel() {
+	var panel = document.getElementsByClassName("sidePanel")[0];
+}
 
 
 
