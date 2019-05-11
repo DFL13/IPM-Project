@@ -247,6 +247,10 @@ function openApp(appName) {
 		updateCartDot();
 	} else if (appName == "mapApp") {
 		var mapDiv = document.getElementById("map");
+			var pins = document.getElementsByClassName("pin");
+		for (var i = 0; i < pins.length; i++) {
+			pins[i].style.visibility = "hidden";
+		}
 		/*mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';*/
 	}
 }
@@ -1170,12 +1174,10 @@ function openMapMenu(btn) {
 		open = false;
 		btn.src = menuIcon;
 	}
-	
+
 	menu.classList.toggle("openMapMenu");
 	btn.classList.toggle("openTrigger");
 }
-
-
 
 function selectMapOpt(n) {
 	var menu = document.getElementsByClassName("mapMenu")[0];
@@ -1194,6 +1196,14 @@ function selectMapOpt(n) {
 	}
 
 	setTimeout(openMapMenu, 400, menu.nextElementSibling);
+	var chosenPins = document.getElementsByClassName("opt" + n);
+	var pins = document.getElementsByClassName("pin");
+	for (var i = 0; i < pins.length; i++) {
+		pins[i].style.visibility = "hidden";
+	}
+	for (var i = 0; i < chosenPins.length; i++) {
+		chosenPins[i].style.visibility = "visible";
+	}
 	/*openMapMenu(menu.nextElementSibling);*/
 }
 
