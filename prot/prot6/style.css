@@ -204,7 +204,7 @@ div.main {
 }
 
 div.main div.clock {
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 div.main div.clock .time {
@@ -216,7 +216,7 @@ div.main div.clock .date {
 }
 
 div.appSlider {
-	margin-top: 25px;
+	margin-top: 10px;
 	padding-top: 1px;
 }
 
@@ -1689,6 +1689,72 @@ div.notif {
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity ease 500ms;
+}
+
+
+div.topBar {
+    background-color: black;
+    width: 25%;
+    height: 25px;
+}
+
+div.defButton{
+	width: 50px;
+    background-color: #7b7b7b;
+    height: 50px;
+    position: absolute;
+    left: 330px;
+    top: 36px;
+    border-radius: 12px;
+}
+
+img.defIcon{
+	
+}
+
+div.settings > div.popup{
+	text-align: left;
+}
+
+div.center {
+    left: 70px;
+}
+
+table.settings {
+    /* border-bottom: 1px; */
+    width: 88%;
+    text-align: left;
+    /* margin: 13px; */
+    padding-left: 23px;
+    /* margin-top: 5px; */
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+tr.setting {
+    /* border: 8px solid black; */
+    margin: 10px;
+    /* border-color: black; */
+    /* padding: 10px; */
+}
+
+td.option {
+    /* margin: 10px; */
+    /* border-color: #9c6666; */
+    border-bottom: 3px solid black;
+    /* border: 10px solid; */
+    height: 50px;
+    /* padding-top: 0px; */
+    padding: 0px;
+}
+
+div.slider {
+    width: 50px;
+    height: 17px;
+    position: absolute;
+    background-color: #47748d;
+    z-index: 1;
+    transform: translateX(270%);
 }
 
 

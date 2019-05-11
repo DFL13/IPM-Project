@@ -37,9 +37,15 @@
 		</div>
 
 		<div class="page main hidden">
+			<div class="topBar">
+				
+			</div>
 			<div class="clock">
 				<p class="time"></p>
 				<p class="date"></p>
+			</div>
+			<div class="defButton" onclick="showPage('definitions')">
+				<img class="defIcon" src="../img/icons/settings.svg">
 			</div>
 			<div class="appSlider">
 				<div class="appIcon" onclick="openApp('shareApp')">
@@ -51,6 +57,28 @@
 				<div class="appIcon" onclick="openApp('ticketApp')">
 					<img src="../img/icons/tickets.svg">
 				</div>
+			</div>
+		</div>
+		<div class="popup definitions hidden" onclick="goBack()">
+			<div class="popupBox center" onclick="event.stopPropagation()">
+    		<p>Settings</p>
+    		<table class="settings">
+				<tbody>
+					<tr class="setting">
+						<td class="option">
+							<div class="slider">
+							</div><p>Wifi</p>
+						</td>
+
+					</tr>
+					<tr class="setting">
+						<td class="option">
+							<div class="slider">
+							</div><p>Bluetooth</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			</div>
 		</div>
 
