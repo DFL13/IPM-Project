@@ -206,118 +206,131 @@ var myPosts =
 
 var bought = [];
 
-var tickets=[{
-				type: "events",
-				places:[{
-							name:"Movie: The Avengers",
-							img: "../img/ticketPlaces/infinity-4027067_640.png",
-							price: 13,
-							open:1800,
-							close:2000,
-							timeAway: 3,
-							distance: "200 m",
-							duration: 120,
-							score: 3.6,
-							rate: 0,
-							cart: 0
-						},
-						{
-							name:"Phantom of the Opera",
-							img: "../img/ticketPlaces/free-1641264_640.jpg",
-							price: 20,
-							open: 2000,
-							close: 2130,
-							timeAway: 9,
-							distance: "850 m",
-							duration: 90,
-							score: 4.7,
-							rate: 0,
-							cart: 0
-						},
-						{
-							name:"Arsenal vs Chelsea",
-							img: "../img/ticketPlaces/stadium-709181_640.jpg",
-							price: 25,
-							open: 2000,
-							close: 2200,
-							timeAway: 15,
-							distance: "1.7 km",
-							duration: 120,
-							score: 4.5,
-							rate: 0,
-							cart: 0
-						}
-						]
-			},
-			{
-				type: "museums",
-				places: [{
-							name: "Art Gallery",
-							img: "../img/ticketPlaces/woman-1283009_640.jpg",
-							price: 10,
-							open: 1000,
-							close: 2000,
-							timeAway: 5,
-							distance: "500 m",
-							duration: 90,
-							score: 2.2,
-							rate: 0,
-							cart: 0
-						},
-						{
-							name: "Science Museum",
-							img: "../img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
-							price: 15,
-							open:1000,
-							close: 1900,
-							timeAway: 7,
-							distance: "670 m",
-							duration: 60,
-							score: 3.4,
-							rate: 0,
-							cart: 0
-						},
-						{
-							name: "Oceanarium",
-							img: "../img/ticketPlaces/oceanarium-2048720_640.jpg",
-							price: 18,
-							open: 1030,
-							close: 1930,
-							timeAway: 10,
-							distance: "950 m",
-							duration: 90,
-							score: 4.1,
-							rate: 0,
-							cart: 0
-						}
-						]
-			},
-			{
-				type:"transports",
-				places:[{
-							name: "Bus Ticket",
-							img: "../img/ticketPlaces/london-2665352_640.jpg",
-							open: "06:30",
-							close: "23:00",
-							price: 1.18,
-							timeAway: 2,
-							distance: "175 m",
-							score: 3.0,
-							rate: 0,
-							cart: 0
-						},
-						{
-							name: "Subway Ticket",
-							img: "../img/ticketPlaces/train-1285358_640.jpg",
-							open: "06:00",
-							close: "01:00",
-							price: 1,
-							timeAway: 5,
-							distance: "512 m",
-							score: 3.2,
-							rate: 0,
-							cart: 0
-						}
-						]
-			}
-			]
+var tickets=[
+				{
+					type: "events",
+					places:[{
+								name:"Movie: The Avengers",
+								img: "../img/ticketPlaces/infinity-4027067_640.png",
+								price: 13,
+								open:1800,
+								close:2000,
+								timeAway: 3,
+								distance: "200 m",
+								duration: 120,
+								score: 3.6,
+								rate: 0,
+								cart: 0
+							},
+							{
+								name:"Phantom of the Opera",
+								img: "../img/ticketPlaces/free-1641264_640.jpg",
+								price: 20,
+								open: 2000,
+								close: 2130,
+								timeAway: 9,
+								distance: "850 m",
+								duration: 90,
+								score: 4.7,
+								rate: 0,
+								cart: 0
+							},
+							{
+								name:"Arsenal vs Chelsea",
+								img: "../img/ticketPlaces/stadium-709181_640.jpg",
+								price: 25,
+								open: 2000,
+								close: 2200,
+								timeAway: 15,
+								distance: "1.7 km",
+								duration: 120,
+								score: 4.5,
+								rate: 0,
+								cart: 0
+							}
+							]
+				},
+				{
+					type: "museums",
+					places: [{
+								name: "Art Gallery",
+								img: "../img/ticketPlaces/woman-1283009_640.jpg",
+								price: 10,
+								open: 1000,
+								close: 2000,
+								timeAway: 5,
+								distance: "500 m",
+								duration: 90,
+								score: 2.2,
+								rate: 0,
+								cart: 0
+							},
+							{
+								name: "Science Museum",
+								img: "../img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
+								price: 15,
+								open:1000,
+								close: 1900,
+								timeAway: 7,
+								distance: "670 m",
+								duration: 60,
+								score: 3.4,
+								rate: 0,
+								cart: 0
+							},
+							{
+								name: "New York Oceanarium",
+								img: "../img/ticketPlaces/oceanarium-2048720_640.jpg",
+								price: 18,
+								open: 1030,
+								close: 1930,
+								timeAway: 10,
+								distance: "950 m",
+								duration: 90,
+								score: 4.1,
+								rate: 0,
+								cart: 0
+							}
+							]
+				},
+				{
+					type:"transports",
+					places:[{
+								name: "Bus Ticket",
+								img: "../img/ticketPlaces/london-2665352_640.jpg",
+								open: "06:30",
+								close: "23:00",
+								price: 1.18,
+								timeAway: 2,
+								distance: "175 m",
+								score: 3.0,
+								rate: 0,
+								cart: 0
+							},
+							{
+								name: "Subway Ticket",
+								img: "../img/ticketPlaces/train-1285358_640.jpg",
+								open: "06:00",
+								close: "01:00",
+								price: 1,
+								timeAway: 5,
+								distance: "512 m",
+								score: 3.2,
+								rate: 0,
+								cart: 0
+							}
+							]
+				}
+			];
+
+var restaurants = [
+					{	name: "More Than OK Diner",
+						img: "../img/map/ash-goldsbrough-1145974-unsplash.jpg"
+					},
+					{	name: "The Sushi House",
+						img: "../img/map/christian-allard-1044368-unsplash.jpg"
+					},
+					{	name: "Bangkok, Thailand",
+						img: "../img/map/louis-hansel-1460836-unsplash.jpg"
+					}
+				];

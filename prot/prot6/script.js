@@ -60,12 +60,14 @@ function loadData() {
 		localStorage.myPosts6 = JSON.stringify(myPosts);
 		localStorage.tickets6 = JSON.stringify(tickets);
 		localStorage.bought6 = JSON.stringify(bought);
+		localStorage.restaurants6 = JSON.stringify(restaurants);
 	} else {
 		posts = JSON.parse(localStorage.posts6);
 		people = JSON.parse(localStorage.people6);
 		myPosts = JSON.parse(localStorage.myPosts6);
 		tickets = JSON.parse(localStorage.tickets6);
 		bought = JSON.parse(localStorage.bought6);
+		restaurants = JSON.parse(localStorage.restaurants6);
 	}
 	fillPostPreviews();
 }
@@ -77,6 +79,7 @@ function reset() {
 		localStorage.removeItem("myPosts6");
 		localStorage.removeItem("tickets6");
 		localStorage.removeItem("bought6");
+		localStorage.removeItem("restaurants6");
 		location.reload();
 	}
 }
@@ -1252,6 +1255,12 @@ function fillSidePanel(type, place) {
 
 	else if (type == -2) {		// restaurants
 		more.style.visibility = "hidden";
+		var item = restaurants[place];
+		itemTitle = item.name;
+		pic = item.img; 
+		console.log(itemTitle);
+		console.log(pic);
+		console.log(item);
 	}
 
 	var title = panel.getElementsByClassName("title")[0];
