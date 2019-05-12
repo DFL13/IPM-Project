@@ -1538,7 +1538,7 @@ div.mapMenu div.selectedMapBtn img {
 }
 
 
-div#map img.userArrow {
+#userArrow {
 	position: absolute;
 	top: 5486px;
 	left: 3314px;
