@@ -785,13 +785,17 @@ function hideNotif() {
 
 		var cont = page.children[0];
 		cont.scrollTop = 0
-		var buyBtn = page.children[1].children[1];
+		var buyBtn = page.children[1].children[2];
+		var locationBtn = page.children[1].children[1];
 		buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 		fillStars(type, place);
+
 		if (app == "cartPage" || app == "receiptPage") {
 			buyBtn.classList.add("hidden");
+			locationBtn.style.transform = "translate(0px,56px)";
 		} else {
 			buyBtn.classList.remove("hidden");
+			locationBtn.style.transform = "translate(0px, 0px)";
 		}
 		switchPages(app, "fullTicket");
 	}
