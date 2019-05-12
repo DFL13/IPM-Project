@@ -139,27 +139,6 @@ function switchPages(oldPage, newPage) {
 	showPage(newPage);
 }
 
-function fillPostPreviews() {
-	var n = 1;
-	var app = document.getElementsByClassName("shareApp")[0];
-	var cols = app.children[0].children;
-
-	cols[0].innerHTML = "";
-	cols[1].innerHTML = "";
-	for (var i = posts.length - 1; i >= 0; i--) {
-		cols[n].innerHTML += 
-					"<div class='postPreview'>\
-						<div class='header' onclick='openProfile(\"shareApp\",\"" + posts[i].person + "\")'>\
-							<img src=" + people[posts[i].person].pic + ">\
-							<p>" + posts[i].person + "</p>\
-						</div>\
-						<img src=" + posts[i].image + " onclick='showPost(\"" + i + "\", \"shareApp\")'>\
-					</div>";
-
-		n = (n+1)%2;
-	}
-}
-
 function updateClock() {
 	var d = new Date();
 	var times = document.getElementsByClassName("time");
@@ -258,866 +237,6 @@ function openApp(appName) {
 	}
 }
 
-
-function showPost(postNumber, pageName) {
-	var postPage = document.getElementsByClassName("fullPost")[0];
-	var cont = postPage.children[0];
-	cont.scrollTop = 0;
-
-	fillPost(postNumber);
-	switchPages(pageName, "fullPost");
-}
-
-function fillPost(postNumber) {
-	var post = posts[postNumber];
-	var postPage = document.getElementsByClassName("fullPost")[0];
-	var header = postPage.children[0].children[0].children[0];
-	var img = postPage.children[0].children[0].children[1];
-	var bar = postPage.children[0].children[0].children[2];
-	var shareInfo = postPage.children[0].children[0].children[3];
-	var comments = postPage.children[0].children[0].children[4];
-
-	header.children[0].src = people[post.person].pic;
-	header.children[0].setAttribute("onclick", "openProfile(\"fullPost\",\"" + post.person + "\")");
-	header.children[1].innerHTML = post.person;
-	header.children[1].setAttribute("onclick", "openProfile(\"fullPost\",\"" + post.person + "\")");
-	header.children[2].innerHTML = post.place;
-	if (posts[postNumber].person == "User") {
-		header.children[3].src = "../img/icons/trash-can-black-symbol.svg";
-		header.children[3].setAttribute("onclick", "tryDeletePost(" + postNumber + ")");
-	} else {
-		header.children[3].src = "";
-		header.children[3].setAttribute("onclick", "");
-	}
-
-	img.src = post.image;
-	if (posts[postNumber].upvoted) {
-		bar.children[0].src = "../img/icons/up-arrow-full.svg";
-	} else {
-		bar.children[0].src = "../img/icons/up-arrow.svg";
-	}
-	bar.children[0].setAttribute("onclick", "upvote(" + postNumber + ")");
-	bar.children[1].innerHTML = post.upvotes;
-	bar.children[2].innerHTML = post.date;
-
-	if (posts[postNumber].person == "User") {
-		shareInfo.innerHTML = "Shared with: ";
-		for (var i = 0; i < posts[postNumber].share.length-1; i++) {
-			shareInfo.innerHTML += posts[postNumber].share[i]+", ";
-		}
-		shareInfo.innerHTML += posts[postNumber].share[i]+".";
-	} else {
-		shareInfo.innerHTML = "";
-	}
-
-	comments.innerHTML = "";
-	for (var i = post.comments.length - 1; i >= 0; i--) {
-		comments.innerHTML += 	"<div class='comment'>\
-									<div class='header'>\
-										<img src=" + people[post.comments[i].person].pic + "\
-										 	onclick='openProfile(\"fullPost\",\"" + post.comments[i].person + "\")'>\
-										<p onclick='openProfile(\"fullPost\",\"" + post.comments[i].person + "\")'>\
-											" + post.comments[i].person + "</p>\
-									</div>\
-									<div class='commentBody'>\
-										<p>" + post.comments[i].message + "</p>\
-									</div>\
-								</div>";
-	}
-}
-
-function tryDeletePost(postNumber) {
-	var popup = document.getElementsByClassName("verifyDelete")[0];
-	var btnyes = popup.children[0].children[2];
-
-	btnyes.setAttribute("onclick", "deletePost("+postNumber+")");
-	showPage("verifyDelete");
-}
-
-function deletePost(postNumber) {
-	var name = posts[postNumber].person;
-	posts.splice(postNumber, 1);
-	localStorage.posts6 = JSON.stringify(posts);
-
-	fillPostPreviews();
-	fillProfile(name);
-	goBack();
-	goBack();
-}
-
-function openFriendList() {
-	var friendList = document.getElementsByClassName("friendList")[0];
-	var cont = friendList.children[0];
-	cont.scrollTop = 0;
-
-	fillFriendsList();
-	switchPages("shareApp", "friendList");
-}
-
-function fillFriendsList() {
-	var friendList = document.getElementsByClassName("friendList")[0];
-	var container = friendList.children[0].children[0];
-	var friend;
-
-	container.innerHTML = "";
-	for (friend in people) {
-		if (friend == "User") {
-			continue;
-		}
-		container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"friendList\",\"" + friend + "\")'>\
-									<img src=" + people[friend].pic + ">\
-									<p>" + friend + "</p>\
-								</div>";
-	}
-}
-
-function openProfile(currentPageName, personName) {
-	var profile = document.getElementsByClassName("profile")[0];
-	var cont = profile.children[0];
-	cont.scrollTop = 0;
-
-	fillProfile(personName);
-	switchPages(currentPageName, "profile");
-}
-
-function fillProfile(name) {
-	var n = 4;
-	var profile = document.getElementsByClassName("profile")[0];
-	var cols = profile.children[0].children;
-	var header = profile.children[0].children[0].children[0];
-	var quoteDiv = profile.children[0].children[1];
-	var arrow = profile.children[0].children[2];
-	header.children[0].src = people[name].pic;
-	header.children[1].innerHTML = name;
-	/*header.children[2].innerHTML = people[name].quote;*/
-	quoteDiv.children[0].innerHTML = people[name].quote;
-	quoteDiv.style.transitionDelay = "-1s";
-	arrow.style.transitionDelay = "-1s";
-	quoteDiv.style.maxHeight = "0px";
-	arrow.style.transform = "rotate(180deg)";
-
-	cols[3].innerHTML = "";
-	cols[4].innerHTML = "";
-	for (var i = posts.length - 1; i >= 0; i--) {
-		if (posts[i].person==name) {
-			cols[n].innerHTML += 
-						"<div class='postPreview' onclick='showPost(\"" + i + "\", \"profile\")'>\
-							<img src=" + posts[i].image + ">\
-						</div>";
-			/*n = n%2+1;*/
-			/*n = (n-1)%2+2;*/
-			n = (n-2)%2+3;
-		}
-	}
-}
-
-function expandQuote() {
-	var profile = document.getElementsByClassName("profile")[0];
-	var quoteDiv = profile.children[0].children[1];
-	var arrow = profile.children[0].children[2];
-	if (quoteDiv.style.maxHeight == "0px") {
-		quoteDiv.style.transitionDelay = "0ms";
-		arrow.style.transitionDelay = "0ms";
-		quoteDiv.style.maxHeight = "100px";
-		arrow.style.transform = "rotate(0deg)";
-	} else {
-		quoteDiv.style.maxHeight = "0px";
-		arrow.style.transform = "rotate(180deg)";
-	}
-}
-
-function openCam() {
-	var cam  = document.getElementsByClassName("camApp")[0];
-	var img = cam.children[0].children[0];
-	var shutter = cam.children[1].children[1];
-	var srcImg = myPosts[Math.floor((Math.random() * (myPosts.length-1)))];
-
-	img.src = srcImg;
-	shutter.setAttribute("onclick", "openPublishMenu('" + srcImg + "')");
-
-	switchPages("shareApp", "camApp");
-}
-
-function openPublishMenu(srcImg) {
-	var img = document.getElementsByClassName("publishImg")[0];
-	var bar = document.getElementsByClassName("choiceBar")[0];
-	var arrow = bar.previousElementSibling;
-
-	shareSelection = [];
-	shareSelectionTmp = [];
-	img.src = srcImg;
-
-	bar.style.transitionDelay = "-1s";
-	arrow.style.transitionDelay = "-1s";
-	bar.style.bottom = "-40px";
-	arrow.style.bottom = "5px";
-	arrow.style.transform = "rotate(0deg)";
-
-	selectOpt(0);
-	fillSpecificSelection();
-	switchPages("camApp", "publishMenu");
-}
-
-function fillSpecificSelection() {
-	var sendToList = document.getElementsByClassName("sendToSpecific")[0];
-	var menu = document.getElementsByClassName("publishMenu")[0];
-
-	var container = sendToList.children[0].children[0];
-	var friend;
-
-	container.innerHTML = "";
-	for (friend in people) {
-		if (friend != "User") {
-			container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(this)'>\
-										<img src=" + people[friend].pic + ">\
-										<p>" + friend + "</p>\
-									</div>";
-		}
-	}
-}
-
-function toggleChoiceBar() {
-	var bar = document.getElementsByClassName("choiceBar")[0];
-	var arrow = bar.previousElementSibling;
-	if (bar.style.bottom == "-40px") {
-		bar.style.transitionDelay = "0s";
-		arrow.style.transitionDelay = "0s";
-		bar.style.bottom = "8px";
-		arrow.style.bottom = "53px";
-		arrow.style.transform = "rotate(180deg)";
-	} else {
-		bar.style.bottom = "-40px";
-		arrow.style.bottom = "5px";
-		arrow.style.transform = "rotate(0deg)";
-	}
-}
-
-function selectOpt(n) {
-	var bar = document.getElementsByClassName("choiceBar")[0];
-	var tds = bar.children[0].children[0].children;
-
-	if (n == 2) {
-		openSendToSpecific();
-	} else {
-		if (n == 0) {shareSelection = ["All"]}
-		if (n == 1) {shareSelection = ["Friends"]}
-			
-		for (var i = 0; i < tds.length; i++) {
-			tds[i].style.backgroundColor = "white";
-			tds[i].style.color = "black";
-		}
-		tds[n].style.backgroundColor = "#2379d8";
-		tds[n].style.color = "white";
-	}
-}
-
-function openSendToSpecific() {
-	var sendToList = document.getElementsByClassName("sendToSpecific")[0];
-
-	var items = sendToList.children[0].children[0].children;
-
-	if (shareSelection[0] == "All" || shareSelection[0] == "Friends") {
-		shareSelectionTmp = [];
-	} else {
-		shareSelectionTmp = shareSelection.slice(0); /*clone*/
-	}
-
-	for (var i=0; i < items.length; i++) {
-		var name = items[i].children[1].innerHTML;
-		if (shareSelectionTmp.includes(name)) {
-			items[i].style.backgroundColor = "#86b5f2";
-		} else {
-			items[i].style.backgroundColor = "transparent";
-		}
-	}
-	switchPages("publishMenu", "sendToSpecific");
-}
-
-function selectFriend(listItem) {
-	var name = listItem.children[1].innerHTML;
-	if (!shareSelectionTmp.includes(name)) {
-		listItem.style.backgroundColor = "#86b5f2";
-		shareSelectionTmp.push(name);
-	} else {
-		listItem.style.backgroundColor = "transparent";
-		shareSelectionTmp.splice(shareSelection.indexOf(name), 1);
-	}
-}
-
-function acceptSelectedFriends() {
-	if (shareSelectionTmp.length == 0) {return;}
-
-	shareSelection = shareSelectionTmp.slice(0); /*clone*/
-
-	var bar = document.getElementsByClassName("choiceBar")[0];
-	var tds = bar.children[0].children[0].children;
-
-	for (var i = 0; i < tds.length; i++) {
-		tds[i].style.backgroundColor = "white";
-		tds[i].style.color = "black";
-	}
-	tds[2].style.backgroundColor = "#2379d8";
-	tds[2].style.color = "white";
-
-	goBack();
-}
-
-function publishPost() {
-	var img = document.getElementsByClassName("publishImg")[0];
-	var d = new Date();
-	var newPost = 	{
-						person: "User",
-						place: "",
-						image: img.src,
-						upvotes: 0,
-						upvoted: false,
-						date: d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear(),
-						share: shareSelection.slice(0),
-						comments: []
-					}
-
-	posts.push(newPost);
-	localStorage.posts6 = JSON.stringify(posts);
-
-	fillPostPreviews();
-
-	var app = document.getElementsByClassName("shareApp")[0];
-	var cont = app.children[0];
-	cont.scrollTop = 0;
-
-	goBack();
-	goBack();
-}
-
-function upvote(postNumber) {
-	var postPage = document.getElementsByClassName("fullPost")[0];
-	var bar = postPage.children[0].children[0].children[2];
-	if (!posts[postNumber].upvoted) {
-		bar.children[0].src = "../img/icons/up-arrow-full.svg";
-		posts[postNumber].upvotes++;
-		posts[postNumber].upvoted = true;
-	} else {
-		bar.children[0].src = "../img/icons/up-arrow.svg";
-		posts[postNumber].upvotes--;
-		posts[postNumber].upvoted = false;
-	}
-	localStorage.posts6 = JSON.stringify(posts);
-	bar.children[1].innerHTML = posts[postNumber].upvotes;
-}
-
-function selectTab(n) {
-	var app = document.getElementsByClassName("ticketApp")[0];
-	var tabs = document.getElementsByClassName("tab");
-	var content = app.children[1];
-	var places = tickets[n].places;
-
-	if (tabs[n].classList.contains("tabSelected")) {
-		return;
-	}
-
-	for (var i = 0; i < tabs.length; i++) {
-		tabs[i].classList.remove("tabSelected");
-	}
-	tabs[n].classList.add("tabSelected");
-
-	content.innerHTML="";
-	for (var i = 0; i < places.length; i++) {
-		var open = (places[i].open / 100).toFixed(2).split(".");
-		var close = (places[i].close / 100).toFixed(2).split(".");
-		content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket("+ n + "," + i + ", \"ticketApp\")'>\
-									<img src=\"" + places[i].img + "\">\
-									<div class=\"info\">\
-										<p class=\"title\">" + places[i].name + "</p>\
-									</div>\
-								</div>";
-		if (tickets[n].type != "transports")
-			content.getElementsByClassName("info")[i].innerHTML += "<p class=\"schedule\">" + open[0] + ":" 
-				+ open[1] + "-" + close[0] + ":" + close[1] + "</p>";
-		else
-			content.getElementsByClassName("info")[i].innerHTML += "<p class=\"timeAway\">" + places[i].timeAway + " min. away</p>";
-		content.getElementsByClassName("info")[i].innerHTML += "<p class=\"price\">" + places[i].price + "€</p>";
-	}
-	content.scrollTop = 0;
-}
-
-
-function openFullTicket(type, place, app) {
-	var colors = ["#e04242", "#e04242", "#e04242", "#f08130", "#18b44b", "#18b44b"];
-
-	var page = document.getElementsByClassName("fullTicket")[0];
-	var container = page.children[0].children[0];
-	var ticket = tickets[type].places[place];
-
-	if (type == 0 || type == 1) {
-		var open = (ticket.open / 100).toFixed(2).split(".");
-		var close = (ticket.close / 100).toFixed(2).split(".");
-	}
-	container.innerHTML = 	"<p class=\"title\">" + ticket.name +"</p>\
-							<div class=\"duo\">\
-								<div class=\"imgContainer\">\
-									<img class=\"pic\" src="+ ticket.img +">\
-								</div>\
-								<div class=\"score\" style='background-color:"+colors[Math.round(ticket.score)]+"'>\
-									<img src=\"../img/icons/favourites-filled-star-symbol.svg\">\
-									<p>Score:</p>\
-									<p>"+ ticket.score + "</p>\
-								</div>\
-							</div>\
-							<p class=\"price\">" + ticket.price.toFixed(2) +"€/un.</p>";
-
-	if (type == 0 || type == 1) {
-		container.innerHTML += "<div class=\"eventBox\">\
-									<img src=\"../img/icons/time-left.svg\">\
-									<p class=\"openHours\"><strong>Open:</strong> " + open[0] + ":" + open[1] + "-" + close[0] + ":" + close[1] + "</p>\
-									<p class=\"duration\"><strong>Duration:</strong> " + ticket.duration + " min.</p>\
-								</div>";
-	}
-
-	else {
-		container.innerHTML += "<div class=\"eventBox\">\
-									<img src=\"../img/icons/time-left.svg\">\
-									<p class=\"openHoursTransports\"><strong>Open:</strong> " + ticket.open + "-" + ticket.close + "</p>\
-								</div>";
-	}
-
-	container.innerHTML += "<div class=\"routeBox\">\
-								<img src=\"../img/icons/footprint.svg\">\
-								<p class=\"distance\"><strong>Distance:</strong> " + ticket.distance + "</p>\
-								<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
-							</div>\
-							<div class=\"rateTicket\">\
-								<p>Rate:</p>\
-								<img id=\"star1\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 1 + ")'>\
-								<img id=\"star2\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 2 + ")'>\
-								<img id=\"star3\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 3 + ")'>\
-								<img id=\"star4\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 4 + ")'>\
-								<img id=\"star5\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 5 + ")'>\
-							</div>";
-	
-
-	var cont = page.children[0];
-	cont.scrollTop = 0
-	var buyBtn = page.children[1].children[1];
-	buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
-	fillStars(type, place);
-	if (app == "cartPage" || app == "receiptPage") {
-		buyBtn.classList.add("hidden");
-	} else {
-		buyBtn.classList.remove("hidden");
-	}
-	switchPages(app, "fullTicket");
-}
-
-function rateTicket(type, place, rate) {
-	var ticket = tickets[type].places[place];
-	if (ticket.rate == rate) {
-		ticket.rate = 0;
-		showNotif("Rating removed");
-	} else {
-		if (ticket.rate == 0) {
-			showNotif("Rating added");
-		} else {
-			showNotif("Rating changed");
-		}
-		ticket.rate = rate;
-	}
-	localStorage.tickets6 = JSON.stringify(tickets);
-	fillStars(type, place);
-}
-
-function fillStars(type, place) {
-	var ticket = tickets[type].places[place];
-
-	for (var i = 1; i <= 5; i++) {
-		var starID = "star" + i;
-		var star = document.getElementById(starID);
-		if (i <= ticket.rate) {
-			star.src = "../img/icons/favourites-filled-star-symbol-orange.svg";
-		} else {
-			star.src = "../img/icons/star-of-favorites-outline.svg";
-		}
-	}
-}
-
-function openBuyTicket(type, place) {
-	var popup = document.getElementsByClassName("buyTicket")[0];
-	var minusBtn = popup.children[0].children[1];
-	var value = popup.children[0].children[2];
-	var plusBtn = popup.children[0].children[3];
-	var priceTxt = popup.children[0].children[4];
-	var addBtn = popup.children[0].children[6];
-	var price = tickets[type].places[place].price;
-	var ticket = tickets[type].places[place];
-	value.innerHTML = "1";
-	if (ticket.cart > 0) {
-		value.innerHTML = ticket.cart;
-	}
-	minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
-	plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
-	addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
-	plusBtn.classList.remove("inactiveBtn");
-	minusBtn.classList.add("inactiveBtn");
-	priceTxt.innerHTML = price.toFixed(2) + "€";
-	if(ticket.cart>0){
-		minusBtn.classList.remove("inactiveBtn");
-		priceTxt.innerHTML = price.toFixed(2)*ticket.cart + "€";
-	}
-	if (ticket.cart == 10) {
-		plusBtn.classList.add("inactiveBtn");
-	}
-	showPage("buyTicket");
-}
-
-function minusTicket(minusBtn, price, type, place, app) {
-	var value = minusBtn.nextElementSibling;
-	var priceTxt = value.nextElementSibling.nextElementSibling;
-	var n = parseInt(value.innerHTML);
-	var plusBtn = value.nextElementSibling;
-	value.innerHTML = --n;
-
-	if (n == 9) {
-		plusBtn.classList.remove("inactiveBtn");
-	}
-	if (n == 1) {
-		minusBtn.classList.add("inactiveBtn");
-	}
-	if (app == "cartPage") {
-		tickets[type].places[place].cart = n;
-		localStorage.tickets6 = JSON.stringify(tickets);
-		var page = document.getElementsByClassName("cartPage")[0];
-		var val = page.getElementsByClassName("total")[0];
-		var num = parseFloat(val.innerHTML.split(" ")[1]);
-		console.log(num);
-		num -= price;
-		val.innerHTML = "Total: " + num.toFixed(2) + "€";
-	}
-	priceTxt.innerHTML = (n*price).toFixed(2) + "€";
-}
-
-function plusTicket(plusBtn, price, type, place, app) {
-	var priceTxt = plusBtn.nextElementSibling;
-	var value = plusBtn.previousElementSibling;
-	var minusBtn = value.previousElementSibling;
-	var n = parseInt(value.innerHTML);
-	var ticket = tickets[type].places[place].cart;
-	value.innerHTML = ++n;
-
-	if (n > 1) {
-		minusBtn.classList.remove("inactiveBtn");
-	}
-	if (app == "cartPage") {
-		tickets[type].places[place].cart = n;
-		localStorage.tickets6 = JSON.stringify(tickets);
-		var page = document.getElementsByClassName("cartPage")[0];
-		var val = page.getElementsByClassName("total")[0];
-		var num = parseFloat(val.innerHTML.split(" ")[1]);
-		num += price;
-		val.innerHTML = "Total: " + num.toFixed(2) + "€";
-	}
-	if (n == 10) {
-		plusBtn.classList.toggle("inactiveBtn");
-	}
-	priceTxt.innerHTML = (n*price).toFixed(2) + "€";
-}
-
-function addToCart(type, place) {
-	var popup = document.getElementsByClassName("buyTicket")[0];
-	var n = parseInt(popup.children[0].children[2].innerHTML);
-
-
-	tickets[type].places[place].cart = n;
-	localStorage.tickets6 = JSON.stringify(tickets);
-	
-
-	updateCartDot();
-	goBack();
-	goBack();
-}
-
-function updateCartDot() {
-	var btn = document.getElementsByClassName("btnCart")[0];
-	var dot = btn.children[1];
-	for (var i = 0; i < tickets.length; i++) {
-		for (var j = 0; j < tickets[i].places.length; j++) {
-			var place = tickets[i].places[j];
-			if (place.cart > 0) {
-				dot.style.visibility = "visible";
-				return;
-			}
-		}
-	}
-	dot.style.visibility = "hidden";
-}
-
-function openCart() {
-	var cart = document.getElementsByClassName("cartPage")[0];
-	var content = cart.children[0];
-	content.scrollTop = 0;
-
-	fillCart();
-	switchPages("ticketApp", "cartPage");
-}
-
-function fillCart() {
-	var cart = document.getElementsByClassName("cartPage")[0];
-	var content = cart.children[0];
-	var total = 0;
-	content.innerHTML = "";
-	for (var i = 0; i < tickets.length; i++)
-		for (var j = 0; j < tickets[i].places.length; j++){
-			var place = tickets[i].places[j];
-			if (place.cart == 1) {
-				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
-										<div class=\"itemInfo\">\
-											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn inactiveBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
-											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
-										</div>\
-									</div>";
-			} else if(place.cart < 10 && place.cart > 1){
-				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
-										<div class=\"itemInfo\">\
-											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
-										</div>\
-									</div>";
-			} else if(place.cart==10){
-				content.innerHTML += "<div class=\"cartItem\">\
-										<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
-										<div class=\"itemInfo\">\
-											<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
-											<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"value\">" + place.cart + "</p>\
-											<img class=\"valueBtn plus inactiveBtn\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
-											<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
-										</div>\
-									</div>";
-			}
-			total += place.cart*place.price;
-		}
-
-	if (content.innerHTML == "") {
-		content.innerHTML = "<p class=\"noItems\">No items have yet been added to the cart.</p>"
-	} else {
-		content.innerHTML += 	"<p class=\"total\">Total: " + total.toFixed(2) + "€</p>\
-								<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
-	}
-}
-
-function tryDeleteCart(type, place, item) {
-	var popup = document.getElementsByClassName("verifyRemove")[0];
-	var btnyes = popup.children[0].children[2];
-
-	showPage("verifyRemove");
-	btnyes.onclick = function() { 
-		deleteCart(type, place, item); 
-	}
-}
-
-function deleteCart(type, place, item){
-	tickets[type].places[place].cart = 0;
-	localStorage.tickets6 = JSON.stringify(tickets);
-	fillCart();
-	updateCartDot();
-	goBack();
-}
-
-function tryCheckout() {
-	switchPages("cartPage", "paymentPage");
-}
-
-function choosePay(card) {
-	var popup = document.getElementsByClassName("verifyCheckout")[0];
-	var p = popup.children[0].children[0];
-	p.innerHTML = "Purchase items with "+card+"?";
-
-	showPage("verifyCheckout");
-}
-
-function checkout() {
-	var div = document.getElementsByClassName("round")[0];
-	div.style.transform = 'translateY(-50%) scale(1)';
-	var screen = document.getElementsByClassName("screen")[0];
-	screen.style["pointer-events"] = "none";
-	var circle = div.children[0];
-	var p = div.children[2];
-
-	p.innerHTML = "0%";
-
-	circle.style.transitionDelay = "-1s";
-	circle.style.borderWidth = "0px";
-
-	p.style.color = "black";
-
-
-	var canvas = document.getElementById("progressBar");
-	var ctx = canvas.getContext("2d");
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	/*drawBar("progressBar", 100);*/
-	setTimeout(loading, 600, p, 1);
-}
-
-function loading(p, n) {
-	p.innerHTML = n+"%";
-	drawBar("progressBar", n);
-	if (n < 100) {
-		setTimeout(loading, 10, p, n+1);
-	}
-	if (n == 100) {
-		var div = document.getElementsByClassName("round")[0];
-		var circle = div.children[0];
-		circle.style.transitionDelay = "0s";
-		circle.style.borderWidth = "81px";
-		p.style.color = "transparent";
-
-		setTimeout(endLoading, 1500);
-	}
-}
-
-function drawBar(id, percent) {
-	var canvas = document.getElementById("progressBar");
-	var ctx = canvas.getContext("2d");
-	ctx.beginPath();
-	ctx.lineCap = "round";
-	ctx.lineWidth = 20;
-	ctx.strokeStyle = "#18ab5c";
-	ctx.arc(90, 90, 70, -0.5 * Math.PI, ((2*percent)/100-0.5) * Math.PI);
-	ctx.stroke();
-}
-
-function endLoading() {
-	var div = document.getElementsByClassName("round")[0];
-	div.style.transform = "translateY(-50%) scale(0)";
-	var screen = document.getElementsByClassName("screen")[0];
-	screen.style["pointer-events"] = "auto";
-
-	saveBuy();
-	showNotif("Purchase Complete");
-	updateCartDot();
-	goBack();
-}
-
-function saveBuy() {
-	var d = new Date();
-	var total = 0;
-	var items = [];
-
-	for (var i = 0; i < tickets.length; i++) {
-		for (var j = 0; j < tickets[i].places.length; j++) {
-			var n = tickets[i].places[j].cart;
-			if (n > 0) {
-				items.push({
-								type: i,
-								place: j,
-								tickets: n
-							});
-				total += n*tickets[i].places[j].price;
-				tickets[i].places[j].cart = 0;
-			}
-		}
-	}
-
-	bought.push({
-					date: twoDigit(d.getDate())+"-"+twoDigit(d.getMonth())+"-"+d.getFullYear(),
-					time: twoDigit(d.getHours())+"h"+twoDigit(d.getMinutes())/*+":"+twoDigit(d.getSeconds())*/,
-					items: items,
-					total: total
-				});
-
-	localStorage.tickets6 = JSON.stringify(tickets);
-	localStorage.bought6 = JSON.stringify(bought);
-}
-
-function twoDigit(n) {
-    return n < 10 ? "0"+n : ""+n;
-}
-
-function openReceiptPage() {
-	fillReceipts();
-	switchPages("ticketApp", "receiptPage");
-}
-
-function fillReceipts() {
-	var page = document.getElementsByClassName("receiptPage")[0];
-	if (bought.length == 0) {
-		page.children[0].innerHTML = "<p class=\"noItems\"> No items have been bought yet </p>";
-	} else {
-		page.children[0].innerHTML = "<div class=\"container\">\
-									</div>";
-		var container = page.children[0].children[0];
-		container.innerHTML = "";
-	}
-	for (var i = bought.length-1; i >= 0; i--) {
-		var purchase = bought[i];
-		container.innerHTML += 
-					"<div class=\"receipt\">\
-						<div class=\"header\" onclick='expandItems("+(bought.length-1-i)+")'>\
-							<img src=\"../img/icons/chevron-arrow-up.png\">\
-							<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
-							<p class=\"price\">" + purchase.total.toFixed(2) + "€</p>\
-						</div>\
-						<div class=\"items\">\
-							<div class=\"item\">\
-							</div>\
-						</div>\
-					</div>"
-	
-		var items = container.lastElementChild.children[1];
-		items.innerHTML = "";
-		for (var j = 0; j < purchase.items.length; j++) {
-			var type = purchase.items[j].type;
-			var place = purchase.items[j].place;
-			var ticket = tickets[type].places[place];
-			var price = ticket.price*purchase.items[j].tickets;
-
-			items.innerHTML +=
-						"<div class=\"item\">\
-							<p class=\"value\">" + purchase.items[j].tickets + "</p>\
-							<p class=\"name\" onclick=\"openFullTicket("+purchase.items[j].type+","+ purchase.items[j].place+",'receiptPage')\">" + ticket.name + "</p>\
-							<p class=\"price\">" +  price.toFixed(2) + "€</p>\
-						</div>";
-		}
-
-	}
-	openedItems = -1;
-}
-
-function expandItems(n) {
-	if (openedItems != -1) {
-		toggleItems(openedItems, false);
-	}
-
-	if (n != openedItems) {
-		toggleItems(n, true);
-		openedItems = n;
-	} else {
-		openedItems = -1;
-	}
-}
-
-function toggleItems(n, open) {
-	var page = document.getElementsByClassName("receiptPage")[0];
-	var container = page.children[0].children[0];
-	var receipt = container.children[n];
-	var arrow = receipt.children[0].children[0];
-	var items = receipt.children[1];
-
-	if (open) {
-		arrow.style.transform = "rotate(180deg)";
-		items.style.maxHeight = items.children.length*35 + 20+"px";
-	} else {
-		arrow.style.transform = "rotate(90deg)";
-		items.style.maxHeight = "0px";
-	}
-}
-
 var notifTime;
 
 function showNotif(msg) {
@@ -1135,269 +254,1215 @@ function hideNotif() {
 	setTimeout(function(notif){notif.style.visibility = "hidden";}, 500, notif);
 }
 
-var menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-var open = false;
+/* ================= SHAREAPP =====================*/
 
-function openMapMenu(btn) {
-	var menu = document.getElementsByClassName("mapMenu")[0];
-	if (!open) {
-		open =  true;
-		btn.src = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-	}
-	else if (open) {
-		open = false;
-		btn.src = menuIcon;
-	}
+	function fillPostPreviews() {
+		var n = 1;
+		var app = document.getElementsByClassName("shareApp")[0];
+		var cols = app.children[0].children;
 
-	menu.classList.toggle("openMapMenu");
-	btn.classList.toggle("openTrigger");
-}
+		cols[0].innerHTML = "";
+		cols[1].innerHTML = "";
+		for (var i = posts.length - 1; i >= 0; i--) {
+			cols[n].innerHTML += 
+						"<div class='postPreview'>\
+							<div class='header' onclick='openProfile(\"shareApp\",\"" + posts[i].person + "\")'>\
+								<img src=" + people[posts[i].person].pic + ">\
+								<p>" + posts[i].person + "</p>\
+							</div>\
+							<img src=" + posts[i].image + " onclick='showPost(\"" + i + "\", \"shareApp\")'>\
+						</div>";
 
-function selectMapOpt(n) {
-	var menu = document.getElementsByClassName("mapMenu")[0];
-	var same = false;
-	var chosenPins = document.getElementsByClassName("opt" + n);
-	var pins = document.getElementsByClassName("pin");
-
-	if (menu.children[n].classList.contains("selectedMapBtn")) {
-		same = true;
-		menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-		for (var i = 0; i < pins.length; i++) {
-			pins[i].style.visibility = "visible";
-		}
-	}
-	for (var i = 0; i < menu.children.length; i++) {
-		menu.children[i].classList.remove("selectedMapBtn");
-	}
-	if (!same) {
-		menu.children[n].classList.add("selectedMapBtn");
-		menuIcon = menu.children[n].children[0].src;
-		for (var i = 0; i < pins.length; i++) {
-			pins[i].style.visibility = "hidden";
-		}
-		for (var i = 0; i < chosenPins.length; i++) {
-			chosenPins[i].style.visibility = "visible";
+			n = (n+1)%2;
 		}
 	}
 
-	setTimeout(openMapMenu, 400, menu.nextElementSibling);
-	
-	
-	
+	function showPost(postNumber, pageName) {
+		var postPage = document.getElementsByClassName("fullPost")[0];
+		var cont = postPage.children[0];
+		cont.scrollTop = 0;
 
+		fillPost(postNumber);
+		switchPages(pageName, "fullPost");
+	}
 
-	
-	/*openMapMenu(menu.nextElementSibling);*/
-}
+	function fillPost(postNumber) {
+		var post = posts[postNumber];
+		var postPage = document.getElementsByClassName("fullPost")[0];
+		var header = postPage.children[0].children[0].children[0];
+		var img = postPage.children[0].children[0].children[1];
+		var bar = postPage.children[0].children[0].children[2];
+		var shareInfo = postPage.children[0].children[0].children[3];
+		var comments = postPage.children[0].children[0].children[4];
 
-function openSidePanel(type, place) {
-	var panel = document.getElementsByClassName("sidePanel")[0];
-	fillSidePanel(type, place);
-	panel.style.left = "0px";
-}
-
-function closeSidePanel() {
-	var panel = document.getElementsByClassName("sidePanel")[0];
-	panel.style.left = "-170px";
-}
-
-
-function callForTable(name) {
-	var popup = document.getElementsByClassName("callForTable")[0];
-	var p = popup.children[0].children[0];
-	p.innerHTML = "Do you want to call "+name+" to get a table?";
-	showPage("callForTable");
-}
-
-
-var mapPlace;
-var mapType;
-function fillSidePanel(type, place) {
-	mapPlace = place;
-	mapType = type;
-	var itemTitle;
-	var pic;
-	var panel = document.getElementsByClassName("sidePanel")[0];
-	var more = panel.getElementsByClassName("moreBtn")[0];
-	more.style.visibility = "visible";
-
-	if (type >= 0) {
-		var item = tickets[type].places[place];
-		if (item.name == "Bus Ticket") {
-			itemTitle = "Bus Station";
+		header.children[0].src = people[post.person].pic;
+		header.children[0].setAttribute("onclick", "openProfile(\"fullPost\",\"" + post.person + "\")");
+		header.children[1].innerHTML = post.person;
+		header.children[1].setAttribute("onclick", "openProfile(\"fullPost\",\"" + post.person + "\")");
+		header.children[2].innerHTML = post.place;
+		if (posts[postNumber].person == "User") {
+			header.children[3].src = "../img/icons/trash-can-black-symbol.svg";
+			header.children[3].setAttribute("onclick", "tryDeletePost(" + postNumber + ")");
+		} else {
+			header.children[3].src = "";
+			header.children[3].setAttribute("onclick", "");
 		}
-		else if (item.name == "Subway Ticket") {
-			itemTitle = "Subway Station";
+
+		img.src = post.image;
+		if (posts[postNumber].upvoted) {
+			bar.children[0].src = "../img/icons/up-arrow-full.svg";
+		} else {
+			bar.children[0].src = "../img/icons/up-arrow.svg";
 		}
+		bar.children[0].setAttribute("onclick", "upvote(" + postNumber + ")");
+		bar.children[1].innerHTML = post.upvotes;
+		bar.children[2].innerHTML = post.date;
+
+		if (posts[postNumber].person == "User") {
+			shareInfo.innerHTML = "Shared with: ";
+			for (var i = 0; i < posts[postNumber].share.length-1; i++) {
+				shareInfo.innerHTML += posts[postNumber].share[i]+", ";
+			}
+			shareInfo.innerHTML += posts[postNumber].share[i]+".";
+		} else {
+			shareInfo.innerHTML = "";
+		}
+
+		comments.innerHTML = "";
+		for (var i = post.comments.length - 1; i >= 0; i--) {
+			comments.innerHTML += 	"<div class='comment'>\
+										<div class='header'>\
+											<img src=" + people[post.comments[i].person].pic + "\
+											 	onclick='openProfile(\"fullPost\",\"" + post.comments[i].person + "\")'>\
+											<p onclick='openProfile(\"fullPost\",\"" + post.comments[i].person + "\")'>\
+												" + post.comments[i].person + "</p>\
+										</div>\
+										<div class='commentBody'>\
+											<p>" + post.comments[i].message + "</p>\
+										</div>\
+									</div>";
+		}
+	}
+
+	function tryDeletePost(postNumber) {
+		var popup = document.getElementsByClassName("verifyDelete")[0];
+		var btnyes = popup.children[0].children[2];
+
+		btnyes.setAttribute("onclick", "deletePost("+postNumber+")");
+		showPage("verifyDelete");
+	}
+
+	function deletePost(postNumber) {
+		var name = posts[postNumber].person;
+		posts.splice(postNumber, 1);
+		localStorage.posts6 = JSON.stringify(posts);
+
+		fillPostPreviews();
+		fillProfile(name);
+		goBack();
+		goBack();
+	}
+
+	function openFriendList() {
+		var friendList = document.getElementsByClassName("friendList")[0];
+		var cont = friendList.children[0];
+		cont.scrollTop = 0;
+
+		fillFriendsList();
+		switchPages("shareApp", "friendList");
+	}
+
+	function fillFriendsList() {
+		var friendList = document.getElementsByClassName("friendList")[0];
+		var container = friendList.children[0].children[0];
+		var friend;
+
+		container.innerHTML = "";
+		for (friend in people) {
+			if (friend == "User") {
+				continue;
+			}
+			container.innerHTML += 	"<div class='personListItem' onclick='openProfile(\"friendList\",\"" + friend + "\")'>\
+										<img src=" + people[friend].pic + ">\
+										<p>" + friend + "</p>\
+									</div>";
+		}
+	}
+
+	function openProfile(currentPageName, personName) {
+		var profile = document.getElementsByClassName("profile")[0];
+		var cont = profile.children[0];
+		cont.scrollTop = 0;
+
+		fillProfile(personName);
+		switchPages(currentPageName, "profile");
+	}
+
+	function fillProfile(name) {
+		var n = 4;
+		var profile = document.getElementsByClassName("profile")[0];
+		var cols = profile.children[0].children;
+		var header = profile.children[0].children[0].children[0];
+		var quoteDiv = profile.children[0].children[1];
+		var arrow = profile.children[0].children[2];
+		header.children[0].src = people[name].pic;
+		header.children[1].innerHTML = name;
+		/*header.children[2].innerHTML = people[name].quote;*/
+		quoteDiv.children[0].innerHTML = people[name].quote;
+		quoteDiv.style.transitionDelay = "-1s";
+		arrow.style.transitionDelay = "-1s";
+		quoteDiv.style.maxHeight = "0px";
+		arrow.style.transform = "rotate(180deg)";
+
+		cols[3].innerHTML = "";
+		cols[4].innerHTML = "";
+		for (var i = posts.length - 1; i >= 0; i--) {
+			if (posts[i].person==name) {
+				cols[n].innerHTML += 
+							"<div class='postPreview' onclick='showPost(\"" + i + "\", \"profile\")'>\
+								<img src=" + posts[i].image + ">\
+							</div>";
+				/*n = n%2+1;*/
+				/*n = (n-1)%2+2;*/
+				n = (n-2)%2+3;
+			}
+		}
+	}
+
+	function expandQuote() {
+		var profile = document.getElementsByClassName("profile")[0];
+		var quoteDiv = profile.children[0].children[1];
+		var arrow = profile.children[0].children[2];
+		if (quoteDiv.style.maxHeight == "0px") {
+			quoteDiv.style.transitionDelay = "0ms";
+			arrow.style.transitionDelay = "0ms";
+			quoteDiv.style.maxHeight = "100px";
+			arrow.style.transform = "rotate(0deg)";
+		} else {
+			quoteDiv.style.maxHeight = "0px";
+			arrow.style.transform = "rotate(180deg)";
+		}
+	}
+
+	function openCam() {
+		var cam  = document.getElementsByClassName("camApp")[0];
+		var img = cam.children[0].children[0];
+		var shutter = cam.children[1].children[1];
+		var srcImg = myPosts[Math.floor((Math.random() * (myPosts.length-1)))];
+
+		img.src = srcImg;
+		shutter.setAttribute("onclick", "openPublishMenu('" + srcImg + "')");
+
+		switchPages("shareApp", "camApp");
+	}
+
+	function openPublishMenu(srcImg) {
+		var img = document.getElementsByClassName("publishImg")[0];
+		var bar = document.getElementsByClassName("choiceBar")[0];
+		var arrow = bar.previousElementSibling;
+
+		shareSelection = [];
+		shareSelectionTmp = [];
+		img.src = srcImg;
+
+		bar.style.transitionDelay = "-1s";
+		arrow.style.transitionDelay = "-1s";
+		bar.style.bottom = "-40px";
+		arrow.style.bottom = "5px";
+		arrow.style.transform = "rotate(0deg)";
+
+		selectOpt(0);
+		fillSpecificSelection();
+		switchPages("camApp", "publishMenu");
+	}
+
+	function fillSpecificSelection() {
+		var sendToList = document.getElementsByClassName("sendToSpecific")[0];
+		var menu = document.getElementsByClassName("publishMenu")[0];
+
+		var container = sendToList.children[0].children[0];
+		var friend;
+
+		container.innerHTML = "";
+		for (friend in people) {
+			if (friend != "User") {
+				container.innerHTML += 	"<div class='personListItem' onclick='selectFriend(this)'>\
+											<img src=" + people[friend].pic + ">\
+											<p>" + friend + "</p>\
+										</div>";
+			}
+		}
+	}
+
+	function toggleChoiceBar() {
+		var bar = document.getElementsByClassName("choiceBar")[0];
+		var arrow = bar.previousElementSibling;
+		if (bar.style.bottom == "-40px") {
+			bar.style.transitionDelay = "0s";
+			arrow.style.transitionDelay = "0s";
+			bar.style.bottom = "8px";
+			arrow.style.bottom = "53px";
+			arrow.style.transform = "rotate(180deg)";
+		} else {
+			bar.style.bottom = "-40px";
+			arrow.style.bottom = "5px";
+			arrow.style.transform = "rotate(0deg)";
+		}
+	}
+
+	function selectOpt(n) {
+		var bar = document.getElementsByClassName("choiceBar")[0];
+		var tds = bar.children[0].children[0].children;
+
+		if (n == 2) {
+			openSendToSpecific();
+		} else {
+			if (n == 0) {shareSelection = ["All"]}
+			if (n == 1) {shareSelection = ["Friends"]}
+				
+			for (var i = 0; i < tds.length; i++) {
+				tds[i].style.backgroundColor = "white";
+				tds[i].style.color = "black";
+			}
+			tds[n].style.backgroundColor = "#2379d8";
+			tds[n].style.color = "white";
+		}
+	}
+
+	function openSendToSpecific() {
+		var sendToList = document.getElementsByClassName("sendToSpecific")[0];
+
+		var items = sendToList.children[0].children[0].children;
+
+		if (shareSelection[0] == "All" || shareSelection[0] == "Friends") {
+			shareSelectionTmp = [];
+		} else {
+			shareSelectionTmp = shareSelection.slice(0); /*clone*/
+		}
+
+		for (var i=0; i < items.length; i++) {
+			var name = items[i].children[1].innerHTML;
+			if (shareSelectionTmp.includes(name)) {
+				items[i].style.backgroundColor = "#86b5f2";
+			} else {
+				items[i].style.backgroundColor = "transparent";
+			}
+		}
+		switchPages("publishMenu", "sendToSpecific");
+	}
+
+	function selectFriend(listItem) {
+		var name = listItem.children[1].innerHTML;
+		if (!shareSelectionTmp.includes(name)) {
+			listItem.style.backgroundColor = "#86b5f2";
+			shareSelectionTmp.push(name);
+		} else {
+			listItem.style.backgroundColor = "transparent";
+			shareSelectionTmp.splice(shareSelection.indexOf(name), 1);
+		}
+	}
+
+	function acceptSelectedFriends() {
+		if (shareSelectionTmp.length == 0) {return;}
+
+		shareSelection = shareSelectionTmp.slice(0); /*clone*/
+
+		var bar = document.getElementsByClassName("choiceBar")[0];
+		var tds = bar.children[0].children[0].children;
+
+		for (var i = 0; i < tds.length; i++) {
+			tds[i].style.backgroundColor = "white";
+			tds[i].style.color = "black";
+		}
+		tds[2].style.backgroundColor = "#2379d8";
+		tds[2].style.color = "white";
+
+		goBack();
+	}
+
+	function publishPost() {
+		var img = document.getElementsByClassName("publishImg")[0];
+		var d = new Date();
+		var newPost = 	{
+							person: "User",
+							place: "",
+							image: img.src,
+							upvotes: 0,
+							upvoted: false,
+							date: d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear(),
+							share: shareSelection.slice(0),
+							comments: []
+						}
+
+		posts.push(newPost);
+		localStorage.posts6 = JSON.stringify(posts);
+
+		fillPostPreviews();
+
+		var app = document.getElementsByClassName("shareApp")[0];
+		var cont = app.children[0];
+		cont.scrollTop = 0;
+
+		goBack();
+		goBack();
+	}
+
+	function upvote(postNumber) {
+		var postPage = document.getElementsByClassName("fullPost")[0];
+		var bar = postPage.children[0].children[0].children[2];
+		if (!posts[postNumber].upvoted) {
+			bar.children[0].src = "../img/icons/up-arrow-full.svg";
+			posts[postNumber].upvotes++;
+			posts[postNumber].upvoted = true;
+		} else {
+			bar.children[0].src = "../img/icons/up-arrow.svg";
+			posts[postNumber].upvotes--;
+			posts[postNumber].upvoted = false;
+		}
+		localStorage.posts6 = JSON.stringify(posts);
+		bar.children[1].innerHTML = posts[postNumber].upvotes;
+	}
+
+/*=================================================*/
+
+
+/* ================= TICKETAPP ====================*/
+
+	function selectTab(n) {
+		var app = document.getElementsByClassName("ticketApp")[0];
+		var tabs = document.getElementsByClassName("tab");
+		var content = app.children[1];
+		var places = tickets[n].places;
+
+		if (tabs[n].classList.contains("tabSelected")) {
+			return;
+		}
+
+		for (var i = 0; i < tabs.length; i++) {
+			tabs[i].classList.remove("tabSelected");
+		}
+		tabs[n].classList.add("tabSelected");
+
+		content.innerHTML="";
+		for (var i = 0; i < places.length; i++) {
+			var open = (places[i].open / 100).toFixed(2).split(".");
+			var close = (places[i].close / 100).toFixed(2).split(".");
+			content.innerHTML += 	"<div class=\"ticketPreview\" onclick='openFullTicket("+ n + "," + i + ", \"ticketApp\")'>\
+										<img src=\"" + places[i].img + "\">\
+										<div class=\"info\">\
+											<p class=\"title\">" + places[i].name + "</p>\
+										</div>\
+									</div>";
+			if (tickets[n].type != "transports")
+				content.getElementsByClassName("info")[i].innerHTML += "<p class=\"schedule\">" + open[0] + ":" 
+					+ open[1] + "-" + close[0] + ":" + close[1] + "</p>";
+			else
+				content.getElementsByClassName("info")[i].innerHTML += "<p class=\"timeAway\">" + places[i].timeAway + " min. away</p>";
+			content.getElementsByClassName("info")[i].innerHTML += "<p class=\"price\">" + places[i].price + "€</p>";
+		}
+		content.scrollTop = 0;
+	}
+
+	function openFullTicket(type, place, app) {
+		var colors = ["#e04242", "#e04242", "#e04242", "#f08130", "#18b44b", "#18b44b"];
+
+		var page = document.getElementsByClassName("fullTicket")[0];
+		var container = page.children[0].children[0];
+		var ticket = tickets[type].places[place];
+
+		if (type == 0 || type == 1) {
+			var open = (ticket.open / 100).toFixed(2).split(".");
+			var close = (ticket.close / 100).toFixed(2).split(".");
+		}
+		container.innerHTML = 	"<p class=\"title\">" + ticket.name +"</p>\
+								<div class=\"duo\">\
+									<div class=\"imgContainer\">\
+										<img class=\"pic\" src="+ ticket.img +">\
+									</div>\
+									<div class=\"score\" style='background-color:"+colors[Math.round(ticket.score)]+"'>\
+										<img src=\"../img/icons/favourites-filled-star-symbol.svg\">\
+										<p>Score:</p>\
+										<p>"+ ticket.score + "</p>\
+									</div>\
+								</div>\
+								<p class=\"price\">" + ticket.price.toFixed(2) +"€/un.</p>";
+
+		if (type == 0 || type == 1) {
+			container.innerHTML += "<div class=\"eventBox\">\
+										<img src=\"../img/icons/time-left.svg\">\
+										<p class=\"openHours\"><strong>Open:</strong> " + open[0] + ":" + open[1] + "-" + close[0] + ":" + close[1] + "</p>\
+										<p class=\"duration\"><strong>Duration:</strong> " + ticket.duration + " min.</p>\
+									</div>";
+		}
+
 		else {
+			container.innerHTML += "<div class=\"eventBox\">\
+										<img src=\"../img/icons/time-left.svg\">\
+										<p class=\"openHoursTransports\"><strong>Open:</strong> " + ticket.open + "-" + ticket.close + "</p>\
+									</div>";
+		}
+
+		container.innerHTML += "<div class=\"routeBox\">\
+									<img src=\"../img/icons/footprint.svg\">\
+									<p class=\"distance\"><strong>Distance:</strong> " + ticket.distance + "</p>\
+									<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
+								</div>\
+								<div class=\"rateTicket\">\
+									<p>Rate:</p>\
+									<img id=\"star1\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 1 + ")'>\
+									<img id=\"star2\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 2 + ")'>\
+									<img id=\"star3\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 3 + ")'>\
+									<img id=\"star4\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 4 + ")'>\
+									<img id=\"star5\" src=\"../img/icons/star-of-favorites-outline.svg\" onclick='rateTicket(" + type + ", " + place + "," + 5 + ")'>\
+								</div>";
+		
+
+		var cont = page.children[0];
+		cont.scrollTop = 0
+		var buyBtn = page.children[1].children[1];
+		buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
+		fillStars(type, place);
+		if (app == "cartPage" || app == "receiptPage") {
+			buyBtn.classList.add("hidden");
+		} else {
+			buyBtn.classList.remove("hidden");
+		}
+		switchPages(app, "fullTicket");
+	}
+
+	function rateTicket(type, place, rate) {
+		var ticket = tickets[type].places[place];
+		if (ticket.rate == rate) {
+			ticket.rate = 0;
+			showNotif("Rating removed");
+		} else {
+			if (ticket.rate == 0) {
+				showNotif("Rating added");
+			} else {
+				showNotif("Rating changed");
+			}
+			ticket.rate = rate;
+		}
+		localStorage.tickets6 = JSON.stringify(tickets);
+		fillStars(type, place);
+	}
+
+	function fillStars(type, place) {
+		var ticket = tickets[type].places[place];
+
+		for (var i = 1; i <= 5; i++) {
+			var starID = "star" + i;
+			var star = document.getElementById(starID);
+			if (i <= ticket.rate) {
+				star.src = "../img/icons/favourites-filled-star-symbol-orange.svg";
+			} else {
+				star.src = "../img/icons/star-of-favorites-outline.svg";
+			}
+		}
+	}
+
+	function openBuyTicket(type, place) {
+		var popup = document.getElementsByClassName("buyTicket")[0];
+		var minusBtn = popup.children[0].children[1];
+		var value = popup.children[0].children[2];
+		var plusBtn = popup.children[0].children[3];
+		var priceTxt = popup.children[0].children[4];
+		var addBtn = popup.children[0].children[6];
+		var price = tickets[type].places[place].price;
+		var ticket = tickets[type].places[place];
+		value.innerHTML = "1";
+		if (ticket.cart > 0) {
+			value.innerHTML = ticket.cart;
+		}
+		minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
+		plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
+		addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
+		plusBtn.classList.remove("inactiveBtn");
+		minusBtn.classList.add("inactiveBtn");
+		priceTxt.innerHTML = price.toFixed(2) + "€";
+		if(ticket.cart>0){
+			minusBtn.classList.remove("inactiveBtn");
+			priceTxt.innerHTML = price.toFixed(2)*ticket.cart + "€";
+		}
+		if (ticket.cart == 10) {
+			plusBtn.classList.add("inactiveBtn");
+		}
+		showPage("buyTicket");
+	}
+
+	function minusTicket(minusBtn, price, type, place, app) {
+		var value = minusBtn.nextElementSibling;
+		var priceTxt = value.nextElementSibling.nextElementSibling;
+		var n = parseInt(value.innerHTML);
+		var plusBtn = value.nextElementSibling;
+		value.innerHTML = --n;
+
+		if (n == 9) {
+			plusBtn.classList.remove("inactiveBtn");
+		}
+		if (n == 1) {
+			minusBtn.classList.add("inactiveBtn");
+		}
+		if (app == "cartPage") {
+			tickets[type].places[place].cart = n;
+			localStorage.tickets6 = JSON.stringify(tickets);
+			var page = document.getElementsByClassName("cartPage")[0];
+			var val = page.getElementsByClassName("total")[0];
+			var num = parseFloat(val.innerHTML.split(" ")[1]);
+			console.log(num);
+			num -= price;
+			val.innerHTML = "Total: " + num.toFixed(2) + "€";
+		}
+		priceTxt.innerHTML = (n*price).toFixed(2) + "€";
+	}
+
+	function plusTicket(plusBtn, price, type, place, app) {
+		var priceTxt = plusBtn.nextElementSibling;
+		var value = plusBtn.previousElementSibling;
+		var minusBtn = value.previousElementSibling;
+		var n = parseInt(value.innerHTML);
+		var ticket = tickets[type].places[place].cart;
+		value.innerHTML = ++n;
+
+		if (n > 1) {
+			minusBtn.classList.remove("inactiveBtn");
+		}
+		if (app == "cartPage") {
+			tickets[type].places[place].cart = n;
+			localStorage.tickets6 = JSON.stringify(tickets);
+			var page = document.getElementsByClassName("cartPage")[0];
+			var val = page.getElementsByClassName("total")[0];
+			var num = parseFloat(val.innerHTML.split(" ")[1]);
+			num += price;
+			val.innerHTML = "Total: " + num.toFixed(2) + "€";
+		}
+		if (n == 10) {
+			plusBtn.classList.toggle("inactiveBtn");
+		}
+		priceTxt.innerHTML = (n*price).toFixed(2) + "€";
+	}
+
+	function addToCart(type, place) {
+		var popup = document.getElementsByClassName("buyTicket")[0];
+		var n = parseInt(popup.children[0].children[2].innerHTML);
+
+
+		tickets[type].places[place].cart = n;
+		localStorage.tickets6 = JSON.stringify(tickets);
+		
+
+		updateCartDot();
+		goBack();
+		goBack();
+	}
+
+	function updateCartDot() {
+		var btn = document.getElementsByClassName("btnCart")[0];
+		var dot = btn.children[1];
+		for (var i = 0; i < tickets.length; i++) {
+			for (var j = 0; j < tickets[i].places.length; j++) {
+				var place = tickets[i].places[j];
+				if (place.cart > 0) {
+					dot.style.visibility = "visible";
+					return;
+				}
+			}
+		}
+		dot.style.visibility = "hidden";
+	}
+
+	function openCart() {
+		var cart = document.getElementsByClassName("cartPage")[0];
+		var content = cart.children[0];
+		content.scrollTop = 0;
+
+		fillCart();
+		switchPages("ticketApp", "cartPage");
+	}
+
+	function fillCart() {
+		var cart = document.getElementsByClassName("cartPage")[0];
+		var content = cart.children[0];
+		var total = 0;
+		content.innerHTML = "";
+		for (var i = 0; i < tickets.length; i++)
+			for (var j = 0; j < tickets[i].places.length; j++){
+				var place = tickets[i].places[j];
+				if (place.cart == 1) {
+					content.innerHTML += "<div class=\"cartItem\">\
+											<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+											<div class=\"itemInfo\">\
+												<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+												<img class=\"valueBtn inactiveBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+												<p class=\"value\">" + place.cart + "</p>\
+												<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+ ", \"cartPage\")'>\
+												<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
+											</div>\
+										</div>";
+				} else if(place.cart < 10 && place.cart > 1){
+					content.innerHTML += "<div class=\"cartItem\">\
+											<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+											<div class=\"itemInfo\">\
+												<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+												<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+												<p class=\"value\">" + place.cart + "</p>\
+												<img class=\"valueBtn plus\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+												<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
+											</div>\
+										</div>";
+				} else if(place.cart==10){
+					content.innerHTML += "<div class=\"cartItem\">\
+											<img class=\"delete\" src=\"../img/icons/close-cross.png\" onclick='tryDeleteCart(" + i + ", " + j + ", this.parentNode)'>\
+											<div class=\"itemInfo\">\
+												<p class=\"title\" onclick='openFullTicket(" + i + "," + j + ", \"cartPage\")'>" + place.name + "</p>\
+												<img class=\"valueBtn minus\" src=\"../img/icons/minus-big-symbol.svg\" onclick='minusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+												<p class=\"value\">" + place.cart + "</p>\
+												<img class=\"valueBtn plus inactiveBtn\" src=\"../img/icons/addition-sign.svg\" onclick='plusTicket(this," + place.price + "," +i+","+j+", \"cartPage\")'>\
+												<p class=\"price\">" + (place.price*place.cart).toFixed(2) + "€</p>\
+											</div>\
+										</div>";
+				}
+				total += place.cart*place.price;
+			}
+
+		if (content.innerHTML == "") {
+			content.innerHTML = "<p class=\"noItems\">No items have yet been added to the cart.</p>"
+		} else {
+			content.innerHTML += 	"<p class=\"total\">Total: " + total.toFixed(2) + "€</p>\
+									<p class=\"checkout\" onclick='tryCheckout()'>Checkout</p>";
+		}
+	}
+
+	function tryDeleteCart(type, place, item) {
+		var popup = document.getElementsByClassName("verifyRemove")[0];
+		var btnyes = popup.children[0].children[2];
+
+		showPage("verifyRemove");
+		btnyes.onclick = function() { 
+			deleteCart(type, place, item); 
+		}
+	}
+
+	function deleteCart(type, place, item){
+		tickets[type].places[place].cart = 0;
+		localStorage.tickets6 = JSON.stringify(tickets);
+		fillCart();
+		updateCartDot();
+		goBack();
+	}
+
+	function tryCheckout() {
+		switchPages("cartPage", "paymentPage");
+	}
+
+	function choosePay(card) {
+		var popup = document.getElementsByClassName("verifyCheckout")[0];
+		var p = popup.children[0].children[0];
+		p.innerHTML = "Purchase items with "+card+"?";
+
+		showPage("verifyCheckout");
+	}
+
+	function checkout() {
+		var div = document.getElementsByClassName("round")[0];
+		div.style.transform = 'translateY(-50%) scale(1)';
+		var screen = document.getElementsByClassName("screen")[0];
+		screen.style["pointer-events"] = "none";
+		var circle = div.children[0];
+		var p = div.children[2];
+
+		p.innerHTML = "0%";
+
+		circle.style.transitionDelay = "-1s";
+		circle.style.borderWidth = "0px";
+
+		p.style.color = "black";
+
+
+		var canvas = document.getElementById("progressBar");
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		/*drawBar("progressBar", 100);*/
+		setTimeout(loading, 600, p, 1);
+	}
+
+	function loading(p, n) {
+		p.innerHTML = n+"%";
+		drawBar("progressBar", n);
+		if (n < 100) {
+			setTimeout(loading, 10, p, n+1);
+		}
+		if (n == 100) {
+			var div = document.getElementsByClassName("round")[0];
+			var circle = div.children[0];
+			circle.style.transitionDelay = "0s";
+			circle.style.borderWidth = "81px";
+			p.style.color = "transparent";
+
+			setTimeout(endLoading, 1500);
+		}
+	}
+
+	function drawBar(id, percent) {
+		var canvas = document.getElementById("progressBar");
+		var ctx = canvas.getContext("2d");
+		ctx.beginPath();
+		ctx.lineCap = "round";
+		ctx.lineWidth = 20;
+		ctx.strokeStyle = "#18ab5c";
+		ctx.arc(90, 90, 70, -0.5 * Math.PI, ((2*percent)/100-0.5) * Math.PI);
+		ctx.stroke();
+	}
+
+	function endLoading() {
+		var div = document.getElementsByClassName("round")[0];
+		div.style.transform = "translateY(-50%) scale(0)";
+		var screen = document.getElementsByClassName("screen")[0];
+		screen.style["pointer-events"] = "auto";
+
+		saveBuy();
+		showNotif("Purchase Complete");
+		updateCartDot();
+		goBack();
+	}
+
+	function saveBuy() {
+		var d = new Date();
+		var total = 0;
+		var items = [];
+
+		for (var i = 0; i < tickets.length; i++) {
+			for (var j = 0; j < tickets[i].places.length; j++) {
+				var n = tickets[i].places[j].cart;
+				if (n > 0) {
+					items.push({
+									type: i,
+									place: j,
+									tickets: n
+								});
+					total += n*tickets[i].places[j].price;
+					tickets[i].places[j].cart = 0;
+				}
+			}
+		}
+
+		bought.push({
+						date: twoDigit(d.getDate())+"-"+twoDigit(d.getMonth())+"-"+d.getFullYear(),
+						time: twoDigit(d.getHours())+"h"+twoDigit(d.getMinutes())/*+":"+twoDigit(d.getSeconds())*/,
+						items: items,
+						total: total
+					});
+
+		localStorage.tickets6 = JSON.stringify(tickets);
+		localStorage.bought6 = JSON.stringify(bought);
+	}
+
+	function twoDigit(n) {
+	    return n < 10 ? "0"+n : ""+n;
+	}
+
+	function openReceiptPage() {
+		fillReceipts();
+		switchPages("ticketApp", "receiptPage");
+	}
+
+	function fillReceipts() {
+		var page = document.getElementsByClassName("receiptPage")[0];
+		if (bought.length == 0) {
+			page.children[0].innerHTML = "<p class=\"noItems\"> No items have been bought yet </p>";
+		} else {
+			page.children[0].innerHTML = "<div class=\"container\">\
+										</div>";
+			var container = page.children[0].children[0];
+			container.innerHTML = "";
+		}
+		for (var i = bought.length-1; i >= 0; i--) {
+			var purchase = bought[i];
+			container.innerHTML += 
+						"<div class=\"receipt\">\
+							<div class=\"header\" onclick='expandItems("+(bought.length-1-i)+")'>\
+								<img src=\"../img/icons/chevron-arrow-up.png\">\
+								<p>&#8194;" + purchase.date + "&#8194;" + purchase.time + "</p>\
+								<p class=\"price\">" + purchase.total.toFixed(2) + "€</p>\
+							</div>\
+							<div class=\"items\">\
+								<div class=\"item\">\
+								</div>\
+							</div>\
+						</div>"
+		
+			var items = container.lastElementChild.children[1];
+			items.innerHTML = "";
+			for (var j = 0; j < purchase.items.length; j++) {
+				var type = purchase.items[j].type;
+				var place = purchase.items[j].place;
+				var ticket = tickets[type].places[place];
+				var price = ticket.price*purchase.items[j].tickets;
+
+				items.innerHTML +=
+							"<div class=\"item\">\
+								<p class=\"value\">" + purchase.items[j].tickets + "</p>\
+								<p class=\"name\" onclick=\"openFullTicket("+purchase.items[j].type+","+ purchase.items[j].place+",'receiptPage')\">" + ticket.name + "</p>\
+								<p class=\"price\">" +  price.toFixed(2) + "€</p>\
+							</div>";
+			}
+
+		}
+		openedItems = -1;
+	}
+
+	function expandItems(n) {
+		if (openedItems != -1) {
+			toggleItems(openedItems, false);
+		}
+
+		if (n != openedItems) {
+			toggleItems(n, true);
+			openedItems = n;
+		} else {
+			openedItems = -1;
+		}
+	}
+
+	function toggleItems(n, open) {
+		var page = document.getElementsByClassName("receiptPage")[0];
+		var container = page.children[0].children[0];
+		var receipt = container.children[n];
+		var arrow = receipt.children[0].children[0];
+		var items = receipt.children[1];
+
+		if (open) {
+			arrow.style.transform = "rotate(180deg)";
+			items.style.maxHeight = items.children.length*35 + 20+"px";
+		} else {
+			arrow.style.transform = "rotate(90deg)";
+			items.style.maxHeight = "0px";
+		}
+	}
+
+/*=================================================*/
+
+
+/* =================== MAPAPP =====================*/
+
+	var menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+	var open = false;
+
+	function openMapMenu(btn) {
+		var menu = document.getElementsByClassName("mapMenu")[0];
+		if (!open) {
+			open =  true;
+			btn.src = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+		}
+		else if (open) {
+			open = false;
+			btn.src = menuIcon;
+		}
+
+		menu.classList.toggle("openMapMenu");
+		btn.classList.toggle("openTrigger");
+	}
+
+	function selectMapOpt(n) {
+		var menu = document.getElementsByClassName("mapMenu")[0];
+		var same = false;
+		var chosenPins = document.getElementsByClassName("opt" + n);
+		var pins = document.getElementsByClassName("pin");
+
+		if (menu.children[n].classList.contains("selectedMapBtn")) {
+			same = true;
+			menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+			for (var i = 0; i < pins.length; i++) {
+				pins[i].style.visibility = "visible";
+			}
+		}
+		for (var i = 0; i < menu.children.length; i++) {
+			menu.children[i].classList.remove("selectedMapBtn");
+		}
+		if (!same) {
+			menu.children[n].classList.add("selectedMapBtn");
+			menuIcon = menu.children[n].children[0].src;
+			for (var i = 0; i < pins.length; i++) {
+				pins[i].style.visibility = "hidden";
+			}
+			for (var i = 0; i < chosenPins.length; i++) {
+				chosenPins[i].style.visibility = "visible";
+			}
+		}
+
+		setTimeout(openMapMenu, 400, menu.nextElementSibling);
+	}
+
+	function openSidePanel(type, place) {
+		var panel = document.getElementsByClassName("sidePanel")[0];
+		fillSidePanel(type, place);
+		panel.style.left = "0px";
+	}
+
+	function closeSidePanel() {
+		var panel = document.getElementsByClassName("sidePanel")[0];
+		panel.style.left = "-170px";
+	}
+
+	var mapPlace;
+	var mapType;
+	function callForTable() {
+		var name = restaurants[mapPlace].name;
+		var popup = document.getElementsByClassName("callForTable")[0];
+		var p = popup.children[0].children[0];
+		p.innerHTML = "Do you want to call "+name+" to get a table?";
+		showPage("callForTable");
+	}
+
+
+	
+	function fillSidePanel(type, place) {
+		mapPlace = place;
+		mapType = type;
+		var itemTitle;
+		var pic;
+		var panel = document.getElementsByClassName("sidePanel")[0];
+		var more = panel.getElementsByClassName("moreBtn")[0];
+		more.style.visibility = "visible";
+
+		if (type >= 0) {
+			more.innerHTML = "More+";
+			var item = tickets[type].places[place];
+			if (item.name == "Bus Ticket") {
+				itemTitle = "Bus Station";
+			}
+			else if (item.name == "Subway Ticket") {
+				itemTitle = "Subway Station";
+			}
+			else {
+				itemTitle = item.name;
+			}
+			pic = item.img;
+			more.setAttribute("onclick", "openPlaceInfo()");
+		}
+
+		else if (type == -1) {		// friends
+			more.innerHTML = "More+";
+			itemTitle = place;
+			pic = people[itemTitle].pic;
+			more.setAttribute("onclick", "openPlaceInfo()");
+		}
+
+		else if (type == -2) {		// restaurants
+			more.innerHTML = "Get Table";
+			var item = restaurants[place];
 			itemTitle = item.name;
+			pic = item.img; 
+			console.log(itemTitle);
+			more.setAttribute("onclick", "callForTable()");
 		}
-		pic = item.img;
+
+		var title = panel.getElementsByClassName("title")[0];
+		title.innerHTML = itemTitle;
+		var previewPic = document.getElementsByClassName("previewPic")[0];
+		previewPic.src = pic;
 	}
 
-	else if (type == -1) {		// friends
-		itemTitle = place;
-		pic = people[itemTitle].pic;
-	}
-
-	else if (type == -2) {		// restaurants
-		//more.style.visibility = "hidden";
-		more.innerHTML = "Get Table";
-		var item = restaurants[place];
-		itemTitle = item.name;
-		pic = item.img; 
-		more.setAttribute("onclick", "callForTable(itemTitle)");
-		/*more.onclick = function() { callForTable(itemTitle); };*/
-	}
-
-	var title = panel.getElementsByClassName("title")[0];
-	title.innerHTML = itemTitle;
-	var previewPic = document.getElementsByClassName("previewPic")[0];
-	previewPic.src = pic;
-}
-
-function openPlaceInfo() {
-	if (mapType >= 0) {
-		openFullTicket(mapType, mapPlace, "mapApp");
-	}
-
-	else if (mapType == -1) {
-		openProfile("mapApp", mapPlace);
-	}
-}
-
-
-
-
-var mapObj;
-var user = {x: 3338, y: 5420, angle: 0, interval: null};
-
-function updateUserPos() {
-	var arrow = $("#userArrow")[0];
-	arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
-	arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
-	arrow.style.transform = "rotate("+user.angle+"deg)";
-}
-
-function mapload() {
-	mapObj = panzoom(document.getElementById("map"), {
-		bounds:true, 
-		boundsPadding:0, 
-		maxZoom: 1, 
-		minZoom: 0.05,
-		zoomSpeed: 0.12,
-		disableKeyboardInteraction: true
-	});
-
-	updateUserPos();
-}
-
-
-function focusOn(element) {
-	var elementBox = element.getBoundingClientRect();
-	var viewBox = $('#mapWrapper')[0].getBoundingClientRect();
-	var mapBox = $("#map")[0].getBoundingClientRect();
-	var inMap = {
-		x: elementBox.left + elementBox.width/2 - mapBox.left,
-		y: elementBox.top + elementBox.height/2 - mapBox.top
-	};
-	var pos = {
-		/*x: elementBox.left + elementBox.width/2 - viewBox.width/2,
-		y: elementBox.top + elementBox.height/2 - viewBox.height/2*/
-		x: inMap.x - viewBox.width/2,
-		y: inMap.y - viewBox.height/2
-		/*x: 4179 + 35 - viewBox.width/2,
-		y: 3670 + 35 - viewBox.height/2*/
-	};
-	/*console.log(elementBox.left+","+elementBox.top);
-	document.getElementById("test").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";
-	document.getElementById("map").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";*/
-	/*console.log("elementBox coords:"+elementBox.left+","+elementBox.top);
-	console.log("elementBox size:"+elementBox.width+","+elementBox.height);
-	console.log("elementBox offset size:"+element.offsetWidth+","+element.offsetHeight);
-	console.log("elementBox offset:"+element.offsetLeft+","+element.offsetTop);
-	console.log("viewBox size:"+viewBox.width+","+viewBox.height);
-	console.log("inMap: "+inMap.x+", "+inMap.y);
-	console.log(pos.x+","+pos.y);*/
-	mapObj.pause();
-	mapObj.resume();
-	$("#map")[0].style.transition = "transform ease 200ms";
-	setTimeout( function(){$("#map")[0].style.transition = "";},200);
-	mapObj.moveTo(-pos.x, -pos.y);
-}
-
-function startWalk(direction) {
-	user.interval = setInterval(walk, 30, direction);
-}
-
-function endWalk() {
-	clearInterval(user.interval);
-}
-
-function walk(direction) {
-	var speed = 4;
-	switch(direction) {
-		case "up":
-			user.y -= speed;
-			user.angle = 0;
-			break;
-		case "down":
-			user.y += speed;
-			user.angle = 180;
-			break;
-		case "left":
-			user.x -= speed;
-			user.angle = -90;
-			break;
-		case "right":
-			user.x += speed;
-			user.angle = 90;
-			break;
-	}
-	updateUserPos();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function changeSetting(div,name) {
-	var setting = document.getElementsByClassName(name)[0];
-	var slide = div.children[0];
-	if (slide.classList.contains("on")) {
-		slide.style.transform = "translate(-7%,-3%)";
-		div.style.backgroundColor= "#cecece";
-		slide.classList.add("off");
-		slide.classList.remove("on");
-		if (name=='wifi') {
-			document.getElementsByClassName('bluetooth')[0].style.left = "-45px";
+	function openPlaceInfo() {
+		if (mapType >= 0) {
+			openFullTicket(mapType, mapPlace, "mapApp");
 		}
-		setting.style.visibility="hidden";
-	} else{
-		slide.style.transform = "translate(153%,-3%)";
-		div.style.backgroundColor= "#05ca05";
-		slide.classList.add("on");
-		slide.classList.remove("off");
-		if (name=='wifi') {
-			document.getElementsByClassName('bluetooth')[0].style.left = "-7px";
-		} else if (document.getElementsByClassName('slide')[0].classList.contains('on')){
-			setting.style.left="-7px";
+
+		else if (mapType == -1) {
+			openProfile("mapApp", mapPlace);
+		}
+	}
+
+
+	function validateWalk(direction) {
+		var arrow = $("#userArrow")[0];
+		var success = true;
+		var upArrow = document.getElementById("arrowPad").children[0];
+		var leftArrow = document.getElementById("arrowPad").children[1];
+		var rightArrow = document.getElementById("arrowPad").children[2];
+		var downArrow = document.getElementById("arrowPad").children[3];
+
+		if (arrow.style.left <= "1720px") {
+			if (direction == "right") {
+				leftArrow.style.visibility = "visible";
+			}
+			else if (direction == "left") {
+				leftArrow.style.visibility = "hidden";
+				success = false;
+			}
+		}
+
+		if (arrow.style.left >= "5160px") {
+			if (direction == "left") {
+				righttArrow.style.visibility = "visible";
+			}
+			else if (direction == "right") {
+				rightArrow.style.visibility = "hidden";
+				success = false;
+			}
+		}
+
+		if (arrow.style.top <= "4217px") {
+			if (direction == "down") {
+				upArrow.style.visibility = "visible";
+			}
+			else if (direction == "up") {
+				upArrow.style.visibility = "hidden";
+				success = false;
+			}
+		}
+
+		if (arrow.style.top >= "5938px") {
+			if (direction == "up") {
+				downArrow.style.visibility = "visible";
+			}
+			else if (direction == "down") {
+				downArrow.style.visibility = "hidden";
+				success = false;
+			}
+		}
+
+		return success;
+	}
+
+
+	var mapObj;
+	var user = {x: 3338, y: 5420, angle: 0, interval: null};
+
+	function updateUserPos(bool, direction) {
+		if (!bool) {
+			var arrow = $("#userArrow")[0];
+			arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
+			arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
+			arrow.style.transform = "rotate("+user.angle+"deg)";
+		}
+		else if(bool && validateWalk(direction)) {
+			var arrow = $("#userArrow")[0];
+			arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
+			arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
+			arrow.style.transform = "rotate("+user.angle+"deg)";
+		}
+	}
+
+	function mapload() {
+		mapObj = panzoom(document.getElementById("map"), {
+			bounds:true, 
+			boundsPadding:0, 
+			maxZoom: 1, 
+			minZoom: 0.05,
+			zoomSpeed: 0.12,
+			disableKeyboardInteraction: true
+		});
+
+		updateUserPos(false, "none");
+	}
+
+
+	function focusOn(element) {
+		var elementBox = element.getBoundingClientRect();
+		var viewBox = $('#mapWrapper')[0].getBoundingClientRect();
+		var mapBox = $("#map")[0].getBoundingClientRect();
+		var inMap = {
+			x: elementBox.left + elementBox.width/2 - mapBox.left,
+			y: elementBox.top + elementBox.height/2 - mapBox.top
+		};
+		var pos = {
+			/*x: elementBox.left + elementBox.width/2 - viewBox.width/2,
+			y: elementBox.top + elementBox.height/2 - viewBox.height/2*/
+			x: inMap.x - viewBox.width/2,
+			y: inMap.y - viewBox.height/2
+			/*x: 4179 + 35 - viewBox.width/2,
+			y: 3670 + 35 - viewBox.height/2*/
+		};
+		/*console.log(elementBox.left+","+elementBox.top);
+		document.getElementById("test").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";
+		document.getElementById("map").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";*/
+		/*console.log("elementBox coords:"+elementBox.left+","+elementBox.top);
+		console.log("elementBox size:"+elementBox.width+","+elementBox.height);
+		console.log("elementBox offset size:"+element.offsetWidth+","+element.offsetHeight);
+		console.log("elementBox offset:"+element.offsetLeft+","+element.offsetTop);
+		console.log("viewBox size:"+viewBox.width+","+viewBox.height);
+		console.log("inMap: "+inMap.x+", "+inMap.y);
+		console.log(pos.x+","+pos.y);*/
+		mapObj.pause();
+		mapObj.resume();
+		$("#map")[0].style.transition = "transform ease 200ms";
+		setTimeout( function(){$("#map")[0].style.transition = "";},200);
+		mapObj.moveTo(-pos.x, -pos.y);
+	}
+
+	function startWalk(direction) {
+		user.interval = setInterval(walk, 30, direction);
+	}
+
+	function endWalk() {
+		clearInterval(user.interval);
+	}
+		
+	function walk(direction) {
+		var speed = 4;
+		switch(direction) {
+			case "up":
+				user.y -= speed;
+				user.angle = 0;
+				break;
+			case "down":
+				user.y += speed;
+				user.angle = 180;
+				break;
+			case "left":
+				user.x -= speed;
+				user.angle = -90;
+				break;
+			case "right":
+				user.x += speed;
+				user.angle = 90;
+				break;
+		}
+		updateUserPos(true, direction);
+	}
+
+/*=================================================*/
+
+
+
+
+
+
+
+
+
+
+/* =================== SETTINGS =====================*/
+
+	function changeSetting(div,name) {
+		var setting = document.getElementsByClassName(name)[0];
+		var slide = div.children[0];
+		if (slide.classList.contains("on")) {
+			slide.style.transform = "translate(-7%,-3%)";
+			div.style.backgroundColor= "#cecece";
+			slide.classList.add("off");
+			slide.classList.remove("on");
+			if (name=='wifi') {
+				document.getElementsByClassName('bluetooth')[0].style.left = "-45px";
+			}
+			setting.style.visibility="hidden";
 		} else{
-			setting.style.left="-45px";
-		}
-		setting.style.visibility="visible";
-	} 
-	slide.style.transitionDelay="0 ms";
-	slide.style.transitionDelay="0 ms";
+			slide.style.transform = "translate(153%,-3%)";
+			div.style.backgroundColor= "#05ca05";
+			slide.classList.add("on");
+			slide.classList.remove("off");
+			if (name=='wifi') {
+				document.getElementsByClassName('bluetooth')[0].style.left = "-7px";
+			} else if (document.getElementsByClassName('slide')[0].classList.contains('on')){
+				setting.style.left="-7px";
+			} else{
+				setting.style.left="-45px";
+			}
+			setting.style.visibility="visible";
+		} 
+		slide.style.transitionDelay="0 ms";
+		slide.style.transitionDelay="0 ms";
+	}
 
-}
+/*==================================================*/
