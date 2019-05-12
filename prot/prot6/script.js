@@ -1593,15 +1593,27 @@ function changeSetting(div,name) {
 	var setting = document.getElementsByClassName(name)[0];
 	var slide = div.children[0];
 	if (slide.classList.contains("on")) {
-		slide.style.transform = "translate(-13%,-14%)";
-		div.style.backgroundColor= "White";
+		slide.style.transform = "translate(-7%,-3%)";
+		div.style.backgroundColor= "#cecece";
 		slide.classList.add("off");
 		slide.classList.remove("on");
+		if (name=='wifi') {
+			document.getElementsByClassName('bluetooth')[0].style.left = "-45px";
+		}
+		setting.style.visibility="hidden";
 	} else{
-		slide.style.transform = "translate(110%,-14%)";
+		slide.style.transform = "translate(153%,-3%)";
 		div.style.backgroundColor= "#05ca05";
 		slide.classList.add("on");
 		slide.classList.remove("off");
+		if (name=='wifi') {
+			document.getElementsByClassName('bluetooth')[0].style.left = "-7px";
+		} else if (document.getElementsByClassName('slide')[0].classList.contains('on')){
+			setting.style.left="-7px";
+		} else{
+			setting.style.left="-45px";
+		}
+		setting.style.visibility="visible";
 	} 
 	slide.style.transitionDelay="0 ms";
 	slide.style.transitionDelay="0 ms";
