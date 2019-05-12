@@ -12,6 +12,8 @@ var virgin = true;
 
 var openedItems;
 
+var mapPinLastType = -1;
+
 
 window.ondragstart = function() { return false; } 
 
@@ -135,6 +137,35 @@ function hidePage(name) {
 }
 
 function switchPages(oldPage, newPage) {
+	if (newPage == 'mapApp') {
+		var pins = document.getElementsByClassName("pin");
+		var more = document.getElementsByClassName("moreBtn")[0];
+		var sidePanel = document.getElementsByClassName("sidePanel")[0];
+		more.style.visibility = "visible";
+		sidePanel.style.visibility = "visible";
+		if (mapPinLastType != -1) {
+			var chosenPins = document.getElementsByClassName("opt" + mapPinLastType);
+			for (var i = 0; i < chosenPins.length; i++)
+				chosenPins[i].style.visibility = "visible";
+		} else {
+			for (var i = 0; i < pins.length; i++)
+				pins[i].style.visibility = "visible";
+		}	
+	} else if (oldPage == 'mapApp') {
+		var pins = document.getElementsByClassName("pin");
+		var more = document.getElementsByClassName("moreBtn")[0];
+		var sidePanel = document.getElementsByClassName("sidePanel")[0];
+		sidePanel.style.visibility = "hidden";
+		more.style.visibility = "hidden";
+		if (mapPinLastType != -1) {
+			var chosenPins = document.getElementsByClassName("opt" + mapPinLastType);
+			for (var i = 0; i < chosenPins.length; i++)
+				chosenPins[i].style.visibility = "hidden";
+		} else {
+			for (var i = 0; i < pins.length; i++)
+				pins[i].style.visibility = "hidden";
+		}
+	}
 	hidePage(oldPage);
 	showPage(newPage);
 }
@@ -158,6 +189,15 @@ function updateClock() {
 
 function goToHome() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+		if(pageHistory[pageHistory.length-1] == "mapApp"){
+			var pins = document.getElementsByClassName("pin");
+			var more = document.getElementsByClassName("moreBtn")[0];
+			var sidePanel = document.getElementsByClassName("sidePanel")[0];
+			sidePanel.style.visibility = "hidden";
+			more.style.visibility = "hidden";
+			for (var i = 0; i < pins.length; i++)
+				pins[i].style.visibility = "hidden";
+		}
 		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var main = document.getElementsByClassName("main")[0];
 		main.classList.toggle("hidden");
@@ -191,6 +231,36 @@ function turnOnOff() {
 
 function goBack() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
+		if(pageHistory[pageHistory.length-1] == "mapApp"){
+			var more = document.getElementsByClassName("moreBtn")[0];
+			var sidePanel = document.getElementsByClassName("sidePanel")[0];
+			if (mapPinLastType != -1) {
+				var chosenPins = document.getElementsByClassName("opt" + mapPinLastType);
+				for (var i = 0; i < chosenPins.length; i++)
+					chosenPins[i].style.visibility = "hidden";
+			} else {
+				var pins = document.getElementsByClassName("pin");
+				for (var i = 0; i < pins.length; i++)
+					pins[i].style.visibility = "hidden";
+			}
+			more.style.visibility = "hidden";
+			sidePanel.style.visibility = "hidden";
+		}
+		if(pageHistory[pageHistory.length-2] == "mapApp"){
+			var sidePanel = document.getElementsByClassName("sidePanel")[0];
+			var more = document.getElementsByClassName("moreBtn")[0];
+			if (mapPinLastType != -1) {
+				var chosenPins = document.getElementsByClassName("opt" + mapPinLastType);
+				for (var i = 0; i < chosenPins.length; i++)
+					chosenPins[i].style.visibility = "visible";
+			} else {
+				var pins = document.getElementsByClassName("pin");
+				for (var i = 0; i < pins.length; i++)
+					pins[i].style.visibility = "visible";
+			}
+			sidePanel.style.visibility = "visible";
+			more.style.visibility = "visible";
+		}
 		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 		current.classList.toggle("hidden");
@@ -229,10 +299,6 @@ function openApp(appName) {
 		updateCartDot();
 	} else if (appName == "mapApp") {
 		var mapDiv = document.getElementById("map");
-			var pins = document.getElementsByClassName("pin");
-		for (var i = 0; i < pins.length; i++) {
-			pins[i].style.visibility = "visible";
-		}
 		/*mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';*/
 	}
 }
@@ -1168,8 +1234,10 @@ function hideNotif() {
 		var same = false;
 		var chosenPins = document.getElementsByClassName("opt" + n);
 		var pins = document.getElementsByClassName("pin");
+		mapPinLastType = n;
 
 		if (menu.children[n].classList.contains("selectedMapBtn")) {
+			mapPinLastType = -1;
 			same = true;
 			menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
 			for (var i = 0; i < pins.length; i++) {
@@ -1189,6 +1257,7 @@ function hideNotif() {
 				chosenPins[i].style.visibility = "visible";
 			}
 		}
+		closeSidePanel();
 
 		setTimeout(openMapMenu, 400, menu.nextElementSibling);
 	}
@@ -1196,6 +1265,7 @@ function hideNotif() {
 	function openSidePanel(type, place) {
 		var panel = document.getElementsByClassName("sidePanel")[0];
 		fillSidePanel(type, place);
+		panel.style.visibility = "visible";
 		panel.style.left = "0px";
 	}
 
@@ -1223,8 +1293,6 @@ function hideNotif() {
 		var pic;
 		var panel = document.getElementsByClassName("sidePanel")[0];
 		var more = panel.getElementsByClassName("moreBtn")[0];
-		more.style.visibility = "visible";
-
 		if (type >= 0) {
 			more.innerHTML = "More+";
 			var item = tickets[type].places[place];
@@ -1253,7 +1321,6 @@ function hideNotif() {
 			var item = restaurants[place];
 			itemTitle = item.name;
 			pic = item.img; 
-			console.log(itemTitle);
 			more.setAttribute("onclick", "callForTable()");
 		}
 
@@ -1261,6 +1328,7 @@ function hideNotif() {
 		title.innerHTML = itemTitle;
 		var previewPic = document.getElementsByClassName("previewPic")[0];
 		previewPic.src = pic;
+		more.style.visibility = "visible";
 	}
 
 	function openPlaceInfo() {
@@ -1271,6 +1339,8 @@ function hideNotif() {
 		else if (mapType == -1) {
 			openProfile("mapApp", mapPlace);
 		}
+		var panel = document.getElementsByClassName("sidePanel")[0];
+		panel.style.visibility = "hidden";
 	}
 
 
@@ -1294,7 +1364,7 @@ function hideNotif() {
 
 		if (arrow.style.left >= "5160px") {
 			if (direction == "left") {
-				rightArrow.style.visibility = "visible";
+				righttArrow.style.visibility = "visible";
 			}
 			else if (direction == "right") {
 				rightArrow.style.visibility = "hidden";
