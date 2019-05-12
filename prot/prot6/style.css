@@ -1540,10 +1540,8 @@ div.mapMenu div.selectedMapBtn img {
 
 #userArrow {
 	position: absolute;
-	top: 5486px;
-	left: 3314px;
-	width: 50px;
-	transform: rotate(40deg);
+	width: 60px;
+	transition: transform 200ms;
 }
 
 div.mapApp div.focusBtn {
@@ -1783,12 +1781,11 @@ div.notif {
 }
 
 div.defButton{
-	width: 50px;
-    height: 50px;
+	width: 40px;
     position: absolute;
-    left: 330px;
-    top: 13px;
-    border-radius: 12px;
+    left: 340px;
+    top: 20px;
+    cursor: pointer;
 }
 
 img.defIcon{
@@ -1836,26 +1833,7 @@ img.bluetooth {
     visibility: hidden;
 }
 
-div.defButton{
-	width: 50px;
-    height: 50px;
-    position: absolute;
-    left: 330px;
-    top: 13px;
-    border-radius: 12px;
-}
 
-img.defIcon{
-	
-}
-
-div.settings > div.popup{
-	text-align: left;
-}
-
-div.center {
-    left: 70px;
-}
 
 table.settings {
     /* border-bottom: 1px; */
@@ -1906,6 +1884,44 @@ div.slide {
 }
 
 
+
+
+div#arrowPad {
+	position: absolute;
+	top: 35vh;
+	right: 15vw;
+	display: grid;
+	width: 100px;
+	height: 100px;
+	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+div#arrowPad img {
+	background-color: white;
+	padding: 8px;
+	height: 100%;
+	border-radius: 0px 50px 50px 0px;
+	display: block;
+	cursor: pointer;
+}
+
+div#arrowPad img:nth-child(1) {
+	transform: rotate(-90deg);
+	grid-area: 1 / 2;
+}
+div#arrowPad img:nth-child(2) {
+	transform: rotate(180deg);
+	grid-area: 2 / 1;
+}
+div#arrowPad img:nth-child(3) {
+	transform: rotate(0deg);
+	grid-area: 2 / 3;
+}
+div#arrowPad img:nth-child(4) {
+	transform: rotate(90deg);
+	grid-area: 3 / 2;
+}
 
 
 

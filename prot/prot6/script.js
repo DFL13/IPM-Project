@@ -1246,7 +1246,8 @@ function fillSidePanel(type, place) {
 		var item = restaurants[place];
 		itemTitle = item.name;
 		pic = item.img; 
-		more.onclick = function() { callForTable(itemTitle); };
+		more.setAttribute("onclick", "callForTable(itemTitle)");
+		/*more.onclick = function() { callForTable(itemTitle); };*/
 	}
 
 	var title = panel.getElementsByClassName("title")[0];
@@ -1269,6 +1270,14 @@ function openPlaceInfo() {
 
 
 var mapObj;
+var user = {x: 3338, y: 5420, angle: 0, interval: null};
+
+function updateUserPos() {
+	var arrow = $("#userArrow")[0];
+	arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
+	arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
+	arrow.style.transform = "rotate("+user.angle+"deg)";
+}
 
 function mapload() {
 	mapObj = panzoom(document.getElementById("map"), {
@@ -1279,6 +1288,8 @@ function mapload() {
 		zoomSpeed: 0.12,
 		disableKeyboardInteraction: true
 	});
+
+	updateUserPos();
 }
 
 
@@ -1315,127 +1326,35 @@ function focusOn(element) {
 	mapObj.moveTo(-pos.x, -pos.y);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var map = {
-	/*width: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("width")),
-	height: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("height")),*/
-	grabbing: false,
-	userPos: {x:-1272,y:-1182},
-	offsetX: -1272,
-	offsetY: -1182,
-	zoom: 0.35
+function startWalk(direction) {
+	user.interval = setInterval(walk, 30, direction);
 }
 
-function grabMap(mapDiv) {
-	map.grabbing = true;
-	mapDiv.style.cursor = "grabbing";
+function endWalk() {
+	clearInterval(user.interval);
 }
 
-function releaseMap(mapDiv) {
-	map.grabbing = false;
-	mapDiv.style.cursor = "grab";
-}
-
-function moveMap(mapDiv) {
-	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
-	var originY = parseInt(event.offsetY*map.zoom*screenScale);
-	console.log(originX+", "+originY);*/
-	if (map.grabbing) {
-		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
-		var screenSize = {w:mapDiv.parentElement.getBoundingClientRect().width,h:mapDiv.parentElement.getBoundingClientRect().height};
-
-		map.offsetY += event.movementY/screenScale;
-		map.offsetX += event.movementX/screenScale;
-
-		map.offsetX = map.offsetX>0? 0:map.offsetX;
-		map.offsetY = map.offsetY>0? 0:map.offsetY;
-
-		map.offsetX = map.offsetX<-(size.w-screenSize.w)/screenScale? -(size.w-screenSize.w)/screenScale:map.offsetX;
-		map.offsetY = map.offsetY<-(size.h-screenSize.h)/screenScale? -(size.h-screenSize.h)/screenScale:map.offsetY;
-
-		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
+function walk(direction) {
+	var speed = 4;
+	switch(direction) {
+		case "up":
+			user.y -= speed;
+			user.angle = 0;
+			break;
+		case "down":
+			user.y += speed;
+			user.angle = 180;
+			break;
+		case "left":
+			user.x -= speed;
+			user.angle = -90;
+			break;
+		case "right":
+			user.x += speed;
+			user.angle = 90;
+			break;
 	}
-}
-
-
-function focusMap() {
-	var mapDiv = document.getElementById("map");
-	map.offsetY = map.userPos.y;
-	map.offsetX = map.userPos.x;
-	mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
-}
-
-
-
-function zoomMap(type) {
-	var mapDiv = document.getElementById("map");
-	if (type == "button+" || type == "button-") {
-		var screen = document.getElementsByClassName("screen")[0];
-		var originX = parseFloat(getComputedStyle(screen, null).getPropertyValue("width"))*screenScale/2 - map.left;
-		var originY = parseFloat(getComputedStyle(screen, null).getPropertyValue("height"))*screenScale/2 - map.top;
-
-		if (type == "button+") {
-			map.zoom += 0.05;
-		} else {
-			map.zoom -= 0.05;
-		}
-		mapDiv.style.transformOrigin = originX+"px "+originY+"px";
-		mapDiv.style.transform = "scale("+map.zoom+")";
-
-	} else if (type == "mouse") {
-		var mousex = event.offsetX;
-		var mousey = event.offsetY;
-		// Normalize wheel to +1 or -1.
-		var wheel = event.deltaY < 0 ? 1 : -1;
-
-		// Compute zoom factor.
-		var zoom = Math.exp(wheel*zoomIntensity);
-
-		// Translate so the visible origin is at the context's origin.
-		mapDiv.style.transform = "scale("+map.zoom+") translate("+0+"px,"+0+"px)";
-		/*context.translate(originx, originy);*/
-
-		// Compute the new visible origin. Originally the mouse is at a
-		// distance mouse/scale from the corner, we want the point under
-		// the mouse to remain in the same place after the zoom, but this
-		// is at mouse/new_scale away from the corner. Therefore we need to
-		// shift the origin (coordinates of the corner) to account for this.
-		originx -= mousex/(map.zoom*zoom) - mousex/map.zoom;
-		originy -= mousey/(map.zoom*zoom) - mousey/map.zoom;
-
-		// Scale it (centered around the origin due to the trasnslate above).
-		/*context.scale(zoom, zoom);*/
-		// Offset the visible origin to it's proper position.
-		/*context.translate(-originx, -originy);*/
-
-		mapDiv.style.transform = "scale("+(map.zoom*zoom)+") translate("+(-originx)+"px,"+(-originy)+"px)";
-
-		// Update scale and others.
-		map.zoom *= zoom;
-
-		/*visibleWidth = width / scale;
-		visibleHeight = height / scale;*/
-	}
+	updateUserPos();
 }
 
 
@@ -1443,187 +1362,14 @@ function zoomMap(type) {
 
 
 
-var zoomIntensity = 0.2;
-
-var width = 600;
-var height = 200;
-
-var scale = 1;
-var originx = 0;
-var originy = 0;
-var visibleWidth = width;
-var visibleHeight = height;
-
-
-function draw(){
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-    // Clear screen to white.
-    /*context.fillStyle = "white";
-    context.fillRect(originx,originy,800/scale,600/scale);*/
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    // Draw the black square.
-    context.fillStyle = "black";
-    context.fillRect(50,50,100,100);
-}
-// Draw loop at 60FPS.
-/*setInterval(draw, 1000/60);*/
-
-function canvasZoom(){
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-    event.preventDefault();
-    // Get mouse offset.
-    /*var mousex = event.clientX - canvas.offsetLeft;
-    var mousey = event.clientY - canvas.offsetTop;*/
-    var mousex = event.offsetX;
-    var mousey = event.offsetY;
-    // Normalize wheel to +1 or -1.
-    var wheel = event.deltaY < 0 ? 1 : -1;
-
-    // Compute zoom factor.
-    var zoom = Math.exp(wheel*zoomIntensity);
-    
-    // Translate so the visible origin is at the context's origin.
-    context.translate(originx, originy);
-  
-    // Compute the new visible origin. Originally the mouse is at a
-    // distance mouse/scale from the corner, we want the point under
-    // the mouse to remain in the same place after the zoom, but this
-    // is at mouse/new_scale away from the corner. Therefore we need to
-    // shift the origin (coordinates of the corner) to account for this.
-    originx -= mousex/(scale*zoom) - mousex/scale;
-    originy -= mousey/(scale*zoom) - mousey/scale;
-
-    console.log(originx+", "+originy+", "+(scale*zoom));
-    
-    // Scale it (centered around the origin due to the trasnslate above).
-    context.scale(zoom, zoom);
-    // Offset the visible origin to it's proper position.
-    context.translate(-originx, -originy);
-
-    // Update scale and others.
-    scale *= zoom;
-    visibleWidth = width / scale;
-    visibleHeight = height / scale;
-}
 
 
 
 
 
-var testGrabbing = false;
-
-function grabTest(mapDiv) {
-	testGrabbing = true;
-	mapDiv.style.cursor = "grabbing";
-}
-
-function releaseTest(mapDiv) {
-	testGrabbing = false;
-	mapDiv.style.cursor = "grab";
-}
-
-function moveTest(mapDiv) {
-	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
-	var originY = parseInt(event.offsetY*map.zoom*screenScale);
-	console.log(originX+", "+originY);*/
-	if (testGrabbing) {
-		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
-
-
-		pos.y += event.movementY;
-		/*if (map.top > 0) {
-			map.top = 0;
-		}*/ /*else if (map.top < map.height+) {
-
-		}*/
-		pos.x += event.movementX;
-		/*if (map.left > 0) {
-			map.left = 0;
-		}*/
-		pos.x = pos.x>0? 0:pos.x;
-		pos.y = pos.y>0? 0:pos.y;
-
-		pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
-		pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
-
-		console.log(-(size.w-300)+", "+-(size.h-300));
-		console.log(pos.x+" - "+pos.y);
-
-		mapDiv.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
-	}
-}
 
 
 
-var max_scale = 8;
-var min_scale = 0.4;
-var factor = 0.2;
-
-
-var pos = {x:0,y:0};
-var zoom_target = {x:0,y:0};
-var zoom_point = {x:0,y:0};
-var scale = 1;
-
-
-function scrolled(){
-	var container = document.getElementById("cont");
-	var target = container.children[0];
-	var size = {w:target.getBoundingClientRect().width,h:target.getBoundingClientRect().height};
-
-
-
-	zoom_point.x = event.offsetX;
-	zoom_point.y = event.offsetY;
-
-	/*e.preventDefault();*/
-
-    /*var delta = Math.max(-1,Math.min(1,event.deltaY));*/ // cap the delta to [-1,1] for cross browser consistency
-    var delta = event.deltaY < 0 ? 1 : -1;
-
-    // determine the point on where the slide is zoomed in
-    zoom_target.x = (zoom_point.x - pos.x)/scale;
-    zoom_target.y = (zoom_point.y - pos.y)/scale;
-
-    // apply zoom
-    scale += delta*factor * scale;
-    scale = Math.max(min_scale,Math.min(max_scale,scale));
-
-    // calculate x and y based on zoom
-    pos.x = -zoom_target.x * scale + zoom_point.x;
-    pos.y = -zoom_target.y * scale + zoom_point.y;
-
-
-    // Make sure the slide stays in its container area when zooming out
-    /*if(pos.x>0)
-        pos.x = 0;
-    if(pos.x+size.w*scale<size.w)
-    	pos.x = -size.w*(scale-1);
-    if(pos.y>0)
-        pos.y = 0;
-     if(pos.y+size.h*scale<size.h)
-    	pos.y = -size.h*(scale-1);*/
-
-    pos.x = pos.x>0? 0:pos.x;
-	pos.y = pos.y>0? 0:pos.y;
-
-	pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
-	pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
-
-	/*console.log(-(size.w-300)+", "+-(size.h-300));
-	console.log(pos.x+" - "+pos.y);*/
-
-
-    target.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
-
-    /*map.left /= scale;
-    map.top /= scale;
-
-    target.style.top = map.top+"px";
-	target.style.left = map.left+"px";*/
-}
 
 function changeSetting(div,name) {
 	var setting = document.getElementsByClassName(name)[0];
