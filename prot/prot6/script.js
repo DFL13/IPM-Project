@@ -1349,73 +1349,51 @@ function hideNotif() {
 
 
 	function validateWalk(direction) {
-		var arrow = $("#userArrow")[0];
-		var success = true;
-		var upArrow = document.getElementById("arrowPad").children[0];
-		var leftArrow = document.getElementById("arrowPad").children[1];
-		var rightArrow = document.getElementById("arrowPad").children[2];
-		var downArrow = document.getElementById("arrowPad").children[3];
-
-		if (arrow.style.left <= "1720px") {
-			if (direction == "right") {
-				leftArrow.style.visibility = "visible";
-			}
-			else if (direction == "left") {
-				leftArrow.style.visibility = "hidden";
-				success = false;
-			}
+		if (user.x <= 1745) {
+			user.x = 1745;
 		}
-
-		if (arrow.style.left >= "5160px") {
-			if (direction == "left") {
-				rightArrow.style.visibility = "visible";
-			}
-			else if (direction == "right") {
-				rightArrow.style.visibility = "hidden";
-				success = false;
-			}
+		if (user.x >= 5197) {
+			user.x = 5197;
 		}
-
-		if (arrow.style.top <= "4217px") {
-			if (direction == "down") {
-				upArrow.style.visibility = "visible";
-			}
-			else if (direction == "up") {
-				upArrow.style.visibility = "hidden";
-				success = false;
-			}
+		if (user.y <= 4240) {
+			user.y = 4240;
 		}
-
-		if (arrow.style.top >= "5938px") {
-			if (direction == "up") {
-				downArrow.style.visibility = "visible";
-			}
-			else if (direction == "down") {
-				downArrow.style.visibility = "hidden";
-				success = false;
-			}
+		if (user.y >= 5975) {
+			user.y = 5975;
 		}
+	}
 
-		return success;
+	function togglePadBtn(direction, on) {
+		var val = on ? "visible":"hidden";
+		switch(direction) {
+			case "up":
+				$("#arrowPad:nth.child(1)")[0].style.visibility = val;
+				break;
+			case "down":
+				$("#arrowPad:nth.child(4)")[0].style.visibility = val;
+				break;
+			case "left":
+				$("#arrowPad:nth.child(2)")[0].style.visibility = val;
+				break;
+			case "right":
+				$("#arrowPad:nth.child(3)")[0].style.visibility = val;
+				break;
+		}
 	}
 
 
 	var mapObj;
-	var user = {x: 3338, y: 5420, angle: 0, interval: null};
+	var streets = {
+		x: [1745,1862,1993,2114,2231,2361,2494,2614,2738,2854,2974,3093,3214,3337,3465,3591,3711,3835,3960,4086,4209,4333,4458,4581,4705,4829,4942,5063,5197],
+		y: [4240, 4656, 5073, 5495, 5975]
+	}
+	var user = {x: streets.x[13], y: 5420, angle: 0, interval: null};
 
-	function updateUserPos(bool, direction) {
-		if (!bool) {
-			var arrow = $("#userArrow")[0];
-			arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
-			arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
-			arrow.style.transform = "rotate("+user.angle+"deg)";
-		}
-		else if(bool && validateWalk(direction)) {
-			var arrow = $("#userArrow")[0];
-			arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
-			arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
-			arrow.style.transform = "rotate("+user.angle+"deg)";
-		}
+	function updateUserPos() {
+		var arrow = $("#userArrow")[0];
+		arrow.style.left = (user.x-arrow.clientWidth/2)+"px";
+		arrow.style.top = (user.y-arrow.clientHeight/2)+"px";
+		arrow.style.transform = "rotate("+user.angle+"deg)";
 	}
 
 	function mapload() {
@@ -1428,11 +1406,11 @@ function hideNotif() {
 			disableKeyboardInteraction: true
 		});
 
-		updateUserPos(false, "none");
+		updateUserPos();
 	}
 
 
-	function focusOn(element) {
+	function focusOn(element, smooth) {
 		var elementBox = element.getBoundingClientRect();
 		var viewBox = $('#mapWrapper')[0].getBoundingClientRect();
 		var mapBox = $("#map")[0].getBoundingClientRect();
@@ -1460,8 +1438,10 @@ function hideNotif() {
 		console.log(pos.x+","+pos.y);*/
 		mapObj.pause();
 		mapObj.resume();
-		$("#map")[0].style.transition = "transform ease 200ms";
-		setTimeout( function(){$("#map")[0].style.transition = "";},200);
+		if (smooth) {
+			$("#map")[0].style.transition = "transform ease 200ms";
+			setTimeout( function(){$("#map")[0].style.transition = "";},200);
+		}
 		mapObj.moveTo(-pos.x, -pos.y);
 	}
 
@@ -1474,26 +1454,84 @@ function hideNotif() {
 	}
 		
 	function walk(direction) {
-		var speed = 4;
+		var speed = 10;
+		var angles = {up:0, down:180, left:-90, right:90};
+		var adjust = checkTurn();
+
+		if (getOrientation(user.angle) != getOrientation(angles[direction])) {
+			if (adjust==0) {
+				return;
+			} else {
+				if (getOrientation(angles[direction]) == "vertical") {
+					user.x = adjust;
+				} else {
+					user.y = adjust;
+				}
+			}
+		}
+
 		switch(direction) {
 			case "up":
 				user.y -= speed;
-				user.angle = 0;
 				break;
 			case "down":
 				user.y += speed;
-				user.angle = 180;
 				break;
 			case "left":
 				user.x -= speed;
-				user.angle = -90;
 				break;
 			case "right":
 				user.x += speed;
-				user.angle = 90;
 				break;
 		}
-		updateUserPos(true, direction);
+		user.angle = angles[direction];
+
+		validateWalk(direction);
+		updateUserPos(/*true, direction*/);
+		focusOn($("#userArrow")[0], false);
+	}
+
+	function checkTurn() {
+		var radius = 40;
+		if (user.angle == 0 || user.angle == 180) {
+			var coord = getCloserStreet("y");
+			return Math.abs(coord - user.y) <= radius ? coord:0;
+		} else {
+			var coord = getCloserStreet("x");
+			return Math.abs(coord - user.x) <= radius ? coord:0;
+		}
+	}
+
+	function getOrientation(angle) {
+		if (angle==0||angle==180) {
+			return "vertical";
+		} else {
+			return "horizontal";
+		}
+
+	}
+
+	function getCloserStreet(axis) {
+		if (axis == "y") {
+			var lst = streets.y;
+			var coord = user.y;
+		} else {
+			var lst = streets.x;
+			var coord = user.x;
+		}
+		for (var i = 0; i < lst.length; i++) {
+			if (lst[i] == coord) {
+				return lst[i];
+			} else if (lst[i] > coord) {
+				var d1 = lst[i] - coord;
+				var d2 = coord - lst[i-1];
+				if (d1 < d2) {
+					return lst[i];
+				} else {
+					return lst[i-1];
+				}
+			}
+		}
 	}
 
 /*=================================================*/
