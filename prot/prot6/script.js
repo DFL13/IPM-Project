@@ -1294,7 +1294,7 @@ function hideNotif() {
 
 		if (arrow.style.left >= "5160px") {
 			if (direction == "left") {
-				righttArrow.style.visibility = "visible";
+				rightArrow.style.visibility = "visible";
 			}
 			else if (direction == "right") {
 				rightArrow.style.visibility = "hidden";
