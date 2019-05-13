@@ -29,6 +29,10 @@ body {
 	background: #e3e3e3;
 }
 
+u {
+	cursor: pointer;
+}
+
 div.resetBtn {
 	position: absolute;
 	top: 20px;

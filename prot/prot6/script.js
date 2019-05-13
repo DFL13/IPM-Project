@@ -300,7 +300,7 @@ function unlock() {
 
 function openApp(appName) {
 	if (connects.wifi == false) {
-		showNotif("Wifi is off");
+		showNotif("Wfi is off. <u onclick='changeSetting(0);showNotif(\"Wifi enabled\")'>Toggle</u>");
 		return;
 	}
 	switchPages("main", appName);
@@ -1290,6 +1290,9 @@ function hideNotif() {
 		fillSidePanel(type, place, pin);
 		panel.style.visibility = "visible";
 		panel.style.left = "0px";
+		if (open) {
+			openMapMenu(document.getElementsByClassName("trigger")[0]);
+		}	
 	}
 
 	function closeSidePanel() {
@@ -1301,7 +1304,7 @@ function hideNotif() {
 	var mapType;
 	function callForTable() {
 		if (connects.bluetooth == false) {
-			showNotif("Bluetooth is off");
+			showNotif("Bluetooth is off. <u onclick='changeSetting(1);showNotif(\"Bluetooth enabled\")'>Toggle</u>");
 			return;
 		}
 		var name = restaurants[mapPlace].name;
@@ -1436,6 +1439,7 @@ function hideNotif() {
 		initPathCanvas();
 		updateUserPos();
 		focusOn($("#userArrow")[0], true);
+
 	}
 
 
@@ -1713,7 +1717,9 @@ function hideNotif() {
 	
 	var connects = {wifi: false, bluetooth: false};
 
-	function changeSetting(div,name) {
+	function changeSetting(n) {
+		var  name = n == 0 ? "wifi":"bluetooth";
+		var div = document.getElementsByClassName("slider")[n];
 		var setting = document.getElementsByClassName(name)[0];
 		var slide = div.children[0];
 		if (slide.classList.contains("on")) {
@@ -1739,7 +1745,7 @@ function hideNotif() {
 			} else{
 				setting.style.left="-45px";
 			}
-			setting.style.visibility="visible";
+			setting.style.visibility="inherit";
 		} 
 		slide.style.transitionDelay="0 ms";
 		slide.style.transitionDelay="0 ms";
