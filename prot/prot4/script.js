@@ -91,8 +91,6 @@ function querySize() {
 	adjustSize();
 }
 
-var screenScale;
-
 function adjustSize() {
 	var sel = document.getElementsByTagName("SELECT")[0];
 	localStorage.selIndex = JSON.stringify(sel.selectedIndex);
@@ -101,13 +99,13 @@ function adjustSize() {
 	var diagPix = Math.sqrt(screen.width*screen.width + screen.height*screen.height);
 	var divWidthPix = 6.5 * diagPix / diagCm;
 	var div = document.getElementsByClassName("screen")[0];
-	screenScale = divWidthPix / parseInt(getComputedStyle(div).width);
+	var scale = divWidthPix / parseInt(getComputedStyle(div).width);
 	var zoom = window.devicePixelRatio;
 
 	if (zoom != 1 && navigator.userAgent.indexOf("Chrome") != -1) {
-		screenScale = screenScale/zoom;
+		scale = scale/zoom;
 	}
-	div.style.transform = "scale("+screenScale+")";
+	div.style.transform = "scale("+scale+")";
 }
 
 
@@ -237,9 +235,6 @@ function openApp(appName) {
 	} else if (appName == "ticketApp") {
 		selectTab(0);
 		updateCartDot();
-	} else if (appName == "mapApp") {
-		var mapDiv = document.getElementById("map");
-		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
 	}
 }
 
@@ -1149,62 +1144,6 @@ function hideNotif() {
 	setTimeout(function(notif){notif.style.visibility = "hidden";}, 500, notif);
 }
 
-var menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-var open = false;
-
-function openMapMenu(btn) {
-	var menu = document.getElementsByClassName("mapMenu")[0];
-	if (!open) {
-		open =  true;
-		btn.src = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-	}
-	else if (open) {
-		open = false;
-		btn.src = menuIcon;
-	}
-	
-	menu.classList.toggle("openMapMenu");
-	btn.classList.toggle("openTrigger");
-}
-
-
-
-function selectMapOpt(n) {
-	var menu = document.getElementsByClassName("mapMenu")[0];
-	var same = false;
-
-	if (menu.children[n].classList.contains("selectedMapBtn")) {
-		same = true;
-		menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-	}
-	for (var i = 0; i < menu.children.length; i++) {
-		menu.children[i].classList.remove("selectedMapBtn");
-	}
-	if (!same) {
-		menu.children[n].classList.add("selectedMapBtn");
-		menuIcon = menu.children[n].children[0].src;
-	}
-
-	setTimeout(openMapMenu, 400, menu.nextElementSibling);
-	/*openMapMenu(menu.nextElementSibling);*/
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1213,10 +1152,9 @@ var map = {
 	/*width: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("width")),
 	height: parseFloat(getComputedStyle(document.getElementById("map"), null).getPropertyValue("height")),*/
 	grabbing: false,
-	userPos: {x:-1272,y:-1182},
-	offsetX: -1272,
-	offsetY: -1182,
-	zoom: 0.35
+	top: 0,
+	left: 0,
+	zoom: 1
 }
 
 function grabMap(mapDiv) {
@@ -1230,271 +1168,19 @@ function releaseMap(mapDiv) {
 }
 
 function moveMap(mapDiv) {
-	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
-	var originY = parseInt(event.offsetY*map.zoom*screenScale);
-	console.log(originX+", "+originY);*/
 	if (map.grabbing) {
-		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
-		var screenSize = {w:mapDiv.parentElement.getBoundingClientRect().width,h:mapDiv.parentElement.getBoundingClientRect().height};
-
-		map.offsetY += event.movementY/screenScale;
-		map.offsetX += event.movementX/screenScale;
-
-		map.offsetX = map.offsetX>0? 0:map.offsetX;
-		map.offsetY = map.offsetY>0? 0:map.offsetY;
-
-		map.offsetX = map.offsetX<-(size.w-screenSize.w)/screenScale? -(size.w-screenSize.w)/screenScale:map.offsetX;
-		map.offsetY = map.offsetY<-(size.h-screenSize.h)/screenScale? -(size.h-screenSize.h)/screenScale:map.offsetY;
-
-		mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
-	}
-}
-
-
-function focusMap() {
-	var mapDiv = document.getElementById("map");
-	map.offsetY = map.userPos.y;
-	map.offsetX = map.userPos.x;
-	mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';
-}
-
-
-
-function zoomMap(type) {
-	var mapDiv = document.getElementById("map");
-	if (type == "button+" || type == "button-") {
-		var screen = document.getElementsByClassName("screen")[0];
-		var originX = parseFloat(getComputedStyle(screen, null).getPropertyValue("width"))*screenScale/2 - map.left;
-		var originY = parseFloat(getComputedStyle(screen, null).getPropertyValue("height"))*screenScale/2 - map.top;
-
-		if (type == "button+") {
-			map.zoom += 0.05;
-		} else {
-			map.zoom -= 0.05;
-		}
-		mapDiv.style.transformOrigin = originX+"px "+originY+"px";
-		mapDiv.style.transform = "scale("+map.zoom+")";
-
-	} else if (type == "mouse") {
-		var mousex = event.offsetX;
-		var mousey = event.offsetY;
-		// Normalize wheel to +1 or -1.
-		var wheel = event.deltaY < 0 ? 1 : -1;
-
-		// Compute zoom factor.
-		var zoom = Math.exp(wheel*zoomIntensity);
-
-		// Translate so the visible origin is at the context's origin.
-		mapDiv.style.transform = "scale("+map.zoom+") translate("+0+"px,"+0+"px)";
-		/*context.translate(originx, originy);*/
-
-		// Compute the new visible origin. Originally the mouse is at a
-		// distance mouse/scale from the corner, we want the point under
-		// the mouse to remain in the same place after the zoom, but this
-		// is at mouse/new_scale away from the corner. Therefore we need to
-		// shift the origin (coordinates of the corner) to account for this.
-		originx -= mousex/(map.zoom*zoom) - mousex/map.zoom;
-		originy -= mousey/(map.zoom*zoom) - mousey/map.zoom;
-
-		// Scale it (centered around the origin due to the trasnslate above).
-		/*context.scale(zoom, zoom);*/
-		// Offset the visible origin to it's proper position.
-		/*context.translate(-originx, -originy);*/
-
-		mapDiv.style.transform = "scale("+(map.zoom*zoom)+") translate("+(-originx)+"px,"+(-originy)+"px)";
-
-		// Update scale and others.
-		map.zoom *= zoom;
-
-		/*visibleWidth = width / scale;
-		visibleHeight = height / scale;*/
-	}
-}
-
-
-
-
-
-
-var zoomIntensity = 0.2;
-
-var width = 600;
-var height = 200;
-
-var scale = 1;
-var originx = 0;
-var originy = 0;
-var visibleWidth = width;
-var visibleHeight = height;
-
-
-function draw(){
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-    // Clear screen to white.
-    /*context.fillStyle = "white";
-    context.fillRect(originx,originy,800/scale,600/scale);*/
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    // Draw the black square.
-    context.fillStyle = "black";
-    context.fillRect(50,50,100,100);
-}
-// Draw loop at 60FPS.
-/*setInterval(draw, 1000/60);*/
-
-function canvasZoom(){
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-    event.preventDefault();
-    // Get mouse offset.
-    /*var mousex = event.clientX - canvas.offsetLeft;
-    var mousey = event.clientY - canvas.offsetTop;*/
-    var mousex = event.offsetX;
-    var mousey = event.offsetY;
-    // Normalize wheel to +1 or -1.
-    var wheel = event.deltaY < 0 ? 1 : -1;
-
-    // Compute zoom factor.
-    var zoom = Math.exp(wheel*zoomIntensity);
-    
-    // Translate so the visible origin is at the context's origin.
-    context.translate(originx, originy);
-  
-    // Compute the new visible origin. Originally the mouse is at a
-    // distance mouse/scale from the corner, we want the point under
-    // the mouse to remain in the same place after the zoom, but this
-    // is at mouse/new_scale away from the corner. Therefore we need to
-    // shift the origin (coordinates of the corner) to account for this.
-    originx -= mousex/(scale*zoom) - mousex/scale;
-    originy -= mousey/(scale*zoom) - mousey/scale;
-
-    console.log(originx+", "+originy+", "+(scale*zoom));
-    
-    // Scale it (centered around the origin due to the trasnslate above).
-    context.scale(zoom, zoom);
-    // Offset the visible origin to it's proper position.
-    context.translate(-originx, -originy);
-
-    // Update scale and others.
-    scale *= zoom;
-    visibleWidth = width / scale;
-    visibleHeight = height / scale;
-}
-
-
-
-
-
-var testGrabbing = false;
-
-function grabTest(mapDiv) {
-	testGrabbing = true;
-	mapDiv.style.cursor = "grabbing";
-}
-
-function releaseTest(mapDiv) {
-	testGrabbing = false;
-	mapDiv.style.cursor = "grab";
-}
-
-function moveTest(mapDiv) {
-	/*var originX = parseInt(event.offsetX*map.zoom*screenScale);
-	var originY = parseInt(event.offsetY*map.zoom*screenScale);
-	console.log(originX+", "+originY);*/
-	if (testGrabbing) {
-		var size = {w:mapDiv.getBoundingClientRect().width,h:mapDiv.getBoundingClientRect().height};
-
-
-		pos.y += event.movementY;
-		/*if (map.top > 0) {
+		map.top += event.movementY;
+		if (map.top > 0) {
 			map.top = 0;
-		}*/ /*else if (map.top < map.height+) {
+		} /*else if (map.top < map.height+) {
 
 		}*/
-		pos.x += event.movementX;
-		/*if (map.left > 0) {
+		map.left += event.movementX;
+		if (map.left > 0) {
 			map.left = 0;
-		}*/
-		pos.x = pos.x>0? 0:pos.x;
-		pos.y = pos.y>0? 0:pos.y;
+		}
 
-		pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
-		pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
-
-		console.log(-(size.w-300)+", "+-(size.h-300));
-		console.log(pos.x+" - "+pos.y);
-
-		mapDiv.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
+		mapDiv.style.top = map.top+"px";
+		mapDiv.style.left = map.left+"px";
 	}
 }
-
-
-
-var max_scale = 8;
-var min_scale = 0.4;
-var factor = 0.2;
-
-
-var pos = {x:0,y:0};
-var zoom_target = {x:0,y:0};
-var zoom_point = {x:0,y:0};
-var scale = 1;
-
-
-function scrolled(){
-	var container = document.getElementById("cont");
-	var target = container.children[0];
-	var size = {w:target.getBoundingClientRect().width,h:target.getBoundingClientRect().height};
-
-
-
-	zoom_point.x = event.offsetX;
-	zoom_point.y = event.offsetY;
-
-	/*e.preventDefault();*/
-
-    /*var delta = Math.max(-1,Math.min(1,event.deltaY));*/ // cap the delta to [-1,1] for cross browser consistency
-    var delta = event.deltaY < 0 ? 1 : -1;
-
-    // determine the point on where the slide is zoomed in
-    zoom_target.x = (zoom_point.x - pos.x)/scale;
-    zoom_target.y = (zoom_point.y - pos.y)/scale;
-
-    // apply zoom
-    scale += delta*factor * scale;
-    scale = Math.max(min_scale,Math.min(max_scale,scale));
-
-    // calculate x and y based on zoom
-    pos.x = -zoom_target.x * scale + zoom_point.x;
-    pos.y = -zoom_target.y * scale + zoom_point.y;
-
-
-    // Make sure the slide stays in its container area when zooming out
-    /*if(pos.x>0)
-        pos.x = 0;
-    if(pos.x+size.w*scale<size.w)
-    	pos.x = -size.w*(scale-1);
-    if(pos.y>0)
-        pos.y = 0;
-     if(pos.y+size.h*scale<size.h)
-    	pos.y = -size.h*(scale-1);*/
-
-    pos.x = pos.x>0? 0:pos.x;
-	pos.y = pos.y>0? 0:pos.y;
-
-	pos.x = pos.x<-(size.w-300)? -(size.w-300):pos.x;
-	pos.y = pos.y<-(size.h-300)? -(size.h-300):pos.y;
-
-	console.log(-(size.w-300)+", "+-(size.h-300));
-	console.log(pos.x+" - "+pos.y);
-
-
-    target.style.transform = 'translate('+(pos.x)+'px,'+(pos.y)+'px) scale('+scale+','+scale+')';
-
-    /*map.left /= scale;
-    map.top /= scale;
-
-    target.style.top = map.top+"px";
-	target.style.left = map.left+"px";*/
-}
-
