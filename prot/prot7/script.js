@@ -300,7 +300,7 @@ function unlock() {
 
 function openApp(appName) {
 	if (connects.wifi == false) {
-		showNotif("Wifi is off");
+		showNotif("Wfi is off. <u onclick='changeSetting(0);showNotif(\"Wifi enabled\")'>Toggle</u>");
 		return;
 	}
 	switchPages("main", appName);
@@ -1304,7 +1304,7 @@ function hideNotif() {
 	var mapType;
 	function callForTable() {
 		if (connects.bluetooth == false) {
-			showNotif("Bluetooth is off");
+			showNotif("Bluetooth is off. <u onclick='changeSetting(1);showNotif(\"Bluetooth enabled\")'>Toggle</u>");
 			return;
 		}
 		var name = restaurants[mapPlace].name;
@@ -1438,12 +1438,26 @@ function hideNotif() {
 
 		initPathCanvas();
 		updateUserPos();
-		focusOn($("#userArrow")[0], true);
+		focusOn($("#userArrow")[0], true, 0.5);
 
 	}
 
+	function manualchangeScale(scale) {
+		var transform = mapObj.getTransform();
+		transform.scale = 0.4;
+		$("#map")[0].style.transformOrigin = '0 0 0';
+	    $("#map")[0].style.transform = 'matrix(' +
+	      transform.scale + ', 0, 0, ' +
+	      transform.scale + ', ' +
+	      transform.x + ', ' + transform.y + ')';
+	}
 
-	function focusOn(element, smooth) {
+
+	function focusOn(element, smooth, scale) {
+		if (scale != undefined && scale > 0) {
+			manualchangeScale(scale);
+		}
+
 		var elementBox = element.getBoundingClientRect();
 		var viewBox = $('#mapWrapper')[0].getBoundingClientRect();
 		var mapBox = $("#map")[0].getBoundingClientRect();
