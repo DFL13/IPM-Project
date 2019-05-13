@@ -611,18 +611,6 @@
 				<p class="directionsBtn" onclick="">Directions</p>
 			</div>
 
-			<div class="popup callForTable hidden" onclick="goBack()">
-				<div class="popupBox" onclick="event.stopPropagation()">
-					<p></p> <!-- js fills -->
-					<div class="popupBtn btnNo" onclick="goBack()">
-						<p>No</p>
-					</div>
-					<div class="popupBtn btnYes" onclick="goBack(); closeSidePanel(); showNotif('Calling...')">
-						<p>Yes</p>
-					</div>
-				</div>
-			</div>
-
 
 			<!-- <img id="panzoom" src="../img/big-one.jpg" style="width: 3000px;transform-origin: 0 0; position: absolute; top: 30; left: 30;transition: transform 80ms;"> -->
 
@@ -655,7 +643,17 @@
 			
 		</div>
 
-
+		<div class="popup callForTable hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+				<p></p> <!-- js fills -->
+				<div class="popupBtn btnNo" onclick="goBack()">
+					<p>No</p>
+				</div>
+				<div class="popupBtn btnYes" onclick="goBack(); closeSidePanel(); showNotif('Calling...')">
+					<p>Yes</p>
+				</div>
+			</div>
+		</div>
 
 
 
