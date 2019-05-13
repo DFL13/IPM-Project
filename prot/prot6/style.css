@@ -1742,50 +1742,6 @@ div.pin p {
 
 
 
-
-div.point1 {		
-	width: 25px;
-	height: 25px;
-	position: absolute;
-	top: 5950px;
-	left: 5185px;
-	background-color: red;
-	border-radius: 100%;
-}
-
-div.point2 {		
-	width: 25px;
-	height: 25px;
-	position: absolute;		/* h = 446 */
-	top: 5950px;			/* l = 117 */
-	left: 1732px;
-	background-color: red;
-	border-radius: 100%;
-}
-
-div.point3 {		
-	width: 25px;
-	height: 25px;
-	position: absolute;
-	top: 4225px;
-	left: 1732px;
-	background-color: red;
-	border-radius: 100%;
-}
-
-div.point4 {		/* inferior direito */
-	width: 25px;
-	height: 25px;
-	position: absolute;
-	top: 4225px;
-	left: 5185px;
-	background-color: red;
-	border-radius: 100%;
-}
-
-
-
-
 div.notif {
 	position: absolute;
 	left: 44%;

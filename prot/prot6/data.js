@@ -212,6 +212,7 @@ var tickets=[
 					places:[{
 								name:"Movie: The Avengers",
 								img: "../img/ticketPlaces/infinity-4027067_640.png",
+								id: "Movie",
 								price: 13,
 								open:1800,
 								close:2000,
@@ -225,6 +226,7 @@ var tickets=[
 							{
 								name:"Phantom of the Opera",
 								img: "../img/ticketPlaces/free-1641264_640.jpg",
+								id: "Phantom",
 								price: 20,
 								open: 2000,
 								close: 2130,
@@ -238,6 +240,7 @@ var tickets=[
 							{
 								name:"Arsenal vs Chelsea",
 								img: "../img/ticketPlaces/stadium-709181_640.jpg",
+								id: "Football",
 								price: 25,
 								open: 2000,
 								close: 2200,
@@ -255,6 +258,7 @@ var tickets=[
 					places: [{
 								name: "Art Gallery",
 								img: "../img/ticketPlaces/woman-1283009_640.jpg",
+								id: "Gallery",
 								price: 10,
 								open: 1000,
 								close: 2000,
@@ -268,6 +272,7 @@ var tickets=[
 							{
 								name: "Science Museum",
 								img: "../img/ticketPlaces/museum-of-science-and-technology-3601470_640.jpg",
+								id: "Museum",
 								price: 15,
 								open:1000,
 								close: 1900,
@@ -281,6 +286,7 @@ var tickets=[
 							{
 								name: "New York Oceanarium",
 								img: "../img/ticketPlaces/oceanarium-2048720_640.jpg",
+								id: "Oceanarium",
 								price: 18,
 								open: 1030,
 								close: 1930,
@@ -298,6 +304,7 @@ var tickets=[
 					places:[{
 								name: "Bus Ticket",
 								img: "../img/ticketPlaces/london-2665352_640.jpg",
+								id: "Bus",
 								open: "06:30",
 								close: "23:00",
 								price: 1.18,
@@ -310,6 +317,7 @@ var tickets=[
 							{
 								name: "Subway Ticket",
 								img: "../img/ticketPlaces/train-1285358_640.jpg",
+								id: "Subway",
 								open: "06:00",
 								close: "01:00",
 								price: 1,

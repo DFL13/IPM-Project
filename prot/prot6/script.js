@@ -742,7 +742,11 @@ function hideNotif() {
 		content.scrollTop = 0;
 	}
 
+	var globalType;
+	var globalPlace;
 	function openFullTicket(type, place, app) {
+		globalType = type;
+		globalPlace = place;
 		var colors = ["#e04242", "#e04242", "#e04242", "#f08130", "#18b44b", "#18b44b"];
 
 		var page = document.getElementsByClassName("fullTicket")[0];
@@ -1685,6 +1689,13 @@ function hideNotif() {
 		}
 	}
 
+
+	function getDirectionsTo() {
+		var ticketId = tickets[globalType].places[globalPlace].id;
+		startNavigate(ticketId);
+		switchPages("fullTicket", "mapApp");
+
+	}
 /*=================================================*/
 
 
