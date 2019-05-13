@@ -806,7 +806,9 @@ function hideNotif() {
 		var locationBtn = page.children[1].children[1];
 		buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 		fillStars(type, place);
-
+		locationBtn.style.visibility = "hidden";
+		if (user.nav == null) 
+			locationBtn.style.visibility = "inherit";
 		if (app == "cartPage" || app == "receiptPage") {
 			buyBtn.classList.add("hidden");
 			locationBtn.style.transform = "translate(0px,56px)";

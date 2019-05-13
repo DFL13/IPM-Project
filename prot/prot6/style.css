@@ -86,9 +86,21 @@ div.screen {
 	border-radius: 20px;
 }
 
+div.screen::before {
+	display: block;
+	content: '';
+	position: absolute;
+	top: -8px;
+	bottom: -8px;
+	left: -8px;
+	right: -8px;
+	border-radius: 25px;
+	border: solid black 8px;
+}
+
 div.outerBtn {
 	position: absolute;
-	bottom: 100%;
+	bottom: 103%;
 	left: 65%;
 	width: 40px;
 	height: 13px;
