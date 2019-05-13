@@ -1564,7 +1564,8 @@ function hideNotif() {
 				if (pinPos.x == user.x) {
 					path.push(pinPos);
 				} else {
-					var val = pinPos.y < user.y ? getCloserStreet("y", "floor") : getCloserStreet("y", "ceil");
+					/*var val = pinPos.y < user.y ? getCloserStreet("y", "floor") : getCloserStreet("y", "ceil");*/
+					var val = getCloserStreet("y", "floor");
 					path.push({x: user.x, y: val});
 					path.push({x: pinPos.x, y: val});
 					path.push(pinPos);
@@ -1578,7 +1579,8 @@ function hideNotif() {
 				if (pinPos.y == user.y) {
 					path.push(pinPos);
 				} else {
-					var val = pinPos.x > user.x ? getCloserStreet("x", "top") : getCloserStreet("x", "bottom");
+					/*var val = pinPos.x > user.x ? getCloserStreet("x", "ceil") : getCloserStreet("x", "floor");*/
+					var val = getCloserStreet("x", "floor");
 					path.push({x: val, y: user.y});
 					path.push({x: val, y: pinPos.y});
 					path.push(pinPos);
@@ -1678,6 +1680,7 @@ function hideNotif() {
 		var path = calcPath(pin);
 		drawPath(path);
 		if (checkArrive(pin)) {
+			showNotif("Destination reached");
 			endNavigate();
 		}
 	}
