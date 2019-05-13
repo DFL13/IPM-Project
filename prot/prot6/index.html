@@ -543,59 +543,60 @@
 			<div id="mapWrapper">
 				<div id="map"> <!-- onmousedown="grabMap(this)" onmouseup="releaseMap(this)" onmouseleave="releaseMap(this)" onmousemove="moveMap(this)" > -->
 					<img src="../img/map/map_crop.png" style="display: block;" onclick="console.log(event.offsetX+', '+event.offsetY);console.log('closer: '+getCloserStreet('x'));console.log('turn: '+checkTurn())">
+					<canvas id="pathCanvas"></canvas>
 					<div class="point1"></div>
 					<div class="point2"></div>
 					<div class="point3"></div>
 					<div class="point4"></div>
-					<div class="pin opt0" id="Phantom" onclick="openSidePanel(0, 1);focusOn(this, true)">
+					<div class="pin opt0" id="Phantom" onclick="openSidePanel(0, 1);focusOn(this, true);startNavigate(this)">
 						<p>Phantom of the Opera</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt0" id="Movie" onclick="openSidePanel(0, 0);focusOn(this, true)">
+					<div class="pin opt0" id="Movie" onclick="openSidePanel(0, 0);focusOn(this, true);startNavigate(this)">
 						<p>Movie: The Avengers</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt0" id="Football" onclick="openSidePanel(0, 2);focusOn(this, true)">
+					<div class="pin opt0" id="Football" onclick="openSidePanel(0, 2);focusOn(this, true);startNavigate(this)">
 						<p>Arsenal vs Chelsea</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt1" id="Gallery" onclick="openSidePanel(1, 0);focusOn(this, true)">
+					<div class="pin opt1" id="Gallery" onclick="openSidePanel(1, 0);focusOn(this, true);startNavigate(this)">
 						<p>Art Gallery</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt1" id="Museum" onclick="openSidePanel(1, 1);focusOn(this, true)">
+					<div class="pin opt1" id="Museum" onclick="openSidePanel(1, 1);focusOn(this, true);startNavigate(this)">
 						<p>Science Museum</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt1" id="Oceanarium" onclick="openSidePanel(1, 2);focusOn(this, true)">
+					<div class="pin opt1" id="Oceanarium" onclick="openSidePanel(1, 2);focusOn(this, true);startNavigate(this)">
 						<p>Oceanarium</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt2" id="Bus" onclick="openSidePanel(2, 0);focusOn(this, true)">
+					<div class="pin opt2" id="Bus" onclick="openSidePanel(2, 0);focusOn(this, true);startNavigate(this)">
 						<p>Bus</p>
 						<img src="../img/map/pin-transport.png">
 					</div>
-					<div class="pin opt2" id="Subway" onclick="openSidePanel(2, 1);focusOn(this, true)">
+					<div class="pin opt2" id="Subway" onclick="openSidePanel(2, 1);focusOn(this, true);startNavigate(this)">
 						<p>Subway</p>
 						<img src="../img/map/pin-transport.png">
 					</div>
-					<div class="pin opt3" id="Jon" onclick="openSidePanel(-1, 'Jon Snow');focusOn(this, true)">
+					<div class="pin opt3" id="Jon" onclick="openSidePanel(-1, 'Jon Snow');focusOn(this, true);startNavigate(this)">
 						<p>Jon Snow</p>
 						<img src="../img/map/pin-person.png">
 					</div>
-					<div class="pin opt3" id="Tony" onclick="openSidePanel(-1, 'Tony Stark');focusOn(this, true)">
+					<div class="pin opt3" id="Tony" onclick="openSidePanel(-1, 'Tony Stark');focusOn(this, true);startNavigate(this)">
 						<p>Tony Stark</p>
 						<img src="../img/map/pin-person.png">
 					</div>
-					<div class="pin opt4" id="Diner" onclick="openSidePanel(-2, 0);focusOn(this, true)">
+					<div class="pin opt4" id="Diner" onclick="openSidePanel(-2, 0);focusOn(this, true);startNavigate(this)">
 						<p>More Than OK Diner</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>
-					<div class="pin opt4" id="Sushi" onclick="openSidePanel(-2, 1);focusOn(this, true)">
+					<div class="pin opt4" id="Sushi" onclick="openSidePanel(-2, 1);focusOn(this, true);startNavigate(this)">
 						<p>The Sushi House</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>
-					<div class="pin opt4" id="Bangkok" onclick="openSidePanel(-2, 2);focusOn(this, true)">
+					<div class="pin opt4" id="Bangkok" onclick="openSidePanel(-2, 2);focusOn(this, true);startNavigate(this)">
 						<p>Bangkok, Thailand</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>

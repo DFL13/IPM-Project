@@ -1387,7 +1387,7 @@ function hideNotif() {
 		x: [1745,1862,1993,2114,2231,2361,2494,2614,2738,2854,2974,3093,3214,3337,3465,3591,3711,3835,3960,4086,4209,4333,4458,4581,4705,4829,4942,5063,5197],
 		y: [4240, 4656, 5073, 5495, 5975]
 	}
-	var user = {x: streets.x[13], y: 5420, angle: 0, interval: null};
+	var user = {x: streets.x[13], y: 5420, angle: 0, interval: null, nav: null};
 
 	function updateUserPos() {
 		var arrow = $("#userArrow")[0];
@@ -1406,6 +1406,7 @@ function hideNotif() {
 			disableKeyboardInteraction: true
 		});
 
+		initPathCanvas();
 		updateUserPos();
 	}
 
@@ -1458,11 +1459,11 @@ function hideNotif() {
 		var angles = {up:0, down:180, left:-90, right:90};
 		var adjust = checkTurn();
 
-		if (getOrientation(user.angle) != getOrientation(angles[direction])) {
+		if (getUserOrientation(user.angle) != getUserOrientation(angles[direction])) {
 			if (adjust==0) {
 				return;
 			} else {
-				if (getOrientation(angles[direction]) == "vertical") {
+				if (getUserOrientation(angles[direction]) == "vertical") {
 					user.x = adjust;
 				} else {
 					user.y = adjust;
@@ -1487,22 +1488,25 @@ function hideNotif() {
 		user.angle = angles[direction];
 
 		validateWalk(direction);
-		updateUserPos(/*true, direction*/);
+		updateUserPos();
 		focusOn($("#userArrow")[0], false);
+		if (user.nav != null) {
+			navigate(user.nav);
+		}
 	}
 
 	function checkTurn() {
 		var radius = 40;
 		if (user.angle == 0 || user.angle == 180) {
-			var coord = getCloserStreet("y");
+			var coord = getCloserStreet("y", "normal");
 			return Math.abs(coord - user.y) <= radius ? coord:0;
 		} else {
-			var coord = getCloserStreet("x");
+			var coord = getCloserStreet("x", "normal");
 			return Math.abs(coord - user.x) <= radius ? coord:0;
 		}
 	}
 
-	function getOrientation(angle) {
+	function getUserOrientation(angle) {
 		if (angle==0||angle==180) {
 			return "vertical";
 		} else {
@@ -1511,7 +1515,7 @@ function hideNotif() {
 
 	}
 
-	function getCloserStreet(axis) {
+	function getCloserStreet(axis, type) {
 		if (axis == "y") {
 			var lst = streets.y;
 			var coord = user.y;
@@ -1523,6 +1527,12 @@ function hideNotif() {
 			if (lst[i] == coord) {
 				return lst[i];
 			} else if (lst[i] > coord) {
+				if (type == "ceil") {
+					return lst[i];
+				} else if (type == "floor"){
+					return lst[i-1];
+				}
+
 				var d1 = lst[i] - coord;
 				var d2 = coord - lst[i-1];
 				if (d1 < d2) {
@@ -1531,6 +1541,113 @@ function hideNotif() {
 					return lst[i-1];
 				}
 			}
+		}
+	}
+
+	function calcPath(pin) {
+		var pinPos = {x: pin.offsetLeft, y: pin.offsetTop};
+		var path = [user];
+
+		if (getUserOrientation(user.angle) == "vertical") {
+			if (getPinOrientation(pinPos.x, pinPos.y) == "horizontal") {
+				path.push({x: user.x, y: pinPos.y});
+				path.push(pinPos);
+			} else {
+				if (pinPos.x == user.x) {
+					path.push(pinPos);
+				} else {
+					var val = pinPos.y < user.y ? getCloserStreet("y", "floor") : getCloserStreet("y", "ceil");
+					path.push({x: user.x, y: val});
+					path.push({x: pinPos.x, y: val});
+					path.push(pinPos);
+				}
+			}
+		} else {
+			if (getPinOrientation(pinPos.x, pinPos.y) == "vertical") {
+				path.push({x: pinPos.x, y: user.y});
+				path.push(pinPos);
+			} else {
+				if (pinPos.y == user.y) {
+					path.push(pinPos);
+				} else {
+					var val = pinPos.x > user.x ? getCloserStreet("x", "top") : getCloserStreet("x", "bottom");
+					path.push({x: val, y: user.y});
+					path.push({x: val, y: pinPos.y});
+					path.push(pinPos);
+				}
+			}
+		}
+
+		return path;
+	}
+
+
+	function getPinOrientation(x, y) {
+		for (var i = 0; i < streets.y.length; i++) {
+			if (y == streets.y[i]) {
+				return "horizontal";
+			}
+		}
+		for (var i = 0; i < streets.x.length; i++) {
+			if (x == streets.x[i]) {
+				return "vertical";
+			}
+		}
+	}
+
+	function initPathCanvas() {
+		/*streets.x[0], streets.y[0], streets.x[28], streets.y[4]*/
+		$("#pathCanvas")[0].style.top = (streets.y[0]-30)+"px";
+		$("#pathCanvas")[0].style.left = (streets.x[0]-30)+"px";
+		$("#pathCanvas")[0].width = streets.x[28]-streets.x[0]+60;
+		$("#pathCanvas")[0].height = streets.y[4]-streets.y[0]+60;
+		/*$("#pathCanvas")[0].width = $("#map")[0].clientWidth;
+		$("#pathCanvas")[0].height = $("#map")[0].clientHeight;*/
+	}
+
+	function drawPath(path) {
+		var ctx = $("#pathCanvas")[0].getContext("2d");
+		ctx.clearRect(0, 0, $("#pathCanvas")[0].width, $("#pathCanvas")[0].height);
+		ctx.beginPath();
+		ctx.lineCap = "round";
+		ctx.lineJoin = "round";
+		ctx.lineWidth = 20;
+		ctx.strokeStyle = "#3783fc";
+
+		ctx.moveTo(path[0].x - (streets.x[0]-30), path[0].y - (streets.y[0]-30));
+		for (var i = 1; i < path.length; i++) {
+			ctx.lineTo(path[i].x - (streets.x[0]-30), path[i].y - (streets.y[0]-30));
+		}
+
+		ctx.stroke();
+	}
+
+	function clearPath() {
+		var ctx = $("#pathCanvas")[0].getContext("2d");
+		ctx.clearRect(0, 0, $("#pathCanvas")[0].width, $("#pathCanvas")[0].height);
+	}
+
+	function startNavigate(pin) {
+		user.nav = pin;
+		navigate(pin);
+	}
+
+	function checkArrive(pin) {
+		var pinPos = {x: pin.offsetLeft, y: pin.offsetTop};
+		var d = Math.abs(pinPos.x-user.x)+Math.abs(pinPos.y-user.y);
+		return d <= 40;
+	}
+
+	function endNavigate() {
+		user.nav = null;
+		clearPath();
+	}
+
+	function navigate(pin) {
+		var path = calcPath(pin);
+		drawPath(path);
+		if (checkArrive(pin)) {
+			endNavigate();
 		}
 	}
 

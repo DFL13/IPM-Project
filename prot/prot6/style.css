@@ -1652,69 +1652,75 @@ div.pin p {
 	/*transform-origin: 50% 100%;*/
 }
 
+#pathCanvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 #Phantom {
-	top: 5076px;
-	left: 3956px;
+	top: 5158px;
+	left: 3960px;
 }
 
 #Movie {
-	top: 5502px;
-	left: 2972px;
+	top: 5495px;
+	left: 2800px;
 }
 
 #Football {
-	top: 4661px;
-	left: 2736px;
+	top: 4656px;
+	left: 2443px;
 }
 
 #Gallery {
-	top: 5976px;
-	left: 3710px;
+	top: 5856px;
+	left: 3711px;
 }
 
 #Museum {
-	top: 5076px;
-	left: 2736px;
+	top: 4968px;
+	left: 2738px;
 }
 
 #Oceanarium {
-	top: 5494px;
-	left: 4576px;
+	top: 5495px;
+	left: 4526px;
 }
 
 #Bus {
-	top: 5502px;
-	left: 3211px;
+	top: 5495px;
+	left: 3250px;
 }
 
 #Subway {
-	top: 5076px;
-	left: 3342px;
+	top: 4841px;
+	left: 3337px;
 }
 
 #Jon {
-	top: 5490px;
-	left: 4330px;
+	top: 5673px;
+	left: 4333px;
 }
 
 #Tony {
-	top: 4654px;
+	top: 4833px;
 	left: 4942px;
 }
 
 #Diner {
-	top: 4653px;
-	left: 3956px;
+	top: 4584px;
+	left: 3960px;
 }
 
 #Sushi {
-	top: 5494px;
-	left: 3712px;
+	top: 5495px;
+	left: 3643px;
 }
 
 #Bangkok {
-	top: 5976px;
-	left: 2362px;
+	top: 5975px;
+	left: 2310px;
 }
 
 
