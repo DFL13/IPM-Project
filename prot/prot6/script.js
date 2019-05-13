@@ -299,6 +299,10 @@ function unlock() {
 }
 
 function openApp(appName) {
+	if (connects.wifi == false) {
+		showNotif("Wifi is off");
+		return;
+	}
 	switchPages("main", appName);
 	if (appName == "shareApp") {
 		var app = document.getElementsByClassName(appName)[0];
@@ -1290,6 +1294,10 @@ function hideNotif() {
 	var mapPlace;
 	var mapType;
 	function callForTable() {
+		if (connects.bluetooth == false) {
+			showNotif("Bluetooth is off");
+			return;
+		}
 		var name = restaurants[mapPlace].name;
 		var popup = document.getElementsByClassName("callForTable")[0];
 		var p = popup.children[0].children[0];
@@ -1686,13 +1694,16 @@ function hideNotif() {
 
 
 /* =================== SETTINGS =====================*/
+	
+	var connects = {wifi: false, bluetooth: false};
 
 	function changeSetting(div,name) {
 		var setting = document.getElementsByClassName(name)[0];
 		var slide = div.children[0];
 		if (slide.classList.contains("on")) {
-			slide.style.transform = "translate(-7%,-3%)";
-			div.style.backgroundColor= "#cecece";
+			connects[name] = false;
+			slide.style.left = "3px";
+			div.style.backgroundColor= "#b6b6b6";
 			slide.classList.add("off");
 			slide.classList.remove("on");
 			if (name=='wifi') {
@@ -1700,8 +1711,9 @@ function hideNotif() {
 			}
 			setting.style.visibility="hidden";
 		} else{
-			slide.style.transform = "translate(153%,-3%)";
-			div.style.backgroundColor= "#05ca05";
+			connects[name] = true;
+			slide.style.left = "24px";
+			div.style.backgroundColor= "#1dd170";
 			slide.classList.add("on");
 			slide.classList.remove("off");
 			if (name=='wifi') {

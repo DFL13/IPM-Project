@@ -1879,7 +1879,7 @@ tr.setting {
 td.option {
     /* margin: 10px; */
     /* border-color: #9c6666; */
-    border-bottom: 3px solid black;
+    border-bottom: solid #666666 2px;
     /* border: 10px solid; */
     height: 50px;
     /* padding-top: 0px; */
@@ -1887,24 +1887,32 @@ td.option {
 }
 
 div.slider {
-    width: 40px;
-    height: 17px;
+    width: 47px;
+    /*height: 17px;*/
+    height: 25px;
     position: absolute;
-    background-color: #cecece;
-    z-index: 1;
-    transform: translateX(340%);
-    border: 1px solid black;
+    right: 40px;
+    background-color: #b6b6b6;
+    /*z-index: 1;*/
+    /*transform: translateX(276%);*/
+    /*border: 1px solid black;*/
     border-radius: 50px;
     cursor: pointer;
 }
 
 div.slide {
-    width: 15px;
-    height: 15px;
+    /*width: 15px;
+    height: 15px;*/
+    width: 20px;
+    height: 20px;
     background-color: white;
     border-radius: 100%;
-    position: relative;
-    transform: translate(-7%,-3%);
+    /*position: relative;
+    transform: translate(-7%,-3%);*/
+    position: absolute;
+    left: 3px;
+    top: 2px;
+    transition: left 150ms;
 }
 
 
