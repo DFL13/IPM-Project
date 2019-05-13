@@ -137,7 +137,7 @@ function hidePage(name) {
 }
 
 function switchPages(oldPage, newPage) {
-	if (newPage == 'mapApp') {
+	/*if (newPage == 'mapApp') {
 		var pins = document.getElementsByClassName("pin");
 		var more = document.getElementsByClassName("moreBtn")[0];
 		var sidePanel = document.getElementsByClassName("sidePanel")[0];
@@ -165,7 +165,7 @@ function switchPages(oldPage, newPage) {
 			for (var i = 0; i < pins.length; i++)
 				pins[i].style.visibility = "hidden";
 		}
-	}
+	}*/
 	hidePage(oldPage);
 	showPage(newPage);
 }
@@ -189,7 +189,7 @@ function updateClock() {
 
 function goToHome() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
-		if(pageHistory[pageHistory.length-1] == "mapApp"){
+		/*if(pageHistory[pageHistory.length-1] == "mapApp"){
 			var pins = document.getElementsByClassName("pin");
 			var more = document.getElementsByClassName("moreBtn")[0];
 			var sidePanel = document.getElementsByClassName("sidePanel")[0];
@@ -197,7 +197,7 @@ function goToHome() {
 			more.style.visibility = "hidden";
 			for (var i = 0; i < pins.length; i++)
 				pins[i].style.visibility = "hidden";
-		}
+		}*/
 		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var main = document.getElementsByClassName("main")[0];
 		main.classList.toggle("hidden");
@@ -207,6 +207,7 @@ function goToHome() {
 			previous.classList.toggle("hidden");
 		}
 		pageHistory = ["lockscreen", "main"];
+		$("#arrowPad").css("visibility", "hidden");
 	}
 }
 
@@ -217,6 +218,9 @@ function turnOnOff() {
 		if (current.classList.contains("popup")) {
 			var previous = document.getElementsByClassName(pageHistory[pageHistory.length-2])[0];
 			previous.classList.toggle("hidden");
+		}
+		if(pageHistory[pageHistory.length-1] == "mapApp") {
+			$("#arrowPad").css("visibility", "hidden");
 		}
 		if (pageHistory[pageHistory.length-1] != "lockscreen") {
 			pageHistory.push("lockscreen");
@@ -231,7 +235,10 @@ function turnOnOff() {
 
 function goBack() {
 	if (pageHistory.length>0 && pageHistory[pageHistory.length-1] != "lockscreen" && pageHistory[pageHistory.length-1] != "main") {
-		if(pageHistory[pageHistory.length-1] == "mapApp"){
+		if(pageHistory[pageHistory.length-1] == "mapApp") {
+			$("#arrowPad").css("visibility", "hidden");
+		}
+		/*if(pageHistory[pageHistory.length-1] == "mapApp"){
 			var more = document.getElementsByClassName("moreBtn")[0];
 			var sidePanel = document.getElementsByClassName("sidePanel")[0];
 			if (mapPinLastType != -1) {
@@ -260,7 +267,7 @@ function goBack() {
 			}
 			sidePanel.style.visibility = "visible";
 			more.style.visibility = "visible";
-		}
+		}*/
 		var current = document.getElementsByClassName(pageHistory.pop())[0];
 		var previous = document.getElementsByClassName(pageHistory[pageHistory.length-1])[0];
 		current.classList.toggle("hidden");
@@ -280,6 +287,9 @@ function unlock() {
 			var previous = document.getElementsByClassName(pageHistory[pageHistory.length-2])[0];
 			previous.classList.toggle("hidden");
 		}
+		if(pageHistory[pageHistory.length-1] == "mapApp") {
+			$("#arrowPad").css("visibility", "visible");
+		}
 	} else {
 		virgin = false;
 		pageHistory.push("main");
@@ -298,8 +308,7 @@ function openApp(appName) {
 		selectTab(0);
 		updateCartDot();
 	} else if (appName == "mapApp") {
-		var mapDiv = document.getElementById("map");
-		/*mapDiv.style.transform = 'translate('+map.offsetX+'px,'+map.offsetY+'px) scale('+map.zoom+')';*/
+		$("#arrowPad").css("visibility", "visible");
 	}
 }
 
@@ -1245,7 +1254,7 @@ function hideNotif() {
 			same = true;
 			menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
 			for (var i = 0; i < pins.length; i++) {
-				pins[i].style.visibility = "visible";
+				pins[i].style.visibility = "inherit";
 			}
 		}
 		for (var i = 0; i < menu.children.length; i++) {
@@ -1258,7 +1267,7 @@ function hideNotif() {
 				pins[i].style.visibility = "hidden";
 			}
 			for (var i = 0; i < chosenPins.length; i++) {
-				chosenPins[i].style.visibility = "visible";
+				chosenPins[i].style.visibility = "inherit";
 			}
 		}
 		closeSidePanel();
@@ -1266,9 +1275,9 @@ function hideNotif() {
 		setTimeout(openMapMenu, 400, menu.nextElementSibling);
 	}
 
-	function openSidePanel(type, place) {
+	function openSidePanel(type, place, pin) {
 		var panel = document.getElementsByClassName("sidePanel")[0];
-		fillSidePanel(type, place);
+		fillSidePanel(type, place, pin);
 		panel.style.visibility = "visible";
 		panel.style.left = "0px";
 	}
@@ -1290,13 +1299,17 @@ function hideNotif() {
 
 
 	
-	function fillSidePanel(type, place) {
+	function fillSidePanel(type, place, pin) {
 		mapPlace = place;
 		mapType = type;
 		var itemTitle;
 		var pic;
 		var panel = document.getElementsByClassName("sidePanel")[0];
 		var more = panel.getElementsByClassName("moreBtn")[0];
+		var direction = panel.getElementsByClassName("directionsBtn")[0];
+
+		direction.setAttribute("onclick", "startNavigate('"+pin.id+"')");
+
 		if (type >= 0) {
 			more.innerHTML = "More+";
 			var item = tickets[type].places[place];
@@ -1332,7 +1345,7 @@ function hideNotif() {
 		title.innerHTML = itemTitle;
 		var previewPic = document.getElementsByClassName("previewPic")[0];
 		previewPic.src = pic;
-		more.style.visibility = "visible";
+		/*more.style.visibility = "visible";*/
 	}
 
 	function openPlaceInfo() {
@@ -1343,8 +1356,8 @@ function hideNotif() {
 		else if (mapType == -1) {
 			openProfile("mapApp", mapPlace);
 		}
-		var panel = document.getElementsByClassName("sidePanel")[0];
-		panel.style.visibility = "hidden";
+		/*var panel = document.getElementsByClassName("sidePanel")[0];
+		panel.style.visibility = "hidden";*/
 	}
 
 
@@ -1408,6 +1421,7 @@ function hideNotif() {
 
 		initPathCanvas();
 		updateUserPos();
+		focusOn($("#userArrow")[0], true);
 	}
 
 
@@ -1420,23 +1434,9 @@ function hideNotif() {
 			y: elementBox.top + elementBox.height/2 - mapBox.top
 		};
 		var pos = {
-			/*x: elementBox.left + elementBox.width/2 - viewBox.width/2,
-			y: elementBox.top + elementBox.height/2 - viewBox.height/2*/
 			x: inMap.x - viewBox.width/2,
 			y: inMap.y - viewBox.height/2
-			/*x: 4179 + 35 - viewBox.width/2,
-			y: 3670 + 35 - viewBox.height/2*/
 		};
-		/*console.log(elementBox.left+","+elementBox.top);
-		document.getElementById("test").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";
-		document.getElementById("map").style.transform = "translate("+(-pos.x)+","+(-pos.y)+")";*/
-		/*console.log("elementBox coords:"+elementBox.left+","+elementBox.top);
-		console.log("elementBox size:"+elementBox.width+","+elementBox.height);
-		console.log("elementBox offset size:"+element.offsetWidth+","+element.offsetHeight);
-		console.log("elementBox offset:"+element.offsetLeft+","+element.offsetTop);
-		console.log("viewBox size:"+viewBox.width+","+viewBox.height);
-		console.log("inMap: "+inMap.x+", "+inMap.y);
-		console.log(pos.x+","+pos.y);*/
 		mapObj.pause();
 		mapObj.resume();
 		if (smooth) {
@@ -1627,9 +1627,21 @@ function hideNotif() {
 		ctx.clearRect(0, 0, $("#pathCanvas")[0].width, $("#pathCanvas")[0].height);
 	}
 
-	function startNavigate(pin) {
-		user.nav = pin;
-		navigate(pin);
+	function startNavigate(pinId) {
+		user.nav = $("#"+pinId)[0];
+		closeSidePanel();
+		focusOn($("#userArrow")[0], true);
+
+		if (open) {
+			openMapMenu(document.getElementsByClassName("trigger")[0]);
+		}
+		$("#map .pin").css("visibility", "hidden");
+		user.nav.style.visibility = "visible";
+		user.nav.style["pointer-events"] = "none";
+		document.getElementsByClassName("trigger")[0].style["pointer-events"] = "none";
+		$("#exitNavBtn")[0].style.visibility = "inherit";
+
+		navigate(user.nav);
 	}
 
 	function checkArrive(pin) {
@@ -1639,8 +1651,19 @@ function hideNotif() {
 	}
 
 	function endNavigate() {
-		user.nav = null;
 		clearPath();
+
+		$("#exitNavBtn")[0].style.visibility = "hidden";
+		user.nav.style["pointer-events"] = "auto";
+		document.getElementsByClassName("trigger")[0].style["pointer-events"] = "auto";
+
+		if (mapPinLastType == -1) {
+			$("#map .pin").css("visibility", "inherit");
+		} else {
+			$("#map .opt"+mapPinLastType).css("visibility", "inherit");
+		}
+
+		user.nav = null;
 	}
 
 	function navigate(pin) {

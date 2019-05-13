@@ -548,61 +548,63 @@
 					<div class="point2"></div>
 					<div class="point3"></div>
 					<div class="point4"></div>
-					<div class="pin opt0" id="Phantom" onclick="openSidePanel(0, 1);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt0" id="Phantom" onclick="openSidePanel(0, 1, this);focusOn(this, true);">
 						<p>Phantom of the Opera</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt0" id="Movie" onclick="openSidePanel(0, 0);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt0" id="Movie" onclick="openSidePanel(0, 0, this);focusOn(this, true);">
 						<p>Movie: The Avengers</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt0" id="Football" onclick="openSidePanel(0, 2);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt0" id="Football" onclick="openSidePanel(0, 2, this);focusOn(this, true);">
 						<p>Arsenal vs Chelsea</p>
 						<img src="../img/map/pin-event.png">
 					</div>
-					<div class="pin opt1" id="Gallery" onclick="openSidePanel(1, 0);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt1" id="Gallery" onclick="openSidePanel(1, 0, this);focusOn(this, true);">
 						<p>Art Gallery</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt1" id="Museum" onclick="openSidePanel(1, 1);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt1" id="Museum" onclick="openSidePanel(1, 1, this);focusOn(this, true);">
 						<p>Science Museum</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt1" id="Oceanarium" onclick="openSidePanel(1, 2);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt1" id="Oceanarium" onclick="openSidePanel(1, 2, this);focusOn(this, true);">
 						<p>Oceanarium</p>
 						<img src="../img/map/pin-monument.png">
 					</div>
-					<div class="pin opt2" id="Bus" onclick="openSidePanel(2, 0);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt2" id="Bus" onclick="openSidePanel(2, 0, this);focusOn(this, true);">
 						<p>Bus</p>
 						<img src="../img/map/pin-transport.png">
 					</div>
-					<div class="pin opt2" id="Subway" onclick="openSidePanel(2, 1);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt2" id="Subway" onclick="openSidePanel(2, 1, this);focusOn(this, true);">
 						<p>Subway</p>
 						<img src="../img/map/pin-transport.png">
 					</div>
-					<div class="pin opt3" id="Jon" onclick="openSidePanel(-1, 'Jon Snow');focusOn(this, true);startNavigate(this)">
+					<div class="pin opt3" id="Jon" onclick="openSidePanel(-1, 'Jon Snow', this);focusOn(this, true);">
 						<p>Jon Snow</p>
 						<img src="../img/map/pin-person.png">
 					</div>
-					<div class="pin opt3" id="Tony" onclick="openSidePanel(-1, 'Tony Stark');focusOn(this, true);startNavigate(this)">
+					<div class="pin opt3" id="Tony" onclick="openSidePanel(-1, 'Tony Stark', this);focusOn(this, true);">
 						<p>Tony Stark</p>
 						<img src="../img/map/pin-person.png">
 					</div>
-					<div class="pin opt4" id="Diner" onclick="openSidePanel(-2, 0);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt4" id="Diner" onclick="openSidePanel(-2, 0, this);focusOn(this, true);">
 						<p>More Than OK Diner</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>
-					<div class="pin opt4" id="Sushi" onclick="openSidePanel(-2, 1);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt4" id="Sushi" onclick="openSidePanel(-2, 1, this);focusOn(this, true);">
 						<p>The Sushi House</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>
-					<div class="pin opt4" id="Bangkok" onclick="openSidePanel(-2, 2);focusOn(this, true);startNavigate(this)">
+					<div class="pin opt4" id="Bangkok" onclick="openSidePanel(-2, 2, this);focusOn(this, true);">
 						<p>Bangkok, Thailand</p>
 						<img src="../img/map/pin-restaurant.png">
 					</div>
 					<img id="userArrow" src="../img/map/navigation-arrow.png">
 				</div>
 			</div>
+
+			<p id="exitNavBtn" onclick="endNavigate()">Exit</p>
 
 			<div class="sidePanel">
 				<img class="closeBtn" src="../img/icons/close-cross.png" onclick="closeSidePanel()">

@@ -1658,6 +1658,23 @@ div.pin p {
 	left: 0;
 }
 
+#exitNavBtn {
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90px;
+	background-color: #ff4646;
+	color: white;
+	font-weight: bold;
+	font-size: 1.3em;
+	border-radius: 50px;
+	padding: 6px;
+	box-shadow: 0px 0px 11px -1px black;
+	cursor: pointer;
+	visibility: hidden;
+}
+
 #Phantom {
 	top: 5158px;
 	left: 3960px;
@@ -1900,6 +1917,7 @@ div#arrowPad {
 	display: grid;
 	width: 100px;
 	height: 100px;
+	visibility: hidden;
 	grid-template-rows: 1fr 1fr 1fr;
 	grid-template-columns: 1fr 1fr 1fr;
 }
@@ -1936,4 +1954,5 @@ div#arrowPad img:nth-child(4) {
 div.hidden {
 	opacity: 0;
 	visibility: hidden;
+	pointer-events: none;
 }
