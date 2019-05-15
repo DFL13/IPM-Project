@@ -1044,6 +1044,14 @@ function hideNotif() {
 		switchPages("cartPage", "paymentPage");
 	}
 
+	function tryNewCard() {
+		if (connects.bluetooth == false) {
+			showNotif("Turn on bluetooth:&#8194;"+appendNotifSlider("bluetooth"));
+		} else {
+			showPage('newCard');
+		}
+	}
+
 	function choosePay(card) {
 		var popup = document.getElementsByClassName("verifyCheckout")[0];
 		var p = popup.children[0].children[0];
