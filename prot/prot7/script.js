@@ -866,6 +866,7 @@ function hideNotif() {
 		minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 		plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 		addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
+		/*showNotif('Added to <u onclick=\"openCart()\">cart</u>.');*/
 		plusBtn.classList.remove("inactiveBtn");
 		minusBtn.classList.add("inactiveBtn");
 		priceTxt.innerHTML = price.toFixed(2) + "€";
@@ -1741,6 +1742,38 @@ function hideNotif() {
 		switchPages("fullTicket", "mapApp");
 
 	}
+
+	var pressing = "";
+
+	function getArrowKey(n) {
+		var arrows = {37:"left", 38:"up", 39:"right", 40:"down"};
+		if (n >= 37 && n <= 40) {
+			return arrows[n];
+		}
+		return "";
+	}
+
+	document.onkeydown = function () {
+		var arrow = getArrowKey(event.keyCode);
+		if ($("#arrowPad")[0].style.visibility != "visible" || arrow == "") {
+			return;
+		}
+		if (pressing == "" || pressing != arrow) {
+			pressing = arrow;
+			endWalk();
+			startWalk(arrow);
+		}
+	}
+
+	document.onkeyup = function () {
+		var arrow = getArrowKey(event.keyCode);
+		if ($("#arrowPad")[0].style.visibility != "visible" || arrow == "" || pressing != arrow) {
+			return;
+		}
+		pressing = "";
+		endWalk();
+	}
+
 /*=================================================*/
 
 
