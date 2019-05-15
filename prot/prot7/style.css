@@ -152,9 +152,9 @@ div.popup {
 div.popupBox {
 	position: absolute;
 	top: 50%;
-	left: 50px;
-    transform: translateY(-50%);
-    width: 60%;
+	left: 50%;
+    transform: translate(-50%,-50%);
+    width: 65%;
     /*height: 55%;*/
     background-color: white;
     border-radius: 25px;
@@ -220,7 +220,7 @@ div.main {
 }
 
 div.main div.clock {
-	margin-top: 5px;
+	margin-top: 25px;
 }
 
 div.main div.clock .time {
@@ -960,16 +960,6 @@ div.ticketPreview p.price {
 div.btnBought{
 	margin-top: 60px;
 	margin-bottom: 15px;
-}
-
-div.btnLocation  > .button{
-	padding: 0px;
-	margin-bottom: 10px;
-}
-
-div.btnLocation img{
-	transform: translate(-5px,-4px); 
-	width:130%;
 }
 
 div.btnCart{
@@ -1760,10 +1750,10 @@ div.pin p {
 
 div.notif {
 	position: absolute;
-	left: 44%;
+	left: 50%;
 	top: 5px;
 	transform: translateX(-50%);
-	padding: 10px 20px;
+	padding: 10px 15px;
 	text-align: center;
 	color: white;
 	background-color: #474747;
@@ -1773,9 +1763,15 @@ div.notif {
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity ease 500ms;
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: center;
+	width: max-content;
+	max-width: 80%;
 }
 
-div.defButton{
+img.defButton{
+	display: block;
 	width: 40px;
     position: absolute;
     left: 340px;
@@ -1783,25 +1779,27 @@ div.defButton{
     cursor: pointer;
 }
 
-img.defIcon{
-	
-}
-
-div.settings > div.popup{
-	text-align: left;
-}
-
-div.center {
-    left: 70px;
-}
 
 div.topBar {
-    /* background-color: white; */
-    width: 33%;
-    height: 28px;
+    height: 33px;
+    text-align: left;
+    padding: 5px 11px;
+    position: absolute;
 }
 
-img.battery {
+div.topBar img {
+	height: 100%;
+	margin: 0px 5px;
+	display: none;
+}
+
+div.topBar img:first-child {
+	display: initial;
+	transform: rotate(90deg) scale(1.3);
+
+}
+
+/*img.battery {
     transform: rotate(90deg);
     width: 24%;
     left: 0px;
@@ -1826,65 +1824,48 @@ img.bluetooth {
     height: 27px;
     left: -7px;
     visibility: hidden;
+}*/
+
+
+
+div.setting {
+    display: grid;
+	grid-template-columns: 70% 30%;
+	margin: 10px 30px;
+	align-items: center;
 }
 
-
-
-table.settings {
-    /* border-bottom: 1px; */
-    width: 88%;
+div.setting p {
     text-align: left;
-    /* margin: 13px; */
-    padding-left: 23px;
-    /* margin-top: 5px; */
-    margin-bottom: 20px;
-    font-size: 1em;
-}
-
-tr.setting {
-    /* border: 8px solid black; */
-    margin: 10px;
-    /* border-color: black; */
-    /* padding: 10px; */
-}
-
-td.option {
-    /* margin: 10px; */
-    /* border-color: #9c6666; */
-    border-bottom: solid #666666 2px;
-    /* border: 10px solid; */
-    height: 50px;
-    /* padding-top: 0px; */
-    padding: 0px;
 }
 
 div.slider {
     width: 47px;
-    /*height: 17px;*/
     height: 25px;
-    position: absolute;
-    right: 40px;
+    position: relative;
     background-color: #b6b6b6;
-    /*z-index: 1;*/
-    /*transform: translateX(276%);*/
-    /*border: 1px solid black;*/
     border-radius: 50px;
+    justify-self: right;
     cursor: pointer;
 }
 
-div.slide {
-    /*width: 15px;
-    height: 15px;*/
+div.slider div {
     width: 20px;
     height: 20px;
     background-color: white;
     border-radius: 100%;
-    /*position: relative;
-    transform: translate(-7%,-3%);*/
     position: absolute;
     left: 3px;
     top: 2px;
     transition: left 150ms;
+}
+
+div.sliderOn {
+	background-color: #1dd170;
+}
+
+div.sliderOn div {
+	left: 24px;
 }
 
 

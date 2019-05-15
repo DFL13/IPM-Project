@@ -45,17 +45,18 @@
 
 		<div class="page main hidden">
 			<div class="topBar">
-				<img class="battery" src="../img/icons/battery.svg">
-				<img class="wifi" src="../img/icons/wifi.svg">
-				<img class="bluetooth" src="../img/icons/blueetooth-logo.svg">
+				<img src="../img/icons/battery.svg">
+				<img src="../img/icons/wifi.svg">
+				<img src="../img/icons/blueetooth-logo.svg">
 			</div>
+
 			<div class="clock">
 				<p class="time"></p>
 				<p class="date"></p>
 			</div>
-			<div class="defButton" onclick="showPage('definitions')">
-				<img class="defIcon" src="../img/icons/settings-work-tool.svg">
-			</div>
+				
+			<img class="defButton" src="../img/icons/settings-work-tool.svg" onclick="showPage('definitions')">
+
 			<div class="appSlider">
 				<div class="appIcon" onclick="openApp('shareApp')">
 					<img src="../img/icons/share2.svg" style="transform: translateX(-2px);">
@@ -68,32 +69,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="popup definitions hidden" onclick="goBack()">
-			<div class="popupBox center" onclick="event.stopPropagation()">
-    		<p>Settings</p>
-    		<table class="settings">
-				<tbody>
-					<tr class="setting">
-						<td class="option">
-							<div class="slider" onclick="changeSetting(0)">
-								<div class="slide off">
-    							</div>
-							</div>
-							<p>Wifi</p>
-						</td>
 
-					</tr>
-					<tr class="setting">
-						<td class="option">
-							<div class="slider" onclick="changeSetting(1)">
-								<div class="slide off">
-    							</div>
-							</div>
-							<p>Bluetooth</p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="popup definitions hidden" onclick="goBack()">
+			<div class="popupBox" onclick="event.stopPropagation()">
+	    		<p>Settings</p>
+	    		<div class="setting">
+	    			<p>Wifi</p>
+	    			<div class="slider" onclick="changeSetting('wifi')">
+						<div></div>
+					</div>
+	    		</div>
+	    		<div class="setting">
+	    			<p>Bluetooth</p>
+	    			<div class="slider" onclick="changeSetting('bluetooth')">
+						<div></div>
+					</div>
+	    		</div>
+	    		<div class="setting">
+	    			<p>Share location</p>
+	    			<div class="slider" onclick="toggleSlider(this)">
+						<div></div>
+					</div>
+	    		</div>
 			</div>
 		</div>
 
@@ -405,7 +402,7 @@
 			<div class="sidebar">
 				<p class="time" onclick="goToHome()"></p>
 				<div class="button btnLocation" onclick="getDirectionsTo()">
-					<img src="../img/icons/compass-pointing-north.svg">
+					<img src="../img/icons/route.svg">
 				</div>
 				<div class="button btnBuy" onclick=""><!-- js fill -->
 					<img src="../img/icons/add-cart.svg">

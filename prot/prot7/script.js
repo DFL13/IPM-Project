@@ -15,8 +15,7 @@ var openedItems;
 var mapPinLastType = -1;
 
 
-window.ondragstart = function() { return false; } 
-
+window.ondragstart = function() { return false; }
 
 
 function btnMouseDown(button, func) {
@@ -300,7 +299,8 @@ function unlock() {
 
 function openApp(appName) {
 	if (connects.wifi == false) {
-		showNotif("Wfi is off. <u onclick='changeSetting(0);showNotif(\"Wifi enabled\")'>Toggle</u>");
+		/*showNotif("Wifi is off. <u onclick='changeSetting(0);showNotif(\"Wifi enabled\")'>Toggle</u>");*/
+		showNotif("Turn on wifi:&#8194;"+appendNotifSlider("wifi"));
 		return;
 	}
 	switchPages("main", appName);
@@ -324,7 +324,7 @@ function showNotif(msg) {
 	clearTimeout(notifTime);
 	notif.style.opacity = "1";
 	notif.style.visibility = "visible";
-	notifTime = setTimeout(hideNotif, 2500);
+	notifTime = setTimeout(hideNotif, 3000);
 }
 
 function hideNotif() {
@@ -1304,7 +1304,7 @@ function hideNotif() {
 	var mapType;
 	function callForTable() {
 		if (connects.bluetooth == false) {
-			showNotif("Bluetooth is off. <u onclick='changeSetting(1);showNotif(\"Bluetooth enabled\")'>Toggle</u>");
+			showNotif("Turn on bluetooth:&#8194;"+appendNotifSlider("bluetooth"));
 			return;
 		}
 		var name = restaurants[mapPlace].name;
@@ -1440,6 +1440,22 @@ function hideNotif() {
 		updateUserPos();
 		focusOn($("#userArrow")[0], true, 0.5);
 
+		$(".opt3").css("display", "none");
+		setTimeout(personShowLocation, 7000, "Jon");
+	}
+
+	function personShowLocation(name) {
+		if (pageHistory.length < 2) {
+			setTimeout(personShowLocation, 2000, name);
+		} else if ($(".notif:first")[0].style.visibility != "visible") {
+			$("#"+name).css("display", "initial");
+			showNotif(name+" shared his location");
+			if (name == "Jon") {
+				setTimeout(personShowLocation, 15000, "Tony");
+			}
+		} else {
+			setTimeout(personShowLocation, 1000, name);
+		}
 	}
 
 	function manualchangeScale(scale) {
@@ -1712,6 +1728,7 @@ function hideNotif() {
 
 	function getDirectionsTo() {
 		var ticketId = tickets[globalType].places[globalPlace].id;
+		$("#arrowPad").css("visibility", "visible");
 		startNavigate(ticketId);
 		switchPages("fullTicket", "mapApp");
 
@@ -1731,7 +1748,7 @@ function hideNotif() {
 	
 	var connects = {wifi: false, bluetooth: false};
 
-	function changeSetting(n) {
+	/*function changeSetting(n) {
 		var  name = n == 0 ? "wifi":"bluetooth";
 		var div = document.getElementsByClassName("slider")[n];
 		var setting = document.getElementsByClassName(name)[0];
@@ -1763,6 +1780,31 @@ function hideNotif() {
 		} 
 		slide.style.transitionDelay="0 ms";
 		slide.style.transitionDelay="0 ms";
+	}*/
+
+	function changeSetting(name) {
+		var n = name == "wifi" ? 0:1;
+		var bar = document.getElementsByClassName("topBar")[0];
+		var defs = document.getElementsByClassName("definitions")[0];
+		var slider = defs.getElementsByClassName("setting")[n].children[1];
+		if (connects[name]) {
+			connects[name] = false;
+			bar.children[n+1].style.display = "";
+		} else {
+			connects[name] = true;
+			bar.children[n+1].style.display = "inline-block";
+		}
+		toggleSlider(slider);
+	}
+
+	function toggleSlider(slider) {
+		slider.classList.toggle("sliderOn");
+	}
+
+	function appendNotifSlider(name) {
+		return "<div class='slider' onclick='changeSetting(\""+name+"\");toggleSlider(this);'>\
+					<div></div>\
+				</div>";
 	}
 
 /*==================================================*/
