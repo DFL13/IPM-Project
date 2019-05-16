@@ -55,32 +55,32 @@ function triggerHome() {
 
 
 function loadData() {
-	if (localStorage.posts6 == undefined) {
-		localStorage.posts6 = JSON.stringify(posts);
-		localStorage.people6 = JSON.stringify(people);
-		localStorage.myPosts6 = JSON.stringify(myPosts);
-		localStorage.tickets6 = JSON.stringify(tickets);
-		localStorage.bought6 = JSON.stringify(bought);
-		localStorage.restaurants6 = JSON.stringify(restaurants);
+	if (localStorage.posts7 == undefined) {
+		localStorage.posts7 = JSON.stringify(posts);
+		localStorage.people7 = JSON.stringify(people);
+		localStorage.myPosts7 = JSON.stringify(myPosts);
+		localStorage.tickets7 = JSON.stringify(tickets);
+		localStorage.bought7 = JSON.stringify(bought);
+		localStorage.restaurants7 = JSON.stringify(restaurants);
 	} else {
-		posts = JSON.parse(localStorage.posts6);
-		people = JSON.parse(localStorage.people6);
-		myPosts = JSON.parse(localStorage.myPosts6);
-		tickets = JSON.parse(localStorage.tickets6);
-		bought = JSON.parse(localStorage.bought6);
-		restaurants = JSON.parse(localStorage.restaurants6);
+		posts = JSON.parse(localStorage.posts7);
+		people = JSON.parse(localStorage.people7);
+		myPosts = JSON.parse(localStorage.myPosts7);
+		tickets = JSON.parse(localStorage.tickets7);
+		bought = JSON.parse(localStorage.bought7);
+		restaurants = JSON.parse(localStorage.restaurants7);
 	}
 	fillPostPreviews();
 }
 
 function reset() {
 	if (confirm("Reset device data?")) {
-		localStorage.removeItem("posts6");
-		localStorage.removeItem("people6");
-		localStorage.removeItem("myPosts6");
-		localStorage.removeItem("tickets6");
-		localStorage.removeItem("bought6");
-		localStorage.removeItem("restaurants6");
+		localStorage.removeItem("posts7");
+		localStorage.removeItem("people7");
+		localStorage.removeItem("myPosts7");
+		localStorage.removeItem("tickets7");
+		localStorage.removeItem("bought7");
+		localStorage.removeItem("restaurants7");
 		location.reload();
 	}
 }
@@ -434,7 +434,7 @@ function hideNotif() {
 	function deletePost(postNumber) {
 		var name = posts[postNumber].person;
 		posts.splice(postNumber, 1);
-		localStorage.posts6 = JSON.stringify(posts);
+		localStorage.posts7 = JSON.stringify(posts);
 
 		fillPostPreviews();
 		fillProfile(name);
@@ -674,7 +674,7 @@ function hideNotif() {
 						}
 
 		posts.push(newPost);
-		localStorage.posts6 = JSON.stringify(posts);
+		localStorage.posts7 = JSON.stringify(posts);
 
 		fillPostPreviews();
 
@@ -698,7 +698,7 @@ function hideNotif() {
 			posts[postNumber].upvotes--;
 			posts[postNumber].upvoted = false;
 		}
-		localStorage.posts6 = JSON.stringify(posts);
+		localStorage.posts7 = JSON.stringify(posts);
 		bar.children[1].innerHTML = posts[postNumber].upvotes;
 	}
 
@@ -832,7 +832,7 @@ function hideNotif() {
 			}
 			ticket.rate = rate;
 		}
-		localStorage.tickets6 = JSON.stringify(tickets);
+		localStorage.tickets7 = JSON.stringify(tickets);
 		fillStars(type, place);
 	}
 
@@ -894,7 +894,7 @@ function hideNotif() {
 		}
 		if (app == "cartPage") {
 			tickets[type].places[place].cart = n;
-			localStorage.tickets6 = JSON.stringify(tickets);
+			localStorage.tickets7 = JSON.stringify(tickets);
 			var page = document.getElementsByClassName("cartPage")[0];
 			var val = page.getElementsByClassName("total")[0];
 			var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -918,7 +918,7 @@ function hideNotif() {
 		}
 		if (app == "cartPage") {
 			tickets[type].places[place].cart = n;
-			localStorage.tickets6 = JSON.stringify(tickets);
+			localStorage.tickets7 = JSON.stringify(tickets);
 			var page = document.getElementsByClassName("cartPage")[0];
 			var val = page.getElementsByClassName("total")[0];
 			var num = parseFloat(val.innerHTML.split(" ")[1]);
@@ -937,7 +937,7 @@ function hideNotif() {
 
 
 		tickets[type].places[place].cart = n;
-		localStorage.tickets6 = JSON.stringify(tickets);
+		localStorage.tickets7 = JSON.stringify(tickets);
 		
 
 		updateCartDot();
@@ -1034,7 +1034,7 @@ function hideNotif() {
 
 	function deleteCart(type, place, item){
 		tickets[type].places[place].cart = 0;
-		localStorage.tickets6 = JSON.stringify(tickets);
+		localStorage.tickets7 = JSON.stringify(tickets);
 		fillCart();
 		updateCartDot();
 		goBack();
@@ -1150,8 +1150,8 @@ function hideNotif() {
 						total: total
 					});
 
-		localStorage.tickets6 = JSON.stringify(tickets);
-		localStorage.bought6 = JSON.stringify(bought);
+		localStorage.tickets7 = JSON.stringify(tickets);
+		localStorage.bought7 = JSON.stringify(bought);
 	}
 
 	function twoDigit(n) {
