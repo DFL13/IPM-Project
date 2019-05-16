@@ -492,6 +492,11 @@ function hideNotif() {
 		arrow.style.transitionDelay = "-1s";
 		quoteDiv.style.maxHeight = "0px";
 		arrow.style.transform = "rotate(180deg)";
+		if (name == "User") {
+			arrow.style.visibility = "hidden";
+		} else {
+			arrow.style.visibility = "";
+		}
 
 		cols[3].innerHTML = "";
 		cols[4].innerHTML = "";
