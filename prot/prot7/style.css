@@ -29,8 +29,15 @@ body {
 	background: #e3e3e3;
 }
 
-u {
+span {
+	font-weight: bold;
 	cursor: pointer;
+	border-radius: 15px;
+	background-color: #18ab5c;
+	color: white;
+	padding: 2px 8px;
+	font-size: 1.1em;
+	/*border: solid 1px white;*/
 }
 
 div.resetBtn {

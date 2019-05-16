@@ -865,8 +865,7 @@ function hideNotif() {
 		}
 		minusBtn.setAttribute("onclick", "minusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
 		plusBtn.setAttribute("onclick", "plusTicket(this,"+price+"," +type+","+place+",\"buyTicket\")");
-		addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart');");
-		/*showNotif('Added to <u onclick=\"openCart()\">cart</u>.');*/
+		addBtn.setAttribute("onclick", "addToCart("+type+","+place+");showNotif('Added to cart.&#8194<span onclick=\"openCart()\">open</span>');");
 		plusBtn.classList.remove("inactiveBtn");
 		minusBtn.classList.add("inactiveBtn");
 		priceTxt.innerHTML = price.toFixed(2) + "€";
@@ -967,7 +966,7 @@ function hideNotif() {
 		content.scrollTop = 0;
 
 		fillCart();
-		switchPages("ticketApp", "cartPage");
+		switchPages(pageHistory[pageHistory.length-1], "cartPage");
 	}
 
 	function fillCart() {
@@ -1450,7 +1449,7 @@ function hideNotif() {
 		focusOn($("#userArrow")[0], true, 0.5);
 
 		$(".opt3").css("display", "none");
-		setTimeout(personShowLocation, 7000, "Jon");
+		setTimeout(personShowLocation, 15000, "Jon");
 	}
 
 	function personShowLocation(name) {
@@ -1460,7 +1459,7 @@ function hideNotif() {
 			$("#"+name).css("display", "initial");
 			showNotif(name+" shared his location");
 			if (name == "Jon") {
-				setTimeout(personShowLocation, 15000, "Tony");
+				setTimeout(personShowLocation, 25000, "Tony");
 			}
 		} else {
 			setTimeout(personShowLocation, 1000, name);
