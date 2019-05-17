@@ -12,8 +12,6 @@ var virgin = true;
 
 var openedItems;
 
-var mapPinLastType = -1;
-
 
 window.ondragstart = function() { return false; }
 
@@ -811,9 +809,9 @@ function hideNotif() {
 		var locationBtn = page.children[1].children[1];
 		buyBtn.setAttribute("onclick", "openBuyTicket("+type+","+place+")")
 		fillStars(type, place);
-		locationBtn.style.visibility = "hidden";
-		if (user.nav == null) 
-			locationBtn.style.visibility = "inherit";
+		locationBtn.setAttribute("onclick", "getDirectionsTo()");
+		if (user.nav != null) 
+			locationBtn.setAttribute("onclick", "showPage('cancelNav')");
 		if (app == "cartPage" || app == "receiptPage") {
 			buyBtn.classList.add("hidden");
 			locationBtn.style.transform = "translate(0px,56px)";
@@ -1265,37 +1263,33 @@ function hideNotif() {
 		btn.classList.toggle("openTrigger");
 	}
 
+	var mapPinsActive = [];
+
 	function selectMapOpt(n) {
 		var menu = document.getElementsByClassName("mapMenu")[0];
-		var same = false;
-		var chosenPins = document.getElementsByClassName("opt" + n);
-		var pins = document.getElementsByClassName("pin");
-		mapPinLastType = n;
 
 		if (menu.children[n].classList.contains("selectedMapBtn")) {
-			mapPinLastType = -1;
-			same = true;
-			menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
-			for (var i = 0; i < pins.length; i++) {
-				pins[i].style.visibility = "inherit";
+			mapPinsActive.splice(mapPinsActive.indexOf(n),1);
+			$("#map .opt" + n).css("visibility", "hidden");
+			menu.children[n].classList.remove("selectedMapBtn");
+		} else {
+			if (mapPinsActive.length == 0) {
+				$("#map .pin").css("visibility", "hidden");
 			}
-		}
-		for (var i = 0; i < menu.children.length; i++) {
-			menu.children[i].classList.remove("selectedMapBtn");
-		}
-		if (!same) {
+			mapPinsActive.push(n);
+			$("#map .opt" + n).css("visibility", "inherit");
 			menu.children[n].classList.add("selectedMapBtn");
-			menuIcon = menu.children[n].children[0].src;
-			for (var i = 0; i < pins.length; i++) {
-				pins[i].style.visibility = "hidden";
-			}
-			for (var i = 0; i < chosenPins.length; i++) {
-				chosenPins[i].style.visibility = "inherit";
-			}
 		}
-		closeSidePanel();
 
-		setTimeout(openMapMenu, 400, menu.nextElementSibling);
+		if (mapPinsActive.length == 0) {
+			$("#map .pin").css("visibility", "inherit");
+		}
+
+		if (mapPinsActive.length == 1) {
+			menuIcon = menu.children[mapPinsActive[0]].children[0].src;
+		} else {
+			menuIcon = "../img/icons/menu-button-of-three-horizontal-lines.svg";
+		}
 	}
 
 	function openSidePanel(type, place, pin) {
@@ -1451,7 +1445,7 @@ function hideNotif() {
 
 		initPathCanvas();
 		updateUserPos();
-		focusOn($("#userArrow")[0], true, 0.5);
+		focusOn($("#userArrow")[0], true, 0.4);
 
 		$(".opt3").css("display", "none");
 		setTimeout(personShowLocation, 15000, "Jon");
@@ -1473,7 +1467,7 @@ function hideNotif() {
 
 	function manualchangeScale(scale) {
 		var transform = mapObj.getTransform();
-		transform.scale = 0.4;
+		transform.scale = scale;
 		$("#map")[0].style.transformOrigin = '0 0 0';
 	    $("#map")[0].style.transform = 'matrix(' +
 	      transform.scale + ', 0, 0, ' +
@@ -1720,10 +1714,11 @@ function hideNotif() {
 		user.nav.style["pointer-events"] = "auto";
 		document.getElementsByClassName("trigger")[0].style["pointer-events"] = "auto";
 
-		if (mapPinLastType == -1) {
+		for (var i = 0; i < mapPinsActive.length; i++) {
+			$("#map .opt"+mapPinsActive[i]).css("visibility", "inherit");
+		}
+		if (mapPinsActive.length == 0) {
 			$("#map .pin").css("visibility", "inherit");
-		} else {
-			$("#map .opt"+mapPinLastType).css("visibility", "inherit");
 		}
 
 		user.nav = null;
