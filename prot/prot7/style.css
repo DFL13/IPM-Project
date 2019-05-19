@@ -1673,10 +1673,11 @@ div.pin p {
 
 #exitNavBtn {
 	position: absolute;
-	bottom: 8px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 90px;
+	bottom: 6px;
+	/*left: 50%;*/
+	/*transform: translateX(-50%);*/
+	width: 65px;
+	right: 6px;
 	background-color: #ff4646;
 	color: white;
 	font-weight: bold;
@@ -1753,7 +1754,57 @@ div.pin p {
 	left: 2310px;
 }
 
+div.navInfo {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background-color: rgb(11, 165, 110)/*rgb(35, 121, 216)*/;
+	/*border-radius: 0px 0px 20px 0px;*/
+	width: 75px;
+	/*height: 60px; */
+	padding: 3px;
+	/*box-shadow: 0px 0px 8px -1px black;*/
+	font-weight: bold;
+}
 
+div.navInfo img.arrow {
+	height: 45px;
+}
+
+div.navExtra {
+	visibility: hidden;
+	position: absolute;
+	top: -43px;
+	left: 0;
+	background-color: white;
+	border-radius: 0px 0px 20px 0px;
+	width: 75px;
+	padding: 1px;
+	box-shadow: 0px 0px 8px -1px black;
+	color: black;
+	font-weight: bold;
+	padding-top: 80px;
+	cursor: pointer;
+	transition: top 350ms;
+}
+
+div.navExtra img {
+	display: block;
+	width: 15px;
+	margin-left: 27px;
+	transform: rotate(180deg);
+	transition: transform 350ms;
+}
+
+div.navExtraOpen {
+	top: 0;
+}
+
+div.navExtraOpen img {
+	transform: rotate(0deg);
+}
 
 div.notif {
 	position: absolute;

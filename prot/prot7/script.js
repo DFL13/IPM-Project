@@ -756,6 +756,11 @@ function hideNotif() {
 		var container = page.children[0].children[0];
 		var ticket = tickets[type].places[place];
 
+		var pin = $("#"+ticket.id)[0];
+		var path = calcPath(pin);
+		var info = calcPathInfo(path);
+		updateTicketInfo(type, place, info)
+
 		if (type == 0 || type == 1) {
 			var open = (ticket.open / 100).toFixed(2).split(".");
 			var close = (ticket.close / 100).toFixed(2).split(".");
@@ -791,7 +796,7 @@ function hideNotif() {
 		container.innerHTML += "<div class=\"routeBox\">\
 									<img src=\"../img/icons/footprint.svg\">\
 									<p class=\"distance\"><strong>Distance:</strong> " + ticket.distance + "</p>\
-									<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + " min.</p>\
+									<p class=\"travelTime\"><strong>Time:</strong> " + ticket.timeAway + "</p>\
 								</div>\
 								<div class=\"rateTicket\">\
 									<p>Rate:</p>\
@@ -1676,7 +1681,7 @@ function hideNotif() {
 	function calcPathInfo(path) {
 		/*275 real meters to 422 pixels in map pic mpp = meters per pixel*/
 		/*average walk speed = 5 km/h = 1.389 m/s*/
-		var info = {dist: 0, time: {m: 0, s: 0}, distNext: 0, turn: ""};
+		var info = {dist: 0, time: 0, distNext: 0, turn: ""};
 		var mpp = 0.65166;
 		var walkSpeed = 1.389;
 
@@ -1687,11 +1692,68 @@ function hideNotif() {
 			info.dist += distance(path[i], path[i+1]);
 		}
 		info.dist = Math.round(mpp * info.dist);
-		info.time.s = parseInt(info.dist / walkSpeed);
-		info.time.m = Math.floor(info.time.s / 60);
-		info.time.s = info.time.s % 60;
+		info.time = Math.round(info.dist / walkSpeed);
 
 		return info;
+	}
+
+	function formatDistance(dist) {
+		if (dist >= 1000) {
+			return Math.round(dist/100)/10+"km";
+		} else if (dist >= 200) {
+			return dist-dist%50+"m";
+		} else if (dist >= 20) {
+			return dist-dist%10+"m";
+		} else {
+			return dist+"m";
+		}
+	}
+
+	function formatTime(time) {
+		var min = Math.floor(time / 60);
+		var sec = time % 60;
+
+		if (min == 0) {
+			return sec-sec%5+"s";
+		} else if (min >= 20) {
+			return min-min%2+"min";
+		} else {
+			return min+"min";
+		}
+	}
+
+	function updatePathInfo(info) {
+		var infoDiv = $(".navInfo:first")[0];
+		var extraDiv = $(".navExtra:first")[0];
+
+		infoDiv.children[0].innerHTML = formatDistance(info.distNext);
+
+		infoDiv.children[1].style.transform = "";
+
+		switch (info.turn) {
+			case "straight":
+				infoDiv.children[1].src = "../img/icons/up-straight-arrow.svg";
+				break;
+			case "reverse":
+				infoDiv.children[1].src = "../img/icons/u-turn.svg";
+				break;
+			case "left":
+				infoDiv.children[1].src = "../img/icons/arrow-angle-turning-to-right.svg";
+				infoDiv.children[1].style.transform = "scaleX(-1)";
+				break;
+			case "right":
+				infoDiv.children[1].src = "../img/icons/arrow-angle-turning-to-right.svg";
+				break;
+		}
+
+		extraDiv.children[0].innerHTML = formatDistance(info.dist);
+		extraDiv.children[1].innerHTML = formatTime(info.time);	
+	}
+
+	function updateTicketInfo(type, place, info) {
+		var ticket = tickets[type].places[place];
+		ticket.distance = formatDistance(info.dist);
+		ticket.timeAway = formatTime(info.time);
 	}
 
 	function getPinOrientation(x, y) {
@@ -1754,6 +1816,8 @@ function hideNotif() {
 		$(".mapMenu").css("visibility", "hidden");
 		$(".trigger").css("visibility", "hidden");
 		$("#exitNavBtn")[0].style.visibility = "inherit";
+		$(".navExtra:first").css("visibility", "inherit");
+		$(".navInfo:first").css("visibility", "inherit");
 
 		navigate(user.nav);
 	}
@@ -1771,6 +1835,9 @@ function hideNotif() {
 		user.nav.style["pointer-events"] = "auto";
 		$(".mapMenu").css("visibility", "");
 		$(".trigger").css("visibility", "");
+		$(".navExtra:first")[0].classList.remove('navExtraOpen');
+		$(".navExtra:first").css("visibility", "hidden");
+		$(".navInfo:first").css("visibility", "hidden");
 
 		for (var i = 0; i < mapPinsActive.length; i++) {
 			$("#map .opt"+mapPinsActive[i]).css("visibility", "inherit");
@@ -1785,7 +1852,8 @@ function hideNotif() {
 	function navigate(pin) {
 		var path = calcPath(pin);
 		var info = calcPathInfo(path);
-		console.log(info);
+		/*console.log(info);*/
+		updatePathInfo(info);
 		drawPath(path);
 		if (checkArrive(pin)) {
 			showNotif("Destination reached");
