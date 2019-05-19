@@ -1885,6 +1885,7 @@ function hideNotif() {
 		if ($("#arrowPad")[0].style.visibility != "visible" || arrow == "") {
 			return;
 		}
+		event.preventDefault()
 		if (pressing == "" || pressing != arrow) {
 			pressing = arrow;
 			endWalk();

@@ -1932,7 +1932,7 @@ div.sliderOn div {
 div#arrowPad {
 	position: absolute;
 	top: 35vh;
-	right: 15vw;
+	right: 10vw;
 	display: grid;
 	width: 100px;
 	height: 100px;
