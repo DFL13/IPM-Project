@@ -1502,6 +1502,7 @@ function hideNotif() {
 	}
 
 	function startWalk(direction) {
+		walk(direction);
 		user.interval = setInterval(walk, 30, direction);
 	}
 
@@ -1611,8 +1612,8 @@ function hideNotif() {
 				if (pinPos.x == user.x) {
 					path.push(pinPos);
 				} else {
-					/*var val = pinPos.y < user.y ? getCloserStreet("y", "floor") : getCloserStreet("y", "ceil");*/
-					var val = getCloserStreet("y", "floor");
+					var val = pinPos.y < user.y ? getCloserStreet("y", "floor") : getCloserStreet("y", "ceil");
+					/*var val = getCloserStreet("y", "floor");*/
 					path.push({x: user.x, y: val});
 					path.push({x: pinPos.x, y: val});
 					path.push(pinPos);
@@ -1626,8 +1627,8 @@ function hideNotif() {
 				if (pinPos.y == user.y) {
 					path.push(pinPos);
 				} else {
-					/*var val = pinPos.x > user.x ? getCloserStreet("x", "ceil") : getCloserStreet("x", "floor");*/
-					var val = getCloserStreet("x", "floor");
+					var val = pinPos.x > user.x ? getCloserStreet("x", "ceil") : getCloserStreet("x", "floor");
+					/*var val = getCloserStreet("x", "floor");*/
 					path.push({x: val, y: user.y});
 					path.push({x: val, y: pinPos.y});
 					path.push(pinPos);
@@ -1638,6 +1639,60 @@ function hideNotif() {
 		return path;
 	}
 
+	function distance(p1, p2) {
+		return Math.abs(p1.x-p2.x + p1.y-p2.y);
+	}
+
+	function checkReverse(path) {
+		var p = path[1];
+		if (user.angle==0 && p.y<user.y || user.angle==180 && p.y>user.y || user.angle==90 && p.x>user.x || user.angle==-90 && p.x<user.x) {
+			return false;
+		}
+		return true;
+	}
+
+	function getTurn(path) {
+		if (checkReverse(path)) {
+			return "reverse";
+		}
+		if (path.length == 2) {
+			return "straight";
+		}
+		if (path[2].x-path[1].x + path[2].y-path[1].y > 0) {
+			if (path[1].x > user.x || path[1].y < user.y) {
+				return "right";
+			} else {
+				return "left";
+			}
+		} else {
+			if (path[1].x < user.x || path[1].y > user.y) {
+				return "right";
+			} else {
+				return "left";
+			}
+		}
+	}
+
+	function calcPathInfo(path) {
+		/*275 real meters to 422 pixels in map pic mpp = meters per pixel*/
+		/*average walk speed = 5 km/h = 1.389 m/s*/
+		var info = {dist: 0, time: {m: 0, s: 0}, distNext: 0, turn: ""};
+		var mpp = 0.65166;
+		var walkSpeed = 1.389;
+
+		info.distNext = Math.round(mpp * distance(path[0], path[1]));
+		info.turn = getTurn(path);
+
+		for (var i = 0; i < path.length-1; i++) {
+			info.dist += distance(path[i], path[i+1]);
+		}
+		info.dist = Math.round(mpp * info.dist);
+		info.time.s = parseInt(info.dist / walkSpeed);
+		info.time.m = Math.floor(info.time.s / 60);
+		info.time.s = info.time.s % 60;
+
+		return info;
+	}
 
 	function getPinOrientation(x, y) {
 		for (var i = 0; i < streets.y.length; i++) {
@@ -1645,11 +1700,12 @@ function hideNotif() {
 				return "horizontal";
 			}
 		}
-		for (var i = 0; i < streets.x.length; i++) {
+		return "vertical";
+		/*for (var i = 0; i < streets.x.length; i++) {
 			if (x == streets.x[i]) {
 				return "vertical";
 			}
-		}
+		}*/
 	}
 
 	function initPathCanvas() {
@@ -1695,7 +1751,8 @@ function hideNotif() {
 		$("#map .pin").css("visibility", "hidden");
 		user.nav.style.visibility = "visible";
 		user.nav.style["pointer-events"] = "none";
-		document.getElementsByClassName("trigger")[0].style["pointer-events"] = "none";
+		$(".mapMenu").css("visibility", "hidden");
+		$(".trigger").css("visibility", "hidden");
 		$("#exitNavBtn")[0].style.visibility = "inherit";
 
 		navigate(user.nav);
@@ -1712,7 +1769,8 @@ function hideNotif() {
 
 		$("#exitNavBtn")[0].style.visibility = "hidden";
 		user.nav.style["pointer-events"] = "auto";
-		document.getElementsByClassName("trigger")[0].style["pointer-events"] = "auto";
+		$(".mapMenu").css("visibility", "");
+		$(".trigger").css("visibility", "");
 
 		for (var i = 0; i < mapPinsActive.length; i++) {
 			$("#map .opt"+mapPinsActive[i]).css("visibility", "inherit");
@@ -1726,6 +1784,8 @@ function hideNotif() {
 
 	function navigate(pin) {
 		var path = calcPath(pin);
+		var info = calcPathInfo(path);
+		console.log(info);
 		drawPath(path);
 		if (checkArrive(pin)) {
 			showNotif("Destination reached");
