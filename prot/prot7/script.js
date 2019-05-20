@@ -1472,6 +1472,20 @@ function hideNotif() {
 		}
 	}
 
+	var pinClick = {x: 0, y: 0};
+
+	function pinTryClick() {
+		pinClick.x = event.clientX;
+		pinClick.y = event.clientY;
+	}
+
+	function pinEvalClick(param1, param2, pin) {
+		if (pinClick.x == event.clientX && pinClick.y == event.clientY) {
+			openSidePanel(param1, param2, pin);
+			focusOn(pin, true);
+		}
+	}
+
 	function manualchangeScale(scale) {
 		var transform = mapObj.getTransform();
 		transform.scale = scale;
