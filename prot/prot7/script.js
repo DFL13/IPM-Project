@@ -69,6 +69,36 @@ function loadData() {
 		restaurants = JSON.parse(localStorage.restaurants7);
 	}
 	fillPostPreviews();
+
+	$(".screen:first")[0].onclick = function() {
+		testInfo.clicks++;
+	}
+	$(".popupBox").on("click", function() {
+		event.stopPropagation();
+		testInfo.clicks++;
+	});
+}
+
+var testInfo = {startTime: 0, clicks: 0};
+
+function startTest() {
+	var btn = $(".testBtn:first")[0];
+	btn.children[0].innerHTML = "stop";
+	btn.setAttribute("onclick", "stopTest()");
+	testInfo.startTime = Date.now();
+	testInfo.clicks = 0;
+}
+
+function stopTest() {
+	var btn = $(".testBtn:first")[0];
+	btn.children[0].innerHTML = "start";
+	btn.setAttribute("onclick", "startTest()");
+
+	var sec = parseInt((Date.now()-testInfo.startTime)/1000);
+
+	console.log("---- Test Results: ----");
+	console.log("   Clicks: "+testInfo.clicks);
+	console.log("   Time: "+sec);
 }
 
 function reset() {
@@ -322,7 +352,7 @@ function showNotif(msg) {
 	clearTimeout(notifTime);
 	notif.style.opacity = "1";
 	notif.style.visibility = "visible";
-	notifTime = setTimeout(hideNotif, 3000);
+	notifTime = setTimeout(hideNotif, 4500);
 }
 
 function hideNotif() {

@@ -10,8 +10,12 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 <body onload="updateClock(); loadData(); querySize(); mapload();" onresize="adjustSize();">
-	<div class="resetBtn" onclick="reset()">
+	<div class="siteBtn resetBtn" onclick="reset()">
 		<p>Reset</p>
+	</div>
+
+	<div class="siteBtn testBtn" onclick="startTest()">
+		<p>Start</p>
 	</div>
 
 	<select onchange="adjustSize()">

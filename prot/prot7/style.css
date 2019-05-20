@@ -40,10 +40,8 @@ span {
 	/*border: solid 1px white;*/
 }
 
-div.resetBtn {
+div.siteBtn {
 	position: absolute;
-	top: 20px;
-	left: 20px;
 	width: 80px;
 	height: 40px;
 	background-color: transparent;
@@ -56,15 +54,25 @@ div.resetBtn {
 	transition: all ease 200ms;
 }
 
-div.resetBtn:hover {
+div.siteBtn:hover {
 	background-color: black;
 	color: white;
 }
 
-div.resetBtn p {
+div.siteBtn p {
 	display: table-cell;
 	vertical-align: middle;
 	font-weight: bold;
+}
+
+div.resetBtn {
+	top: 20px;
+	left: 20px;
+}
+
+div.testBtn {
+	top: 100px;
+	left: 20px;
 }
 
 select {
