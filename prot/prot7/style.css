@@ -623,7 +623,7 @@ div.post p.shareInfo {
 	color: black;
 	text-align: center;
 	margin: 6px 25px;
-	font-size: 0.9em;
+	font-size: 1em;
 }
 
 div.postInfoBar img {
@@ -677,7 +677,7 @@ div.comment div.header p {
 div.commentBody {
 	padding: 0px 5px 0px 40px;
 	color: #333;
-	font-size: 0.9em;
+	font-size: 1em;
 	text-align: left; 
 }
 
@@ -1705,7 +1705,7 @@ div.pin p {
 }
 
 #Gallery {
-	top: 5856px;
+	top: 5908px;
 	left: 3711px;
 }
 

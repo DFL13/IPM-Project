@@ -1454,6 +1454,8 @@ function hideNotif() {
 
 		$(".opt3").css("display", "none");
 		setTimeout(personShowLocation, 15000, "Jon");
+
+		mapObj.on('zoom', adjustPinsSize);
 	}
 
 	function personShowLocation(name) {
@@ -1478,6 +1480,13 @@ function hideNotif() {
 	      transform.scale + ', 0, 0, ' +
 	      transform.scale + ', ' +
 	      transform.x + ', ' + transform.y + ')';
+
+	    adjustPinsSize();
+	}
+
+	function adjustPinsSize() {
+		var scale = Math.min(Math.max(1/mapObj.getTransform().scale*0.4, 0.7), 2.2);
+		$(".pin").css("transform", "scale("+scale+")");
 	}
 
 
