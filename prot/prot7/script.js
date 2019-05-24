@@ -352,7 +352,7 @@ function showNotif(msg) {
 	clearTimeout(notifTime);
 	notif.style.opacity = "1";
 	notif.style.visibility = "visible";
-	notifTime = setTimeout(hideNotif, 4500);
+	notifTime = setTimeout(hideNotif, 2500);
 }
 
 function hideNotif() {
